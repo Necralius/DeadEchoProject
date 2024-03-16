@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: abc00000000001236719885752927678
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Prefabs/sm_TileWall_01_01_5.prefab
+  uploadId: 620614

@@ -97,7 +97,7 @@ public abstract class GunBase : MonoBehaviour
         _camera             = AnimationLayer.GetAnimationLayer("CameraLayer",   _playerInstance._animLayers).layerObject.GetComponent<Camera>();
         _recoilAsset.SetUp(   AnimationLayer.GetAnimationLayer("RecoilLayer",   _playerInstance._animLayers).layerObject);
 
-        ammoTextFader = _playerInstance.DynamicUI_Manager.GetFader(_gunDataConteiner.gunData.gunName + " Ammo");
+        ammoTextFader = _playerInstance?.DynamicUI_Manager?.GetFader(_gunDataConteiner.gunData.gunName + " Ammo");
         ammoTextFader?.FadeIn(4f);
 
         _originalWeaponPosition = _aimHolder.localPosition;

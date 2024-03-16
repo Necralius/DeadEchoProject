@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: aceb946a5517c3548908ec239d278788
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Meshes/Materials/mi_OldWorkshop_01_06.mat
+  uploadId: 620614

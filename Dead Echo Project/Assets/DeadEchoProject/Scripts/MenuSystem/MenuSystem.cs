@@ -389,7 +389,7 @@ public class MenuSystem : MonoBehaviour
 
     public void LoadGameSave()
     {
-        LoadScreen.Instance.LoadScene("Scene_Level1"); //Load the scene
+        LoadScreen.Instance.LoadScene(1); //Load the scene
     }
 
     public void RespawnFromLastSave()

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c6a35efbfc516424f9905e831b3948f1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Meshes/Cables/sm_cable_01_01.prefab
+  uploadId: 620614

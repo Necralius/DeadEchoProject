@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: abc00000000011591490406306371459
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Prefabs/sm_Gate_02_08.prefab
+  uploadId: 620614

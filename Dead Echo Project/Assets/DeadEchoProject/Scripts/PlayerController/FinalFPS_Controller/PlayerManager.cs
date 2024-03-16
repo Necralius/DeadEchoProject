@@ -50,8 +50,8 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
         _animLayers             = layers.ToList();
 
         _armsAnimator       = AnimationLayer.GetAnimationLayer("AnimationsLayer",   _animLayers).animator;
-        _rockThrower        = AnimationLayer.GetAnimationLayer("RockThrowerLayer",  _animLayers).layerObject.GetComponent<RockThrower>();
-        _dynamicUI_Manager  = AnimationLayer.GetAnimationLayer("PlayerCanvas",      _animLayers).layerObject.GetComponent<DynamicUI_Manager>();
+        _rockThrower        = AnimationLayer.GetAnimationLayer("RockThrowerLayer",  _animLayers).layerObject?.GetComponent<RockThrower>();
+        _dynamicUI_Manager  = AnimationLayer.GetAnimationLayer("PlayerCanvas",      _animLayers).layerObject?.GetComponent<DynamicUI_Manager>();
     }
 
     private void Start()

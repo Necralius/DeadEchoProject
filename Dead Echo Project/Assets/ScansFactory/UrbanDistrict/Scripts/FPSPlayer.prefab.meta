@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 25c94e9ea467a904787322f9c5269079
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Scripts/FPSPlayer.prefab
+  uploadId: 620614

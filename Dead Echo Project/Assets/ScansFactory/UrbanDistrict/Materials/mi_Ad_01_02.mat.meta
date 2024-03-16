@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: abc00000000012530956016589802630
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Materials/mi_Ad_01_02.mat
+  uploadId: 620614

@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/DeadEchoProject/Scenes/MenuProgramming/Scene_MainMenu.unity
     guid: d285b5e00c888174fabe71501dbcb9e3
   - enabled: 1
-    path: Assets/DeadEchoProject/Scenes/Narrative/Level01/Level01.unity
-    guid: b67045ec5577055458234f6e49366215
+    path: Assets/ScansFactory/UrbanDistrict/Demo/UrbanDistrict_01_P.unity
+    guid: e6453d2611907ad449c9581f026079bc
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

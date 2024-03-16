@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f01aa77a2c9c99c4b9fe933dd6dafadf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Meshes/Materials/mi_Window_03_01.mat
+  uploadId: 620614
