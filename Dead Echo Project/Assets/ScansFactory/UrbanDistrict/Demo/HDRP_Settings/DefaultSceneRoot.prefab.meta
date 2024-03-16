@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 646f536d0c483ce4da4b67956523479c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Demo/HDRP_Settings/DefaultSceneRoot.prefab
+  uploadId: 620614

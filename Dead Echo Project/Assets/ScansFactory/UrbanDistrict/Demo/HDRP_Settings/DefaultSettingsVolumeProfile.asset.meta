@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 55ca37b6637314742a04efa9216af4bc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Demo/HDRP_Settings/DefaultSettingsVolumeProfile.asset
+  uploadId: 620614

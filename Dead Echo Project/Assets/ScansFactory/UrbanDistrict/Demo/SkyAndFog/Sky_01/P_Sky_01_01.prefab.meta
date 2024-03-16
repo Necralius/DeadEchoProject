@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d740c59e1c4c236418cea086886d1df1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Demo/SkyAndFog/Sky_01/P_Sky_01_01.prefab
+  uploadId: 620614
