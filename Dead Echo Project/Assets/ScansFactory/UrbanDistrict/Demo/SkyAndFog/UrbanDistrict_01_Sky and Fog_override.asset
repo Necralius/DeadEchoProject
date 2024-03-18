@@ -68,25 +68,25 @@ MonoBehaviour:
     m_Value: 1
   focusMode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 2
   focusDistance:
-    m_OverrideState: 0
-    m_Value: 10
+    m_OverrideState: 1
+    m_Value: 0.1
   focusDistanceMode:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   nearFocusStart:
     m_OverrideState: 1
-    m_Value: 2.69
+    m_Value: 0
   nearFocusEnd:
     m_OverrideState: 1
-    m_Value: 9.74
+    m_Value: 0.00001
   farFocusStart:
     m_OverrideState: 1
-    m_Value: 9.740009
+    m_Value: 9.71
   farFocusEnd:
     m_OverrideState: 1
-    m_Value: 9.740019
+    m_Value: 74.5
   m_NearSampleCount:
     m_OverrideState: 1
     m_Value: 4
@@ -106,6 +106,9 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0
   m_PhysicallyBased:
+    m_OverrideState: 1
+    m_Value: 0
+  m_LimitManualRangeNearBlur:
     m_OverrideState: 1
     m_Value: 0
 --- !u!114 &-3694321549521097191
@@ -134,10 +137,10 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0.35
   upperHemisphereLuxValue:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1.3952712
   upperHemisphereLuxColor:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {x: 0.42776012, y: 0.4556065, z: 0.5}
   desiredLuxValue:
     m_OverrideState: 0
@@ -455,6 +458,7 @@ MonoBehaviour:
   m_Name: HDShadowSettings
   m_EditorClassIdentifier: 
   active: 1
+  interCascadeBorders: 1
   maxShadowDistance:
     m_OverrideState: 1
     m_Value: 600
@@ -608,6 +612,27 @@ MonoBehaviour:
   accumulationFactor:
     m_OverrideState: 0
     m_Value: 0.75
+  biasFactor:
+    m_OverrideState: 0
+    m_Value: 0.5
+  speedRejectionParam:
+    m_OverrideState: 0
+    m_Value: 0.5
+  speedRejectionScalerFactor:
+    m_OverrideState: 0
+    m_Value: 0.2
+  speedSmoothReject:
+    m_OverrideState: 0
+    m_Value: 0
+  speedSurfaceOnly:
+    m_OverrideState: 0
+    m_Value: 1
+  speedTargetOnly:
+    m_OverrideState: 0
+    m_Value: 1
+  enableWorldSpeedRejection:
+    m_OverrideState: 0
+    m_Value: 0
   m_RayMaxIterations:
     m_OverrideState: 1
     m_Value: 128
@@ -617,6 +642,9 @@ MonoBehaviour:
   lastBounceFallbackHierarchy:
     m_OverrideState: 0
     m_Value: 3
+  ambientProbeDimmer:
+    m_OverrideState: 0
+    m_Value: 1
   layerMask:
     m_OverrideState: 0
     m_Value:
@@ -719,19 +747,19 @@ MonoBehaviour:
   active: 1
   quality:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 3
   rayTracing:
     m_OverrideState: 0
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 1.06
+    m_Value: 4
   directLightingStrength:
     m_OverrideState: 0
     m_Value: 0
   radius:
     m_OverrideState: 1
-    m_Value: 0.78
+    m_Value: 2.5
   spatialBilateralAggressiveness:
     m_OverrideState: 0
     m_Value: 0.15
@@ -749,6 +777,9 @@ MonoBehaviour:
     m_Value:
       serializedVersion: 2
       m_Bits: 4294967295
+  specularOcclusion:
+    m_OverrideState: 0
+    m_Value: 0.5
   occluderMotionRejection:
     m_OverrideState: 0
     m_Value: 1

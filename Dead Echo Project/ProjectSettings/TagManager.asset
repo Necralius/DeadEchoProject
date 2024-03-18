@@ -23,6 +23,7 @@ TagManager:
   - CameraObject
   - Glass
   - Highlighter
+  - Gravel
   layers:
   - Default
   - TransparentFX

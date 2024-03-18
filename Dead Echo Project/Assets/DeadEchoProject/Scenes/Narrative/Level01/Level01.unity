@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5221.6523, g: 4430.6606, b: 3382.5654, a: 1}
+  m_IndirectSpecularColor: {r: 5221.35, g: 4429.3145, b: 3380.3064, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2816,11 +2816,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Zombie Base Agent Ver 0.4 - Stable
-      objectReference: {fileID: 0}
-    - target: {fileID: 3359874706313157655, guid: 59d63820e7c842d4a8b347d2a5dc390c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5988431921420075977, guid: 59d63820e7c842d4a8b347d2a5dc390c,
         type: 3}

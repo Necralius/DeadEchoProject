@@ -5504,27 +5504,53 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8361242199791568080}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 155031eee7a0eff48896076a4ee96114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentStateType: 1
+  _patrolType: 0
+  _randomWaypointPatrol: 0
+  _waypointNetwork: {fileID: 0}
+  _patrolRadius: 10
+  _rootBone: {fileID: 7146429872146365367}
   _targetTrigger: {fileID: 2585151380893026902}
   _sensorTrigger: {fileID: 3993663556919572030}
+  _currentStateType: 1
+  _rootBoneAligmentType: 2
   _stoppingDistance: 1
-  _waypointNetwork: {fileID: 0}
-  _randomPatrol: 1
-  _currentWaypoint: -1
+  _collider: {fileID: 0}
+  _useIK: 1
+  _footIK: 1
+  _distanceToGround: 1
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 4093640704
   _fov: 120
   _sight: 0.5
   _hearing: 1
   _agression: 0.5
-  _health: 100
   _intelligence: 1
   _satisfaction: 0.5
-  _replenishRate: 2
+  _replenishRate: 1
   _depletionRate: 0.1
+  _health: 100
+  _lowerBodyDamage: 0
+  _upperBodyDamage: 0
+  _upperBodyThreshold: 30
+  _limpThreshold: 30
+  _crawlThreshold: 90
+  _isDead: 0
+  _screamChance: 1
+  _screamRadius: 20
+  _screamPosition: 0
+  _screamPrefab: {fileID: 2275832350520478436, guid: 99a7b07c9c1dd644fa33a658c00a4b3d,
+    type: 3}
+  _reanimationBlendTime: 0.5
+  _reanimationWaitTime: 3
+  _geometryLayers:
+    serializedVersion: 2
+    m_Bits: 4227858433
 --- !u!114 &2013426315446256436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5569,6 +5595,7 @@ MonoBehaviour:
   _waypointAngleThreshold: 25
   _threatAngleThreshold: 15
   _directionChangeTime: 1.5
+  _slerpSpeed: 45
 --- !u!114 &6552703958433629901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5582,7 +5609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 2
-  _slerpSeepd: 5
+  _slerpSpeed: 5
   _repathDistanceMultiplier: 0.035
   _repathVisualMinDuration: 0.05
   _repathVisualMaxDuration: 5
