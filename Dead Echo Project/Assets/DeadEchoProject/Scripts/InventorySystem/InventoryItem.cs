@@ -28,9 +28,15 @@ public class InventoryItem : MonoBehaviour
         GetComponent<Image>().sprite = data.Icon;
 
         Vector2 size = new Vector2();
-        size.x = data.Width * ItemGrid.tileSizeWidth;
-        size.y = data.Height * ItemGrid.tileSizeHeight;
+        size.x = data.Width     * ItemGrid.tileSizeWidth;
+        size.y = data.Height    * ItemGrid.tileSizeHeight;
 
-        GetComponent<RectTransform>().sizeDelta = size;
+        GetComponent<RectTransform>().sizeDelta     = size;
+        GetComponent<RectTransform>().localScale    = Vector3.one;
+    }
+
+    public void UpdateUISize()
+    {
+        GetComponent<RectTransform>().localScale = Vector3.one;
     }
 }
