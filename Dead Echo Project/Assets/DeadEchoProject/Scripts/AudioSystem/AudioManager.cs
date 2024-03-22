@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using static NekraByte.Core.DataTypes;
+using SteamAudio;
+using Vector3   = UnityEngine.Vector3;
+using Scene     = UnityEngine.SceneManagement.Scene;
 
 // --------------------------------------------------------------------------
 // Name: AudioManager
@@ -69,8 +72,13 @@ public class AudioManager : MonoBehaviour
 
         for (int i = 0; i < _maxSounds; i++)
         {
-            GameObject      go          = new GameObject("Pool Item");
-            AudioSource     audioSource = go.AddComponent<AudioSource>();
+            GameObject          go                  = new GameObject("Pool Item");
+            AudioSource         audioSource         = go.AddComponent<AudioSource>();
+            SteamAudioSource    steamAudioSource    = go.AddComponent<SteamAudioSource>();
+
+            steamAudioSource.occlusion      = true;
+            steamAudioSource.airAbsorption  = true;
+
             go.transform.parent         = transform;
 
             AudioPoolItem poolItem  = new AudioPoolItem();
