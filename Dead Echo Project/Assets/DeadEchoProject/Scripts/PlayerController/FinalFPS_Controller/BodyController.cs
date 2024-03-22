@@ -141,11 +141,14 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
         _animator.SetFloat(xHash, _targetX);
         _animator.SetFloat(yHash, _targetY);
+
+        _animator.speed                     = _speedSettings.AnimationSpeed(this);
+        _playerManager._armsAnimator.speed  = _speedSettings.AnimationSpeed(this);
     }
 
     private void InputHandler()
     {
-        if (GameSceneManager.Instance._inventoryIsOpen) return;
+        if (GameSceneManager.Instance.inventoryIsOpen) return;
 
         if (_inputManager.jumpAction.WasPressedThisFrame() && _canJump && _isGrounded)
         {
@@ -325,21 +328,34 @@ public class BodyController : MonoBehaviour, IDataPersistence
 [Serializable]
 public class SpeedSettings
 {
-    [Range(1f, 30f)] public float BaseSpeed    = 4f;
-    [Range(1f, 30f)] public float SprintSpeed  = 6f;
-    [Range(1f, 30f)] public float CrouchSpeed  = 2f;
+    [Header("Speed")]
+    [Range(1f, 10f)] public float BaseSpeed    = 4f;
+    [Range(1f, 10f)] public float SprintSpeed  = 6f;
+    [Range(1f, 10f)] public float CrouchSpeed  = 2f;
 
+    [Header("Speed Modifiers")]
     [Range(0.1f, 1f)] public float BackwardModifier     = 4f;
     [Range(0.1f, 1f)] public float SidewardModifier     = 4f;
 
+    [Header("Animation Modifiers")]
+    [Range(0.1f, 1f)] public float WalkModifier   = 4f;
+    [Range(0.1f, 1f)] public float CrouchModifier = 4f;
+
+    [SerializeField] private float _targetSpeed         = 0f;
+    [SerializeField] private float _targetModifier      = 0f;
+    [SerializeField] private float _targetAnimModifier  = 0f;
+
     public float GetFinalSpeed(BodyController controller)
     {
-        float targetSpeed;
-        float targetModifier;
+        _targetSpeed        = controller._isSprinting           ? SprintSpeed       : controller._isCrouching           ? CrouchSpeed       : BaseSpeed;
+        _targetModifier     = controller._isWalkingBackwards    ? BackwardModifier  : controller._isWalkingSidewards    ? SidewardModifier  : 1;
+        _targetAnimModifier = controller._isCrouching           ? CrouchModifier    : WalkModifier;
 
-        targetSpeed     = controller._isSprinting ? SprintSpeed : controller._isCrouching ? CrouchSpeed : BaseSpeed;
-        targetModifier  = controller._isWalkingBackwards ? BackwardModifier : controller._isWalkingSidewards ? SidewardModifier : 1;
+        return _targetSpeed * _targetModifier;
+    }
 
-        return targetSpeed * targetModifier;
+    public float AnimationSpeed(BodyController controller)
+    {
+        return _targetAnimModifier = controller._isCrouching ? CrouchModifier : WalkModifier;
     }
 }

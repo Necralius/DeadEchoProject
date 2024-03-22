@@ -52,6 +52,9 @@ public class SwayController : MonoBehaviour
 
         _isAiming = _playerInstance.BodyController._equippedGun._isAiming;
 
+        if (GameSceneManager.Instance.inventoryIsOpen) 
+            return;
+
         SwayHandler();
     }
 

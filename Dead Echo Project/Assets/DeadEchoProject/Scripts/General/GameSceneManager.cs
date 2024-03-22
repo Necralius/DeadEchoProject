@@ -36,8 +36,8 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] private GameObject _deathScreenObj = null;
     [SerializeField] private GameObject _pauseMenuObj   = null;
 
-    [SerializeField]    private GameObject  _inventoryObj       = null;
-       public bool         _inventoryIsOpen    = false;
+    [SerializeField]    private GameObject  _inventoryObj   = null;
+    public bool         inventoryIsOpen                     = false;
 
     public bool _gameIsPaused;
 
@@ -61,10 +61,10 @@ public class GameSceneManager : MonoBehaviour
 
     private void InventorySystem()
     {
-        _inventoryIsOpen = !_inventoryIsOpen;
+        inventoryIsOpen = !inventoryIsOpen;
 
-        Cursor.lockState = _inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;
-        _inventoryObj.SetActive(_inventoryIsOpen);
+        Cursor.lockState = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;
+        _inventoryObj.SetActive(inventoryIsOpen);
     }
 
     public void ForcedSaveGame()

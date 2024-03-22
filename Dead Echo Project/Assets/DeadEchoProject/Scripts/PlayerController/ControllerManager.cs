@@ -281,7 +281,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
     // ----------------------------------------------------------------------
     private void InputHandler()
     {
-        if (GameSceneManager.Instance._gameIsPaused || GameSceneManager.Instance._inventoryIsOpen) return;
+        if (GameSceneManager.Instance._gameIsPaused || GameSceneManager.Instance.inventoryIsOpen) return;
 
         if (_inptManager.jumpAction.WasPressedThisFrame() && _canJump && _isGrounded)
         {

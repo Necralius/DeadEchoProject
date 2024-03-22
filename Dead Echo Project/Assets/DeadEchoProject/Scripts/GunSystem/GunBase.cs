@@ -155,11 +155,12 @@ public abstract class GunBase : MonoBehaviour
         //First, the method verifies if all the class dependencies is valid, if its not the program behavior is returned, otherwise,
         //the program continue to his default behavior.
         if (!_isEquiped)                             return;
-        if (_playerInstance                 is null) return;
-        if (_inputManager                   is null) return;
-        if (_playerInstance._armsAnimator   is null) return;
-        if (_animator                       is null) return;
-        if (_recoilAsset                    is null) return;
+        if (_playerInstance                 == null) return;
+        if (_inputManager                   == null) return;
+        if (_playerInstance._armsAnimator   == null) return;
+        if (_animator                       == null) return;
+        if (_recoilAsset                    == null) return;
+        if (GameSceneManager.Instance.inventoryIsOpen) return;
 
         _ammoText.color = ammoTextFader.currentColor;
 
@@ -287,7 +288,7 @@ public abstract class GunBase : MonoBehaviour
         if (_gunDataConteiner   is null)                yield break;
         if (_muzzleFlash        is null)                yield break;
         if (_recoilAsset        is null)                yield break;
-        if (GameSceneManager.Instance._gameIsPaused || GameSceneManager.Instance._inventoryIsOpen)    yield break;
+        if (GameSceneManager.Instance._gameIsPaused || GameSceneManager.Instance.inventoryIsOpen)    yield break;
 
         AudioManager.Instance.PlayOneShotSound("Effects", _gunAudioAsset.ShootClip, transform.position, 1f, 0f, 128);
 

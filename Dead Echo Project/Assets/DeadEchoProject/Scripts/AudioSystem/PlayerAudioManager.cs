@@ -67,7 +67,6 @@ public class PlayerAudioManager : MonoBehaviour
         else StepTimer += Time.deltaTime;
 
 
-
         ////Get the current player speed
         //_playerSpeed = _playerInstance.BodyController.Velocity.magnitude;
 

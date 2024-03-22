@@ -42,7 +42,7 @@ public class FPSCamera : MonoBehaviour, IDataPersistence
 
     void Update()
     {
-        if (GameSceneManager.Instance._inventoryIsOpen) return;
+        if (GameSceneManager.Instance.inventoryIsOpen) return;
 
         //Input gethering
         mouseX = _inputManager.Look.y;
@@ -63,7 +63,7 @@ public class FPSCamera : MonoBehaviour, IDataPersistence
 
     private void LateUpdate()
     {
-        if (GameSceneManager.Instance._inventoryIsOpen) return;
+        if (GameSceneManager.Instance.inventoryIsOpen) return;
 
         transform.position = Vector3.Lerp(transform.position, 
             playerTransform.position + playerTransform.up * targetYOffset, 

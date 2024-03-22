@@ -7,6 +7,9 @@ public class GroundItemGrid : ItemGrid
     //[HideInInspector]
     public InventoryItemConteiner currentConteiner;
 
+    [SerializeField] private GameSceneManager conteinerPrefab = null;
+    [SerializeField] private GameObject playerObject = null;
+
     public List<InventoryItem> SetItems(List<ItemData> items)
     {
         List<InventoryItem> _itemsAdded = new List<InventoryItem>();
@@ -53,6 +56,11 @@ public class GroundItemGrid : ItemGrid
 
     public override void PlaceItem(InventoryItem item, int posX, int posY)
     {
+        if (currentConteiner == null)
+        {
+            Instantiate(conteinerPrefab, playerObject.transform.position, Quaternion.identity);
+        }
+
         if (currentConteiner != null && item != null) 
             currentConteiner.AddItem(item.data);
         base.PlaceItem(item, posX, posY);

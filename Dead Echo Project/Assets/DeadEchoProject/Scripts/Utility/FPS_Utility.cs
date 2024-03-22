@@ -474,7 +474,7 @@ namespace NekraByte
             public class FloorData
             {
                 //Data Types
-                public enum FloorType { Grass, Dirt, Stone, Metal, Wood }
+                public enum FloorType { Grass, Dirt, Stone, Metal, Wood, Mud, Water }
                 public enum FloorHolder { Terrain, GameObject }
 
                 //Private Data
@@ -546,10 +546,9 @@ namespace NekraByte
                         //Debug.Log($"FD -> Terrain Texture Finded: {_terrainTextureDetector.GetCurrentTexture()}");
                         switch (_terrainTextureDetector.GetCurrentTexture())
                         {
-                            case "Dirt":        return FloorType.Dirt;
-                            case "Grass":       return FloorType.Grass;
-                            case "Stone":       return FloorType.Stone;
-                            case "StonePath":   return FloorType.Stone;
+                            case "TerrainDirt": return FloorType.Dirt;
+                            case "TerrainMud":  return FloorType.Mud;
+                            case "TerrainWet":  return FloorType.Water;
                             default:            return _previousType;
                         }
                     }
@@ -568,7 +567,7 @@ namespace NekraByte
                 public StateType    State           = StateType.Stand;
 
                 [Tooltip("Camera Y Offset")]
-                public float        CameraY_Offset  = 1.73f;
+                public float        CameraY_Offset  = 1.30f;
 
                 [Tooltip("State Sprite")]
                 public Sprite       Sprite          = null;

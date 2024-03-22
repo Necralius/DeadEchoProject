@@ -55,7 +55,7 @@ public class InventoryController : MonoBehaviour
         if (_inputManager.Z_Action.WasPressedThisFrame()) 
             InsertRandomItem();
 
-        if (selectedItemGrid == null || !GameSceneManager.Instance._inventoryIsOpen)
+        if (selectedItemGrid == null || !GameSceneManager.Instance.inventoryIsOpen)
         {
             _highlighter.SetState(false);
             return;

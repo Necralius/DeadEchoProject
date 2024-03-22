@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using static NekraByte.Core.DataTypes.FloorData;
 
 [Serializable]
 public class TerrainTextureDetector
@@ -35,13 +34,14 @@ public class TerrainTextureDetector
     // ----------------------------------------------------------------------
     private void UpdateData()
     {
+
         //Debug.Log("TTD -> Updating Data"); -> Debug Line
         if (Physics.Raycast(_interactorTransform.position, Vector3.down, out RaycastHit hit, _collider.bounds.extents.y + 0.5f))
         {
             if (hit.transform.CompareTag("Terrain"))
             {
-                _terrainObject = hit.transform.gameObject.GetComponent<Terrain>();
-                isOnTerrain = true;
+                _terrainObject  = hit.transform.gameObject.GetComponent<Terrain>();
+                isOnTerrain     = true;
 
                 _textureAreas.Clear();
 

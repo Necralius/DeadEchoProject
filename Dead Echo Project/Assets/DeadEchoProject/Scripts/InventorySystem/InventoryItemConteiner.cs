@@ -22,4 +22,17 @@ public class InventoryItemConteiner : MonoBehaviour
 
     public void RemoveItem(int instanceID)  => _items.Remove(_items.Find(e => e.GetInstanceID() == instanceID));
     public void AddItem(ItemData item)      => _items.Add(item);
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("Player")) 
+            FillConteiner();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.CompareTag("Player")) 
+            ResetGroundGrid();
+    }
 }

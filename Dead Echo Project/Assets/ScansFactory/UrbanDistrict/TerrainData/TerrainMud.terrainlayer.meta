@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 69c3b36021b489140be81a0cc1a4dd3d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/TerrainData/Factory_01_Terrain_Layer_01.terrainlayer
+  uploadId: 620614
