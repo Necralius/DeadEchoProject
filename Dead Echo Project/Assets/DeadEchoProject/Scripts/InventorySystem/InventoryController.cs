@@ -65,6 +65,12 @@ public class InventoryController : MonoBehaviour
 
         if (_inputManager.mouseLeftAction.WasPressedThisFrame()) 
             ItemGet();
+        if (_inputManager.mouseRightAction.WasPressedThisFrame())
+        {
+            ItemGet();
+            InspectionView.Instance.InspectItem(selectedItem);
+        }
+
     }
 
     private void RotateItem()

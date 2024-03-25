@@ -79,6 +79,8 @@ public class AudioManager : MonoBehaviour
             steamAudioSource.occlusion      = true;
             steamAudioSource.airAbsorption  = true;
 
+            audioSource.maxDistance = 50;
+
             go.transform.parent         = transform;
 
             AudioPoolItem poolItem  = new AudioPoolItem();

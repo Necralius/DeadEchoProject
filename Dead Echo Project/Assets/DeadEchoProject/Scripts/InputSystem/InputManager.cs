@@ -10,6 +10,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class InputManager : MonoBehaviour
 {
+    #region - Singleton Pattern -
+    public static InputManager Instance;
+    #endregion
+
     private PlayerInput playerInput => GetComponent<PlayerInput>();
 
     #region - Input Class Data -
@@ -73,6 +77,9 @@ public class InputManager : MonoBehaviour
     // ----------------------------------------------------------------------
     private void Awake()
     {
+        if (Instance != null) 
+            Destroy(Instance.gameObject);
+        Instance = this;
 
         currentMap      = playerInput.currentActionMap;
 

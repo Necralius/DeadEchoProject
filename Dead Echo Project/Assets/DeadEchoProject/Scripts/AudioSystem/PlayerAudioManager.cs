@@ -21,8 +21,7 @@ public class PlayerAudioManager : MonoBehaviour
             if (value >= _minStepTime)
                 _stepTimer = _minStepTime;
             else _stepTimer = value;
-        }
-            
+        }    
     } 
 
     //Dependencies
@@ -65,21 +64,6 @@ public class PlayerAudioManager : MonoBehaviour
             }
         }
         else StepTimer += Time.deltaTime;
-
-
-        ////Get the current player speed
-        //_playerSpeed = _playerInstance.BodyController.Velocity.magnitude;
-
-        ////Verify if the player need an footstep audio, using as base the distance that the player has walked.
-        //if (_playerInstance.BodyController._isGrounded && _playerInstance.BodyController._isWalking)
-        //{
-        //    _distanceCovered += (_playerSpeed * Time.deltaTime) * _speedModifier;
-        //    if (_distanceCovered > _distacePerStep)
-        //    {
-        //        _distanceCovered = 0f;
-        //        AudioBehavior(_floorData.Type, ActionType.Footstep);
-        //    }          
-        //}
 
         //Detects if the player is in the air.
         if (_playerInstance.BodyController._inAir) _airTime += Time.deltaTime;
@@ -128,8 +112,8 @@ public class PlayerAudioManager : MonoBehaviour
         if (_audioManager       == null) return;
         if (clipToPlay          == null) return;
 
-        //Plays the clip
-        _audioManager?.PlayOneShotSound(clipToPlay, _footstepArea.position, selectedCollection);
+        // Plays the clip
+        _audioManager?.PlayOneShotSound(selectedCollection.audioGroup, clipToPlay, _footstepArea.position, _playerInstance.BodyController._isCrouching ? 0.2f : 0.6f, 0);
     }
 
     // ----------------------------------------------------------------------

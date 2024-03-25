@@ -24,6 +24,7 @@ TagManager:
   - Glass
   - Highlighter
   - Gravel
+  - TallGrass
   layers:
   - Default
   - TransparentFX
@@ -39,6 +40,7 @@ TagManager:
   - Player
   - Visual Aggravator
   - Audio Aggravator
+  - Tall Grass
   - 
   - 
   - 
@@ -46,8 +48,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Gun Layer
   - Bullet
   - WaterLayer
   - Weapon

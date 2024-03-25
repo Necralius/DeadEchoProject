@@ -12513,6 +12513,7 @@ GameObject:
   - component: {fileID: 1373136862028601471}
   - component: {fileID: 6790840209782724495}
   - component: {fileID: 1079441931727089345}
+  - component: {fileID: 5362703582209213241}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12775,6 +12776,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlighter: {fileID: 0}
+--- !u!114 &5362703582209213241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695096043766847801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd9ebf1401392e4bbd47fea32f47642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentBakedListener: {fileID: 0}
+  applyReverb: 1
+  reverbType: 0
+  useAllProbeBatches: 0
+  probeBatches: []
+  mTotalDataSize: 0
+  mProbeDataSizes: 
+  mIdentifier:
+    type: 0
+    variation: 0
+    endpointInfluence:
+      center:
+        x: 0
+        y: 0
+        z: 0
+      radius: 0
+  mProbeBatchesUsed: []
 --- !u!1 &1696873573763144348
 GameObject:
   m_ObjectHideFlags: 0
@@ -12821,7 +12851,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -14114,7 +14144,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -20978,7 +21008,7 @@ MonoBehaviour:
   _cameraFollowSpeed: 90
   _verticalRotationClamp: 75
   _bodyRotationSpeed: 15
-  _heightChangeSpeed: 3
+  _heightChangeSpeed: 5
 --- !u!1 &3759879966074827706
 GameObject:
   m_ObjectHideFlags: 0
@@ -28196,7 +28226,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -28708,8 +28738,8 @@ MonoBehaviour:
   _aimOverride: 0
   _canShoot: 1
   _checkDistance: 1.5
-  _lerpSpeed: 5
-  _newDirection: {x: 22.6, y: -90, z: -4.73}
+  _lerpSpeed: 12
+  _newDirection: {x: 22.6, y: -96, z: -4.73}
   _isClipped: 0
   _forcedClip: 0
   _clipingMask:
@@ -43773,7 +43803,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.53999484
+      value: -0.66
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5,
         type: 3}
@@ -43860,6 +43890,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5465940246521907071, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.86
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5,
         type: 3}
       propertyPath: m_Controller
@@ -43879,6 +43914,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.025798682
+      objectReference: {fileID: 0}
+    - target: {fileID: 9209768275548720269, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.86
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -43952,7 +43992,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -43964,7 +44004,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.94, z: 0}
+  m_Center: {x: 0, y: 1.08, z: 0}
 --- !u!136 &5979868550782101942
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -43978,7 +44018,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -44226,9 +44266,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedSettings:
-    BaseSpeed: 3
-    SprintSpeed: 5
-    CrouchSpeed: 1.3
+    BaseSpeed: 2
+    SprintSpeed: 4
+    CrouchSpeed: 1
     BackwardModifier: 0.5
     SidewardModifier: 0.85
     WalkModifier: 1
@@ -44237,7 +44277,7 @@ MonoBehaviour:
     _targetModifier: 0
     _targetAnimModifier: 0
   _groundDrag: 5
-  _gravity: -19.84
+  _gravity: -19.81
   jumpHeight: 1
   jumpCooldown: 1
   _isWalking: 0
@@ -44265,7 +44305,7 @@ MonoBehaviour:
   _currentBodyState:
     Name: Standing
     State: 0
-    CameraY_Offset: 1.73
+    CameraY_Offset: 1.2
     Sprite: {fileID: 0}
     MovementState: 4
   _bodyStates:

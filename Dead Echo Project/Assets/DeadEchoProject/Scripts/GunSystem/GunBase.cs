@@ -102,7 +102,8 @@ public abstract class GunBase : MonoBehaviour
 
         _originalWeaponPosition = _aimHolder.localPosition;
         
-        if (_gunDataConteiner is null) return;
+        if (_gunDataConteiner is null)
+            return;
 
         _recoilAsset?.InitializeData(_gunDataConteiner.recoilData);
 
@@ -154,19 +155,21 @@ public abstract class GunBase : MonoBehaviour
     {
         //First, the method verifies if all the class dependencies is valid, if its not the program behavior is returned, otherwise,
         //the program continue to his default behavior.
-        if (!_isEquiped)                             return;
-        if (_playerInstance                 == null) return;
-        if (_inputManager                   == null) return;
-        if (_playerInstance._armsAnimator   == null) return;
-        if (_animator                       == null) return;
-        if (_recoilAsset                    == null) return;
-        if (GameSceneManager.Instance.inventoryIsOpen) return;
+        if (!_isEquiped)                                    return;
+        if (_playerInstance                     == null)    return;
+        if (_inputManager                       == null)    return;
+        if (_playerInstance._armsAnimator       == null)    return;
+        if (_animator                           == null)    return;
+        if (_recoilAsset                        == null)    return;
+        if (GameSceneManager.Instance.inventoryIsOpen)      return;
 
         _ammoText.color = ammoTextFader.currentColor;
 
         _forcedClip = _gunDataConteiner.gunData.gunMode == GunMode.Locked;
 
         _recoilAsset?.InitializeData(_gunDataConteiner.recoilData);
+
+        _isAiming = _isClipped ? false : _playerInstance.BodyController._isSprinting ? false : _inputManager.mouseRight;
 
         //The class focus on limiting the actions, using ifs to limit the actions based in expressions.
         if (!_playerInstance.BodyController._isSprinting)
@@ -183,9 +186,6 @@ public abstract class GunBase : MonoBehaviour
                         else if (_inputManager.mouseRightAction.WasPerformedThisFrame() && _isAiming) _isAiming = false;
                     }
                 }
-
-                if (_isClipped) _isAiming = false;
-                _isAiming = _inputManager.mouseRight;
             }
 
             _recoilAsset._isAiming = _isAiming;
@@ -318,7 +318,6 @@ public abstract class GunBase : MonoBehaviour
     {
         if (_aimHolder  is null) return;
         if (_camera     is null) return;
-        if (_isClipped)          return;
 
         if (_isAiming)
         {
@@ -344,7 +343,8 @@ public abstract class GunBase : MonoBehaviour
             // Lerp the weapon position to match the target position
             _aimHolder.localPosition = Vector3.Lerp(_aimHolder.localPosition, targetLocalPosition, Time.deltaTime * _smoothTime);
         }
-        else _aimHolder.localPosition = Vector3.Lerp(_aimHolder.localPosition, _originalWeaponPosition, Time.deltaTime * _smoothTime);
+        else 
+            _aimHolder.localPosition = Vector3.Lerp(_aimHolder.localPosition, _originalWeaponPosition, Time.deltaTime * _smoothTime);
     }
     #endregion
 

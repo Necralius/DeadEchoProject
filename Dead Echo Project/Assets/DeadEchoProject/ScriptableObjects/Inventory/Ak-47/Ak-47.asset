@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd961a718d34d9c4aaa321c89b8f5e56, type: 3}
   m_Name: Ak-47
   m_EditorClassIdentifier: 
+  Name: AK-47
+  Description: Ak-47 a durable rifle that survives under the water, covered in mud,
+    and keeps shooting for decades without falling, uses 7.62mmX39mm amunation.
+  Icon: {fileID: 21300000, guid: ac120ac5f455be144a9c28e4bb540277, type: 3}
+  Prefab: {fileID: 5544187184036017529, guid: 4e1142d1695f8884185e8701d60abf70, type: 3}
   Width: 2
   Height: 1
-  Icon: {fileID: 21300000, guid: ac120ac5f455be144a9c28e4bb540277, type: 3}

@@ -53,6 +53,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     private int armWalkHash             = Animator.StringToHash("isWalking");
     private int armRunningHash          = Animator.StringToHash("isRunning");
     private int isCrouchingHash         = Animator.StringToHash("IsCrouching");
+    private int isRunningHash           = Animator.StringToHash("IsRunning");
 
     [Header("AI Stickness")]
     [Tooltip("When the AI agent touch the player, the player receive an speed nerf, to make the AI more lethal.")]
@@ -113,7 +114,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
         _isWalkingSidewards = _inputManager.Move.x != 0;
 
         _playerManager._armsAnimator.SetBool(armWalkHash,       _isWalking);
-        _playerManager._armsAnimator.SetBool(armRunningHash,    _isSprinting);
+        _playerManager._armsAnimator.SetBool(armRunningHash,    _isSprinting);    
 
         StateHandler();
         InputHandler();
@@ -141,6 +142,8 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
         _animator.SetFloat(xHash, _targetX);
         _animator.SetFloat(yHash, _targetY);
+
+        _animator.SetBool(isRunningHash, _isSprinting);
 
         _animator.speed                     = _speedSettings.AnimationSpeed(this);
         _playerManager._armsAnimator.speed  = _speedSettings.AnimationSpeed(this);
@@ -207,21 +210,13 @@ public class BodyController : MonoBehaviour, IDataPersistence
         _velocity.y = Mathf.Sqrt(jumpHeight * -2f * _gravity);
     }
 
-    private void ResetJump()
-    {
-        _canJump = true;
-    }
+    private void ResetJump()        => _canJump = true;
 
-    public void RegisterDataSaver()
-    {
-        GameStateManager.Instance.RegisterSavableInstance(this);
-    }
+    public void RegisterDataSaver() => GameStateManager.Instance.RegisterSavableInstance(this);
 
     public void Save(SaveData gameData)
     {
         Debug.Log("CM -> Saving Data"); //-> Debug Line
-
-        //gameData.GetPlayerData().transformSave = new(gameObject.transform);
 
         gameData.GetPlayerData().GunID = _gunIndex;
 
@@ -254,8 +249,6 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
     public IEnumerator LoadWithTime(SaveData gameData)
     {
-        //_rb.velocity = Vector3.zero;
-
         yield return new WaitForSeconds(0.05f);
 
         gameObject.transform.position = gameData.GetPlayerData().transformSave.Position;
@@ -329,9 +322,9 @@ public class BodyController : MonoBehaviour, IDataPersistence
 public class SpeedSettings
 {
     [Header("Speed")]
-    [Range(1f, 10f)] public float BaseSpeed    = 4f;
-    [Range(1f, 10f)] public float SprintSpeed  = 6f;
-    [Range(1f, 10f)] public float CrouchSpeed  = 2f;
+    [Range(0.1f, 10f)] public float BaseSpeed    = 4f;
+    [Range(0.1f, 10f)] public float SprintSpeed  = 6f;
+    [Range(0.1f, 10f)] public float CrouchSpeed  = 2f;
 
     [Header("Speed Modifiers")]
     [Range(0.1f, 1f)] public float BackwardModifier     = 4f;
@@ -354,8 +347,6 @@ public class SpeedSettings
         return _targetSpeed * _targetModifier;
     }
 
-    public float AnimationSpeed(BodyController controller)
-    {
-        return _targetAnimModifier = controller._isCrouching ? CrouchModifier : WalkModifier;
-    }
+    public float AnimationSpeed(BodyController controller) => 
+        _targetAnimModifier = controller._isCrouching ? CrouchModifier : WalkModifier;
 }
