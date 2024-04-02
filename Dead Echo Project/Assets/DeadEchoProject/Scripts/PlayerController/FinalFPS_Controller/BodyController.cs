@@ -61,6 +61,11 @@ public class BodyController : MonoBehaviour, IDataPersistence
     float _dragMultiplier       = 1f;
     float _dragMultiplierLimit  = 1f;
 
+    [Header("Ground Check")]
+    [SerializeField] private Transform  _feetChecker;
+    [SerializeField] private float      _floorDistance;
+    [SerializeField] private LayerMask  _groundMask;
+
     //Encapsulated Data
     public float dragMultiplierLimit    { get => _dragMultiplierLimit;  set => _dragMultiplierLimit = Mathf.Clamp01(value);                 }
     public float dragMultiplier         { get => _dragMultiplier;       set => _dragMultiplier = Mathf.Min(value, _dragMultiplierLimit);    }
@@ -107,7 +112,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
     private void UpdateCalls()
     {
-        _isGrounded         = _controller.isGrounded;
+        _isGrounded         = Physics.CheckSphere(_feetChecker.position, _floorDistance, _groundMask);     
         _isWalking          = _inputManager.Move != Vector2.zero;
         _isSprinting        = _playerManager.InputManager.sprint && _isWalking && !_isWalkingBackwards && !_isCrouching;
         _isWalkingBackwards = _inputManager.Move.y < 0;

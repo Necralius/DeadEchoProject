@@ -12758,7 +12758,7 @@ MonoBehaviour:
   selectedItemGrid: {fileID: 0}
   selectedItem: {fileID: 0}
   items:
-  - {fileID: 11400000, guid: f26435894aaa94943b1320d399b058a8, type: 2}
+  - {fileID: 11400000, guid: 48622c9ddfb9569488da9a8360dda76a, type: 2}
   _highlighter: {fileID: 1079441931727089345}
   itemPrefab: {fileID: 1780710578786468693, guid: 146368dbe4ddd614c859a37bc14a57fd,
     type: 3}
@@ -29162,7 +29162,7 @@ Transform:
   m_GameObject: {fileID: 6005633172012222216}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.538, z: 0}
+  m_LocalPosition: {x: 0, y: -1.659, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44291,6 +44291,11 @@ MonoBehaviour:
   _inAir: 0
   _currentState: 1
   _npcStickiness: 0.5
+  _feetChecker: {fileID: 6066872608790331284}
+  _floorDistance: 1
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 3825205249
   _changingWeapon: 0
   _isThrowingObject: 0
   _flashlightActive: 0

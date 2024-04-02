@@ -24,9 +24,9 @@ public class InspectionView : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private Button             _inpsectItem        = null;
     [SerializeField] private ObjectInspector    _objectInspector    = null;
-    [SerializeField] private TranscriptionView  _transcriptionView  = null;
 
-    [SerializeField] private ItemData _selectedItem = null;
+    [Header("Item")]
+    [SerializeField] private ItemData           _selectedItem       = null;
 
     private void Start()
     {
@@ -38,6 +38,12 @@ public class InspectionView : MonoBehaviour
         if (_itemImage      == null) return;
         if (_itemName       == null) return;
         if (_inpsectItem    == null) return;
+        if (item            == null)
+        {
+
+            Debug.Log("Null item");
+            return;
+        }
 
         ItemData selectedItem = item.data;
 

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d09c2ce0c0a48448c3dcf7881f117b, type: 3}
+  m_Name: Node 1
+  m_EditorClassIdentifier: 
+  Name: Node 15/22
+  Description: A piece of node finded on a dead body.
+  Icon: {fileID: 21300000, guid: ec9c138c1f4e48c4ab5277d90519dbe9, type: 3}
+  Prefab: {fileID: 8847410894454424919, guid: 24f54e023a259e142b3532a9b14eed6c, type: 3}
+  Width: 1
+  Height: 1
+  xAngleLimit: {x: 0, y: 90}
+  yAngleLimit: {x: 0, y: 60}
+  NodeSprite: {fileID: 21300000, guid: 01f9554cc9152994d804c3155d6091db, type: 3}
+  Font: {fileID: 0}
+  TextColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
+  Transcription: "Se voc\xEA t\xE1 lendo isso, espero que ainda tenha um pouco de
+    humanidade nesse mundo desgra\xE7ado. Fui pego pelos Ju\xEDzes faz umas semanas.
+    Eles se acham os donos da justi\xE7a, mas \xE9 tudo torto e cruel. J\xE1 vi cada
+    coisa horr\xEDvel debaixo da m\xE3o deles. Julgamentos r\xE1pidos, execu\xE7\xF5es
+    sem piedade, tudo em nome de uma tal de ordem deles. N\xE3o s\xE3o ju\xEDzes,
+    s\xE3o uns carrascos se escondendo atr\xE1s de uma ins\xEDgnia. N\xE3o sei se
+    vou aguentar essa parada, mas \xE9 importante que algu\xE9m saiba a verdade sobre
+    esses Ju\xEDzes. Eles n\xE3o t\xE3o aqui pra proteger ningu\xE9m, s\xF3 t\xE3o
+    querendo botar medo nos fracos e desamparados. Por favor, se tu achar essa nota,
+    passa adiante. Quem sabe ainda tenha esperan\xE7a de mais gente resistir e lutar
+    contra essa tirania dos Ju\xEDzes. Assinado, Um prisioneiro dos Ju\xEDzes"
