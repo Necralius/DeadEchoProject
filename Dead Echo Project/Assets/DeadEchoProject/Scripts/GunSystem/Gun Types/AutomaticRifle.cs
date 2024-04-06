@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static NekraByte.Core.Behaviors;
 
 public class AutomaticRifle : Mode_Auto
 {
@@ -8,22 +9,10 @@ public class AutomaticRifle : Mode_Auto
     {
         if (_isShooting || !_canShoot) yield return null;
 
-        _isShooting = true;
-        _canShoot   = false;
+        _isShooting     = true;
+        _canShoot       = false;
 
-        BulletBase bullet = ObjectPooler.Instance.SpawnFromPool(_gunDataConteiner.gunBulletSettings._bulletTag,
-            _playerInstance.ShootPoint.transform.position,
-            _playerInstance.ShootPoint.transform.rotation).GetComponent<BulletBase>();
-
-        bullet.Initialize(_playerInstance.ShootPoint.transform, 
-            _gunDataConteiner.gunBulletSettings._bulletSpread,
-            _gunDataConteiner.gunBulletSettings._bulletSpeed, 
-            _gunDataConteiner.gunBulletSettings._bulletGravity, 
-            _gunDataConteiner.gunBulletSettings._bulletLifeTime, 
-            _gunDataConteiner.gunBulletSettings._collisionMask,
-            _gunDataConteiner.gunBulletSettings._shootDamageRange,
-            _gunDataConteiner.gunBulletSettings._bulletImpactForce, 
-            _playerInstance.transform);
+        ShootUsingRaycast(_playerInstance, _gunDataConteiner);
 
         StartCoroutine(base.Shoot());
     }

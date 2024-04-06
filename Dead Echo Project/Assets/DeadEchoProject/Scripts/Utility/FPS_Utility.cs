@@ -6,11 +6,78 @@ using System.IO;
 using System.Collections;
 using UnityEngine.Audio;
 using static NekraByte.Core.Enumerators;
+using Random = UnityEngine.Random;
 
 namespace NekraByte
 {
     public static class Core
     {
+        public class Behaviors
+        {
+            /// <summary>
+            /// This method shoots a raycast forward, using the camera directions as reference.
+            /// </summary>
+            /// <param name="originTransform"> The origint transform that will shoot the raycast. </param>
+            /// <param name="gunData"></param>
+            /// <returns></returns>
+            public static RaycastHit? ShootUsingRaycast(PlayerManager originTransform, GunDataConteiner gunData)
+            {
+                Vector3 direction = originTransform.CameraController.mainLookCamera.transform.forward;
+                return ShootUsingRaycast(originTransform, gunData, direction);
+            }
+
+            public static RaycastHit? ShootUsingRaycast(PlayerManager originTransform, GunDataConteiner gunData, Vector3 direction)
+            {
+                Transform cameraTransform = originTransform.CameraController.mainLookCamera.transform;
+
+                AudioCollectionTag collection = gunData.gunBulletSettings._collection;
+
+                if (Physics.Raycast(cameraTransform.position, direction, out RaycastHit hit, gunData.gunBulletSettings._shootRange, gunData.gunBulletSettings._collisionMask))
+                {
+                    //Debug.Log($"Surface -> Name: {hit.transform.name}, Tag: {hit.transform.gameObject.tag}, ")
+
+                    ObjectPooler.Instance.SpawnFromPool(hit.collider.gameObject.tag + "Hit", hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+                    ObjectPooler.Instance.SpawnFromPool(hit.collider.gameObject.tag + "Decal", hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+
+                    if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Water")) Debug.Log("True Water");
+                    if (collection[hit.transform.tag] != null)
+                        AudioManager.Instance.PlayOneShotSound(collection[hit.transform.tag], hit.point, collection);
+
+                    Vector3 impulseForce = -hit.normal * gunData.gunBulletSettings._bulletImpactForce;
+
+                    if (hit.transform.GetComponent<Rigidbody>())
+                        hit.transform.GetComponent<Rigidbody>().AddForce(impulseForce, ForceMode.Impulse);
+
+                    if (hit.transform.GetComponentInParent<Rigidbody>())
+                        hit.transform.GetComponentInParent<Rigidbody>().AddForce(impulseForce, ForceMode.Impulse);
+
+                    if (hit.transform.GetComponentInChildren<Rigidbody>())
+                        hit.transform.GetComponentInChildren<Rigidbody>().AddForce(impulseForce, ForceMode.Impulse);
+
+                    // In this code section the bullet verifies if the hit has finded an object of type AI Body Part and executes an aditional actions on the hit.
+                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("AI Body Part"))
+                    {
+                        int damage = (int)Random.Range(gunData.gunBulletSettings._shootDamageRange.x, gunData.gunBulletSettings._shootDamageRange.y);
+
+                        // The method tries to get an valid AI Instance acessing the GameSceneManager and execute an hit action
+                        AiStateMachine stateMachine = GameSceneManager.Instance.GetAIStateMachine(hit.rigidbody.GetInstanceID());
+                        if (stateMachine)
+                            stateMachine.TakeDamage(hit.point, -hit.normal * gunData.gunBulletSettings._bulletImpactForce, damage, hit.rigidbody,
+                                originTransform.GetComponent<BodyController>().transform, 0);
+                    }
+                    return hit;
+                }
+                else return null;
+            }
+
+            /// <summary>
+            /// This method returns if the passed Vector has any float as a NaN, Not a Number.
+            /// </summary>
+            /// <param name="inputValue"> The Vector to be verified. </param>
+            /// <returns> The response if the vector is invalid or not. </returns>
+            public static bool IsNaN(Vector3 inputValue) => float.IsNaN(inputValue.x) || float.IsNaN(inputValue.y) || float.IsNaN(inputValue.z);
+        }
+
         // --------------------------------------------------------------
         // Name: DataTypes (Class)
         // Desc: This class storages all costum DataTypes from the
@@ -269,15 +336,17 @@ namespace NekraByte
                 public class BulletSettings
                 {
                     [Header("Gun Settings"), Tooltip("Gun Bullet Settings")]
-                    public Vector2 _shootDamageRange = new(10f, 25f);
-                    [SerializeField] public string _bulletTag = "RifleBullet";
-                    [Range(1, 1000)] public float _bulletSpeed = 200f;
-                    [Range(0.1f, 50)] public float _bulletGravity = 2f;
-                    [Range(0.001f, 10)] public float _bulletSpread = 0.1f;
-                    [Range(1f, 15f)] public float _bulletLifeTime = 5f;
-                    [Range(1, 10)] public int _bulletsPerShoot = 1;
-                    [Range(1f, 30f)] public float _bulletImpactForce = 10f;
-                    public LayerMask _collisionMask;
+                                        public  Vector2              _shootDamageRange      = new(10f, 25f);
+                    [Range(10, 2000)]   public  float                _shootRange            = 100f;
+                    [SerializeField]    public  string               _bulletTag             = "RifleBullet";
+                    [Range(1, 1000)]    public  float                _bulletSpeed           = 200f;
+                    [Range(0.1f, 50)]   public  float                _bulletGravity         = 2f;
+                    [Range(0.001f, 10)] public  float                _bulletSpread          = 0.1f;
+                    [Range(1f, 15f)]    public  float                _bulletLifeTime        = 5f;
+                    [Range(1, 10)]      public  int                  _bulletsPerShoot       = 1;
+                    [Range(1f, 30f)]    public  float                _bulletImpactForce     = 10f;
+                                        public  LayerMask            _collisionMask;
+                    [SerializeField]    public  AudioCollectionTag   _collection;
                 }
                 #endregion
 

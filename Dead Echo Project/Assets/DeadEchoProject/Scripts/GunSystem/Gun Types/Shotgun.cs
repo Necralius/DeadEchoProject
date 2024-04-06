@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static NekraByte.Core.Behaviors;
 
 public class Shotgun : Mode_Semi
 {
@@ -26,21 +27,15 @@ public class Shotgun : Mode_Semi
         _canShoot   = false;
 
         for (int i = 0; i < _gunDataConteiner.gunBulletSettings._bulletsPerShoot; i++)
-        {            
-            BulletBase bullet = ObjectPooler.Instance.SpawnFromPool(_gunDataConteiner.gunBulletSettings._bulletTag,
-                _playerInstance.ShootPoint.transform.position,
-                _playerInstance.ShootPoint.transform.rotation).GetComponent<BulletBase>();
+        {
+            float x = Random.Range(-_gunDataConteiner.gunBulletSettings._bulletSpread, -_gunDataConteiner.gunBulletSettings._bulletSpread);
+            float y = Random.Range(-_gunDataConteiner.gunBulletSettings._bulletSpread, -_gunDataConteiner.gunBulletSettings._bulletSpread);
 
-            bullet.Initialize(_playerInstance.ShootPoint.transform,
-           _gunDataConteiner.gunBulletSettings._bulletSpread,
-           _gunDataConteiner.gunBulletSettings._bulletSpeed,
-           _gunDataConteiner.gunBulletSettings._bulletGravity,
-           _gunDataConteiner.gunBulletSettings._bulletLifeTime,
-           _gunDataConteiner.gunBulletSettings._collisionMask,
-           _gunDataConteiner.gunBulletSettings._shootDamageRange,
-           _gunDataConteiner.gunBulletSettings._bulletImpactForce,
-           _playerInstance.transform);
+            Vector3 direction = _playerInstance.CameraController.mainLookCamera.transform.forward + new Vector3(x, y, 0);
+
+            ShootUsingRaycast(_playerInstance, _gunDataConteiner, direction);
         }
+
         StartCoroutine(base.Shoot());
     }
 
@@ -82,11 +77,13 @@ public class Shotgun : Mode_Semi
         if (_gunAudioAsset.ReloadClip != null)
             AudioManager.Instance.PlayOneShotSound("Effects", _gunAudioAsset.AimClip, transform.position, 1f, 0f, 128);
     }
+
     public void SS_BulletTrigger()
     {
         if (_gunAudioAsset.ReloadClipVar1 != null)
             AudioManager.Instance.PlayOneShotSound("Effects", _gunAudioAsset.ReloadClipVar1, transform.position, 1f, 0f, 128);
     }
+
     public void SS_PumpAction()
     {
         if (_gunAudioAsset.BoltActionClip != null)

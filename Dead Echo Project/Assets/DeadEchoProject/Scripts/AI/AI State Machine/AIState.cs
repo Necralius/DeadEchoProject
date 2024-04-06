@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static NekraByte.Core.Behaviors;
 
 public abstract class AIState : MonoBehaviour
 {
@@ -21,7 +22,9 @@ public abstract class AIState : MonoBehaviour
     protected AiStateMachine _stateMachine;
     public virtual void OnAnimatorUpdated()
     {
-        if (_stateMachine.useRootPosition && !GameSceneManager.Instance._gameIsPaused) _stateMachine.navAgent.velocity  = _stateMachine.animator.deltaPosition / Time.deltaTime;
+
+
+        if (_stateMachine.useRootPosition && !GameSceneManager.Instance._gameIsPaused) _stateMachine.navAgent.velocity  = IsNaN(_stateMachine.animator.deltaPosition / Time.deltaTime) ? Vector3.zero : _stateMachine.animator.deltaPosition / Time.deltaTime;
         if (_stateMachine.useRootRotation && !GameSceneManager.Instance._gameIsPaused) _stateMachine.transform.rotation = _stateMachine.animator.rootRotation;
     }
 

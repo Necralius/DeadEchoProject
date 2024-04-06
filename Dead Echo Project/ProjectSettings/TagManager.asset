@@ -25,6 +25,7 @@ TagManager:
   - Highlighter
   - Gravel
   - TallGrass
+  - Dirt
   layers:
   - Default
   - TransparentFX

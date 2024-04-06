@@ -3,8 +3,9 @@ using static NekraByte.Core.DataTypes;
 
 public class FPSCamera : MonoBehaviour, IDataPersistence
 {
-    [SerializeField] private InputManager   _inputManager   = null;
-    [HideInInspector] public PlayerManager  PlayerManager  = null;
+    [HideInInspector]   public  Camera          mainLookCamera  = null;
+    [SerializeField]    private InputManager    _inputManager   = null;
+    [HideInInspector]   public  PlayerManager   PlayerManager   = null;
 
     [Header("Camera Settings")]
     [SerializeField, Range(1, 40)]      private float _sensX = 10f;
@@ -33,6 +34,7 @@ public class FPSCamera : MonoBehaviour, IDataPersistence
         if (GameStateManager.Instance != null) RegisterDataSaver();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         PlayerManager   = playerTransform.GetComponent<PlayerManager>();
+        mainLookCamera  = GetComponentInChildren<Camera>();
     }
 
     void Start()
