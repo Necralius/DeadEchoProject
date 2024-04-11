@@ -39,6 +39,10 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField]    private GameObject  _inventoryObj   = null;
     public bool         inventoryIsOpen                     = false;
 
+    [Header("Object Inspection System")]
+    [SerializeField] private GameObject _inpsectionView;
+    [SerializeField] private GameObject _playerView;
+
     public bool _gameIsPaused;
 
     public ParticleSystem bloodParticles { get => _bloodParticles; }
@@ -52,19 +56,44 @@ public class GameSceneManager : MonoBehaviour
     {
         if (_pauseMenuObj == null) return;
 
-        _gameIsPaused = !_gameIsPaused;
+        _gameIsPaused       = !_gameIsPaused;
 
-        Cursor.lockState = _gameIsPaused ? CursorLockMode.None : CursorLockMode.Locked;
-        Time.timeScale = _gameIsPaused ? 0f : 1f;
+        Cursor.lockState    = _gameIsPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Time.timeScale      = _gameIsPaused ? 0f : 1f;
         _pauseMenuObj.SetActive(!_pauseMenuObj.activeInHierarchy);
     }
 
-    private void InventorySystem()
+    public void ChangeInventoryState()
     {
         inventoryIsOpen = !inventoryIsOpen;
 
-        Cursor.lockState = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;
+        ChangeInventoryState(inventoryIsOpen);
+    }
+
+    public void ChangeInventoryState(bool state)
+    {
+        inventoryIsOpen     = state;
+        Cursor.lockState    = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;
+
         _inventoryObj.SetActive(inventoryIsOpen);
+    }
+
+    public void OpenInspectionView()
+    {
+        _inpsectionView.SetActive(true);
+        _playerView.SetActive(false);
+
+        _inventoryObj.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void CloseInspectionView()
+    {
+        _inpsectionView.SetActive(false);
+        _playerView.SetActive(true);
+
+        _inventoryObj.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void ForcedSaveGame()
@@ -112,7 +141,7 @@ public class GameSceneManager : MonoBehaviour
                 PauseMenuSystem();
 
             if (inputManager.Tab_Action.WasPressedThisFrame()) 
-                InventorySystem();
+                ChangeInventoryState();
         }
     }
 

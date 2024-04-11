@@ -217,6 +217,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
     private void ResetJump()        => _canJump = true;
 
+    #region - Game Player Saving - 
     public void RegisterDataSaver() => GameStateManager.Instance.RegisterSavableInstance(this);
 
     public void Save(SaveData gameData)
@@ -260,25 +261,8 @@ public class BodyController : MonoBehaviour, IDataPersistence
         gameObject.transform.rotation = gameData.GetPlayerData().transformSave.Rotation;
         _velocity                     = gameData.GetPlayerData().transformSave.Velocity;
     }
+    #endregion
 
-    private void EquipGun(int gunToEquip)
-    {
-        if (_gunsInHand.Count <= 0)         return;
-        if (_gunsInHand[0].Equals(null))    return;
-
-        _gunIndex = gunToEquip;
-
-        if (_gunsInHand[_gunIndex].gameObject.activeInHierarchy ||
-            _equippedGun._isReloading ||
-            _changingWeapon) return;
-
-        _changingWeapon = true;
-
-        if (_gunIndex == 0) _gunsInHand[1].GunHolst(false);//Selecting the gun and holsting it
-        else _gunsInHand[0].GunHolst(false);
-
-        _equippedGun = _gunsInHand[_gunIndex];
-    }
     private void StateHandler()
     {
         SetBodyState(_isCrouching ? "Crouching" : "Standing");
@@ -310,6 +294,26 @@ public class BodyController : MonoBehaviour, IDataPersistence
             _currentBodyState.MovementState = state;
     }
 
+    #region - Gun Managing -
+    private void EquipGun(int gunToEquip)
+    {
+        if (_gunsInHand.Count <= 0)         return;
+        if (_gunsInHand[0].Equals(null))    return;
+
+        _gunIndex = gunToEquip;
+
+        if (_gunsInHand[_gunIndex].gameObject.activeInHierarchy ||
+            _equippedGun._isReloading ||
+            _changingWeapon) return;
+
+        _changingWeapon = true;
+
+        if (_gunIndex == 0) _gunsInHand[1].GunHolst(false);//Selecting the gun and holsting it
+        else _gunsInHand[0].GunHolst(false);
+
+        _equippedGun = _gunsInHand[_gunIndex];
+    }
+
     private void GunHolstingBehavior()
     {
         if (!_equippedGun._isEquiped) _equippedGun.DrawGun();
@@ -319,6 +323,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     public void GunPermanentHolst() => _equippedGun.GunHolst(true);
 
     public void EquipCurrentGun()   => _equippedGun.DrawGun();
+    #endregion
 
     public void DoStickiness()      => _dragMultiplier = 1f - _npcStickiness;
 }

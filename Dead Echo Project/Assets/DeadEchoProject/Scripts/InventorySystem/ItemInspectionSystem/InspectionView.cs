@@ -43,7 +43,7 @@ public class InspectionView : MonoBehaviour
 
             Debug.Log("Null item");
             return;
-        }
+        }   
 
         ItemData selectedItem = item.data;
 

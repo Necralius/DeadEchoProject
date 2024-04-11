@@ -149,7 +149,7 @@ public class ItemGrid : MonoBehaviour
         return true;
     }
 
-    internal InventoryItem GetItem(int x, int y)
+    public InventoryItem GetItem(int x, int y)
     {
         if (x < 0 || y < 0 || x > sizeWidth - 1 || y > sizeHeight - 1) 
             return null;

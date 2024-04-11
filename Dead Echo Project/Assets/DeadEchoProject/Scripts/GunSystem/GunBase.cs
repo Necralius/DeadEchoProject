@@ -12,7 +12,7 @@ public abstract class GunBase : MonoBehaviour
 {
     #region - Dependencies -
     [HideInInspector] protected Animator                _animator           = null;
-    [HideInInspector] protected PlayerManager           _playerInstance     = null;
+    [SerializeField] protected PlayerManager           _playerInstance     = null;
     [HideInInspector] protected CharacterManager        _characterManager   = null;
     [SerializeField]  protected GunDataConteiner        _gunDataConteiner   = null;
     [SerializeField]  protected AudioAsset              _gunAudioAsset      = new AudioAsset();
@@ -162,6 +162,9 @@ public abstract class GunBase : MonoBehaviour
         if (_animator                           == null)    return;
         if (_recoilAsset                        == null)    return;
         if (GameSceneManager.Instance.inventoryIsOpen)      return;
+
+        Debug.Log(_ammoText == null);
+        Debug.Log(ammoTextFader == null);
 
         _ammoText.color = ammoTextFader.currentColor;
 

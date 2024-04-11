@@ -65,12 +65,8 @@ public class InventoryController : MonoBehaviour
 
         if (_inputManager.mouseLeftAction.WasPressedThisFrame()) 
             ItemGet();
-        if (_inputManager.mouseRightAction.WasPressedThisFrame())
-        {
-            ItemGet();
-            InspectionView.Instance.InspectItem(selectedItem);
-        }
-
+        if (_inputManager.mouseRightAction.WasPressedThisFrame()) 
+            InspectionView.Instance.InspectItem(GetItemReference());
     }
 
     private void RotateItem()
@@ -152,6 +148,12 @@ public class InventoryController : MonoBehaviour
             PickUpItem(tileGridPos);
         else
             ItemPlace(tileGridPos);
+    }
+
+    private InventoryItem GetItemReference()
+    {
+        Vector2Int tileGridPos  = GetTileGridPosition();
+        return selectedItemGrid.GetItem(tileGridPos.x, tileGridPos.y);
     }
 
     private Vector2Int GetTileGridPosition()

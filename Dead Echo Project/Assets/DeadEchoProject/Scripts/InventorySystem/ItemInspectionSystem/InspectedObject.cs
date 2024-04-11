@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class InspectedObject : MonoBehaviour
 {
-    public void tag = 0;
+    public string Tag = string.Empty;
 
 }

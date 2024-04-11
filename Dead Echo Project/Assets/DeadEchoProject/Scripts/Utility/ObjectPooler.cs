@@ -45,7 +45,7 @@ public class ObjectPooler : MonoBehaviour
     // ----------------------------------------------------------------------
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
-        Debug.Log($"Pooler searching tag: {tag}");
+        //Debug.Log($"Pooler searching tag: {tag}");
         if (!poolDictionary.ContainsKey(tag)) return null;
 
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();

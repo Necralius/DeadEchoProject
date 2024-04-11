@@ -47,11 +47,11 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
         _cameraController = GameObject.FindGameObjectWithTag("CameraObject").GetComponent<FPSCamera>();
 
         AnimationLayer[] layers = _cameraController.GetComponentsInChildren<AnimationLayer>();
-        _animLayers             = layers.ToList();
+        _animLayers.AddRange(layers.ToList());
 
         _armsAnimator       = AnimationLayer.GetAnimationLayer("AnimationsLayer",   _animLayers).animator;
         _rockThrower        = AnimationLayer.GetAnimationLayer("RockThrowerLayer",  _animLayers).layerObject?.GetComponent<RockThrower>();
-        _dynamicUI_Manager  = AnimationLayer.GetAnimationLayer("PlayerCanvas",      _animLayers).layerObject?.GetComponent<DynamicUI_Manager>();
+        //_dynamicUI_Manager  = AnimationLayer.GetAnimationLayer("PlayerCanvas",      _animLayers).layerObject?.GetComponent<DynamicUI_Manager>();
     }
 
     private void Start()
