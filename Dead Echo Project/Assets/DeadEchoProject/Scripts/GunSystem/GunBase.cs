@@ -163,16 +163,13 @@ public abstract class GunBase : MonoBehaviour
         if (_recoilAsset                        == null)    return;
         if (GameSceneManager.Instance.inventoryIsOpen)      return;
 
-        Debug.Log(_ammoText == null);
-        Debug.Log(ammoTextFader == null);
-
         _ammoText.color = ammoTextFader.currentColor;
 
         _forcedClip = _gunDataConteiner.gunData.gunMode == GunMode.Locked;
 
         _recoilAsset?.InitializeData(_gunDataConteiner.recoilData);
 
-        _isAiming = _isClipped ? false : _playerInstance.BodyController._isSprinting ? false : _inputManager.mouseRight;
+        _isAiming = _isClipped ? false : _playerInstance.BodyController._isSprinting ? false : _inputManager.mouseRightAction.State;
 
         //The class focus on limiting the actions, using ifs to limit the actions based in expressions.
         if (!_playerInstance.BodyController._isSprinting)
@@ -182,11 +179,11 @@ public abstract class GunBase : MonoBehaviour
                 if (GameStateManager.Instance != null)
                 {
                     if (GameStateManager.Instance.currentApplicationData.aimType == 0)
-                        _isAiming = _inputManager.mouseRight;
+                        _isAiming = _inputManager.mouseRightAction.State;
                     else if (GameStateManager.Instance.currentApplicationData.aimType == 1)
                     {
-                        if (_inputManager.mouseRightAction.WasPerformedThisFrame()) _isAiming = true;
-                        else if (_inputManager.mouseRightAction.WasPerformedThisFrame() && _isAiming) _isAiming = false;
+                        if (_inputManager.mouseRightAction.Action.WasPerformedThisFrame()) _isAiming = true;
+                        else if (_inputManager.mouseRightAction.Action.WasPerformedThisFrame() && _isAiming) _isAiming = false;
                     }
                 }
             }
@@ -200,7 +197,7 @@ public abstract class GunBase : MonoBehaviour
              * and if is not reloading, if the current mag ammo is different  from its
              * maximum and if has any ammo in the inventory.
              */
-            if (_inputManager.R_Action.WasPressedThisFrame() && !_isReloading && !(_gunDataConteiner.ammoData._magAmmo == _gunDataConteiner.ammoData._magMaxAmmo) && _gunDataConteiner.ammoData._bagAmmo > 0) Reload();
+            if (_inputManager.R_Action.Action.WasPressedThisFrame() && !_isReloading && !(_gunDataConteiner.ammoData._magAmmo == _gunDataConteiner.ammoData._magMaxAmmo) && _gunDataConteiner.ammoData._bagAmmo > 0) Reload();
 
             /* The  below  statements execute  the  main gun  behavior  action,  first
              * verifing  if  the  isn't  reloading  and if  can shoot,  later  also is 
@@ -209,7 +206,7 @@ public abstract class GunBase : MonoBehaviour
              * the gun state.
             */
 
-            if (_inputManager.mouseLeftAction.WasPressedThisFrame() && _gunDataConteiner.ammoData._magAmmo <= 0) 
+            if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame() && _gunDataConteiner.ammoData._magAmmo <= 0) 
                 AudioManager.Instance.PlayOneShotSound("Effects", _playerInstance.gunShootJam, transform.position, 1f, 0f, 128);
             if (!_isReloading && _canShoot && !_isClipped)
             {
@@ -218,26 +215,26 @@ public abstract class GunBase : MonoBehaviour
                     switch (_gunDataConteiner.gunData.gunMode)
                     {
                         case GunMode.Auto:
-                            if (_inputManager.mouseLeftAction.IsPressed()) StartCoroutine(Shoot());
+                            if (_inputManager.mouseLeftAction.Action.IsPressed()) StartCoroutine(Shoot());
                             break;
                         case GunMode.Semi:
-                            if (_inputManager.mouseLeftAction.WasPressedThisFrame()) StartCoroutine(Shoot());
+                            if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame()) StartCoroutine(Shoot());
                             break;
                         case GunMode.Locked:
-                            if (_inputManager.mouseLeftAction.WasPressedThisFrame()) 
+                            if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame()) 
                                 AudioManager.Instance.PlayOneShotSound("Effects", _playerInstance.gunShootJam, transform.position, 1f, 0f, 128);
                             break;
                     }
                 }
 
-                if (_inputManager.mouseLeftAction.WasPressedThisFrame()) UI_Update();
+                if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame()) UI_Update();
                 /* The below statement verifies if the user pressed the change gun mode
                  * buttons, if it is, the gun mode is changed.
                  */
             }
-            if (_inputManager.gunModeAction.WasPressedThisFrame()) ChangeGunMode();
+            if (_inputManager.B_Action.Action.WasPressedThisFrame()) ChangeGunMode();
         }
-        if (_inputManager.mouseRightAction.WasPressedThisFrame()) 
+        if (_inputManager.mouseRightAction.Action.WasPressedThisFrame()) 
             AudioManager.Instance.PlayOneShotSound("Effects", _gunAudioAsset.AimClip, transform.position, 1f, 0f, 128);
         Aim(); //-> This statement calls the aim position calculation method.
 

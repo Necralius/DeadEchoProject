@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ZombieRagdoll
   m_EditorClassIdentifier: 
   _audioGroup: Zombies
-  _volume: 0.9
+  _volume: 0.7
   _spatialBlend: 1
   _priority: 128
   _audioClipBanks:

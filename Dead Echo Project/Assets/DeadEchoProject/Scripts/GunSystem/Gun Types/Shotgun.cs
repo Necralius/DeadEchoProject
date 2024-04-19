@@ -10,7 +10,7 @@ public class Shotgun : Mode_Semi
 
     protected override void Update()
     {
-        if (_isReloading && _inputManager.mouseLeftAction.WasPressedThisFrame())
+        if (_isReloading && _inputManager.mouseLeftAction.Action.WasPressedThisFrame())
         {
             _animator.SetTrigger(cancelReloadHash);
             _isReloading = false;

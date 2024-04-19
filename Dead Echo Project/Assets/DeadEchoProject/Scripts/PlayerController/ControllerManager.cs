@@ -255,8 +255,8 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
     private void UpdateCalls()
     {
         _isMoving       = _rb.velocity != Vector3.zero;
-        _isSprinting    = _inptManager.sprint && _isMoving && !_walkingBackwards && !_isCrouching;
-        _isWalking      = _inptManager.Move != Vector2.zero;
+        _isSprinting    = _inptManager.LeftShiftAction.State && _isMoving && !_walkingBackwards && !_isCrouching;
+        _isWalking      = _inptManager.MoveAction.Vector != Vector2.zero;
         _isGrounded     = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.3f, _groundMask);
         _onSlope        = OnSlope();
         _inAir          = !_isGrounded;
@@ -283,7 +283,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
     {
         if (GameSceneManager.Instance._gameIsPaused || GameSceneManager.Instance.inventoryIsOpen) return;
 
-        if (_inptManager.jumpAction.WasPressedThisFrame() && _canJump && _isGrounded)
+        if (_inptManager.SpaceAction.Action.WasPressedThisFrame() && _canJump && _isGrounded)
         {
             _playerAudioManager.JumpAudioAction();
             _inAir = true;
@@ -293,23 +293,18 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        if (_inptManager.E_Action.WasPressedThisFrame())
-        {
-            _interactionController.InteractWith();
-        }
-
         if (GameStateManager.Instance != null)
         {
             if (GameStateManager.Instance.currentApplicationData.crouchType == 0)//Crouch Type -> Hold
             {
-                if (_inptManager.crouchAction.WasPerformedThisFrame() && _isGrounded && !_isSprinting)
+                if (_inptManager.CtrlAction.Action.WasPerformedThisFrame() && _isGrounded && !_isSprinting)
                 {
                     transform.localScale = new Vector3(transform.localScale.x, _crouchYScale, transform.localScale.z);
                     _rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
                     _isCrouching = true;
                 }
 
-                if (_inptManager.crouchAction.WasReleasedThisFrame() && _isGrounded)
+                if (_inptManager.CtrlAction.Action.WasReleasedThisFrame() && _isGrounded)
                 {
                     transform.localScale = new Vector3(transform.localScale.x, _startYScale, transform.localScale.z);
                     _isCrouching = false;
@@ -317,13 +312,13 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
             }
             else if (GameStateManager.Instance.currentApplicationData.crouchType == 1)//Crouch Type -> Toggle
             {
-                if (_inptManager.crouchAction.WasPerformedThisFrame() && _isGrounded && !_isSprinting )
+                if (_inptManager.CtrlAction.Action.WasPerformedThisFrame() && _isGrounded && !_isSprinting )
                 {
                     transform.localScale = new Vector3(transform.localScale.x, _crouchYScale, transform.localScale.z);
                     _rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
                     _isCrouching = true;
                 }
-                else if (_inptManager.crouchAction.WasPerformedThisFrame() && _isCrouching)
+                else if (_inptManager.CtrlAction.Action.WasPerformedThisFrame() && _isCrouching)
                 {
                     transform.localScale = new Vector3(transform.localScale.x, _startYScale, transform.localScale.z);
                     _isCrouching = false;
@@ -332,48 +327,48 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
         }
         else
         {
-            if (_inptManager.crouchAction.WasPerformedThisFrame() && _isGrounded && !_isSprinting)
+            if (_inptManager.CtrlAction.Action.WasPerformedThisFrame() && _isGrounded && !_isSprinting)
             {
                 transform.localScale = new Vector3(transform.localScale.x, _crouchYScale, transform.localScale.z);
                 _rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
                 _isCrouching = true;
             }
 
-            if (_inptManager.crouchAction.WasReleasedThisFrame() && _isGrounded)
+            if (_inptManager.CtrlAction.Action.WasReleasedThisFrame() && _isGrounded)
             {
                 transform.localScale = new Vector3(transform.localScale.x, _startYScale, transform.localScale.z);
                 _isCrouching = false;
             }
         }
 
-        if (_isSprinting && _inptManager.crouchAction.WasPerformedThisFrame() && _isGrounded) 
+        if (_isSprinting && _inptManager.CtrlAction.Action.WasPerformedThisFrame() && _isGrounded) 
             StartSlide();
 
         if (_gunsInHand.Count > 0)
         {
-            if (_inptManager.primaryGun.WasPressedThisFrame()   && !_changingWeapon) EquipGun(0);
-            if (_inptManager.secondaryGun.WasPressedThisFrame() && !_changingWeapon) EquipGun(1);
+            if (_inptManager.One_Action.Action.WasPressedThisFrame()   && !_changingWeapon) EquipGun(0);
+            if (_inptManager.Two_Action.Action.WasPressedThisFrame() && !_changingWeapon) EquipGun(1);
         }
 
         if (_equippedGun != null)
         {
             if (!_equippedGun._isReloading && !_isSprinting)
             {
-                if (_inptManager.throwRockAction.WasPressedThisFrame()) StartThrowing();
+                if (_inptManager.T_Action.Action.WasPressedThisFrame()) StartThrowing();
                 if (_isThrowingObject)
                 {
-                    if (_inptManager.throwRockAction.WasReleasedThisFrame()) EndRockThrow();
+                    if (_inptManager.T_Action.Action.WasReleasedThisFrame()) EndRockThrow();
 
-                    if (_inptManager.primaryGun.WasPressedThisFrame() || _inptManager.secondaryGun.WasPressedThisFrame())
+                    if (_inptManager.One_Action.Action.WasPressedThisFrame() || _inptManager.Two_Action.Action.WasPressedThisFrame())
                     {
                         if (!_changingWeapon)
                         {
-                            if (_inptManager.primaryGun.WasPressedThisFrame())
+                            if (_inptManager.One_Action.Action.WasPressedThisFrame())
                             {
                                 CancelThrowRock();
                                 EquipGun(0);
                             }
-                            else if (_inptManager.secondaryGun.WasPressedThisFrame())
+                            else if (_inptManager.Two_Action.Action.WasPressedThisFrame())
                             {
                                 CancelThrowRock();
                                 EquipGun(1);
@@ -385,7 +380,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
             }
         }
         if (_flashLightObject != null)
-            if (_inptManager.flashLightAction.WasPressedThisFrame()) ChangeFlashlightState();
+            if (_inptManager.F_Action.Action.WasPressedThisFrame()) ChangeFlashlightState();
 
         _dragMultiplier = Mathf.Min(_dragMultiplier + Time.deltaTime, _dragMultiplierLimit);
     }
@@ -406,13 +401,13 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
 
         if (GameStateManager.Instance != null)
         {
-            mouseX = (GameStateManager.Instance.currentApplicationData.invertX ? -_inptManager.Look.x : _inptManager.Look.x) * Time.deltaTime * _sensX;
-            mouseY = (GameStateManager.Instance.currentApplicationData.invertY ? -_inptManager.Look.y : _inptManager.Look.y) * Time.deltaTime * _sensY;
+            mouseX = (GameStateManager.Instance.currentApplicationData.invertX ? -_inptManager.LookAction.Vector.x : _inptManager.LookAction.Vector.x) * Time.deltaTime * _sensX;
+            mouseY = (GameStateManager.Instance.currentApplicationData.invertY ? -_inptManager.LookAction.Vector.y : _inptManager.LookAction.Vector.y) * Time.deltaTime * _sensY;
         }
         else
         {
-            mouseX = _inptManager.Look.x * Time.deltaTime * _sensX;
-            mouseY = _inptManager.Look.y * Time.deltaTime * _sensY;
+            mouseX = _inptManager.LookAction.Vector.x * Time.deltaTime * _sensX;
+            mouseY = _inptManager.LookAction.Vector.y * Time.deltaTime * _sensY;
         }
 
         _yRotation  += mouseX;
@@ -433,7 +428,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
     // ----------------------------------------------------------------------
     void MovementHandler()
     {
-        _moveDirection = _orientation.forward * _inptManager.Move.y + _orientation.right * _inptManager.Move.x;
+        _moveDirection = _orientation.forward * _inptManager.MoveAction.Vector.y + _orientation.right * _inptManager.MoveAction.Vector.x;
 
         if (_onSlope && !_exitingSlope)
         {
@@ -546,7 +541,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
             _targetSpeed    = _crouchSpeed;
             
         }
-        if (_isGrounded && _inptManager.sprint)
+        if (_isGrounded && _inptManager.LeftShiftAction.State)
         {
             _currentState   = MovementState.Sprinting;
             _targetSpeed    = _sprintSpeed;

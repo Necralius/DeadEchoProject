@@ -1,38 +1,75 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Interactor))]
 public class InventoryItemConteiner : MonoBehaviour
 {
-    [SerializeField] private List<ItemData> _items      = new List<ItemData>();
+    private Interactor interactor => GetComponent<Interactor>();
 
-    [SerializeField] private GroundItemGrid _groundGrid = null;
+    [SerializeField] private List<ItemSave> _items      = new List<ItemSave>();
+
+    private GroundItemGrid _groundGrid;
+
+    private void Start()
+    {
+        _groundGrid = FindFirstObjectByType(typeof(GroundItemGrid), FindObjectsInactive.Include) as GroundItemGrid;
+
+        interactor.OnEnter. AddListener( delegate { OnAreaEnter();    });
+        interactor.OnStart. AddListener( delegate { FillConteiner();    });
+        interactor.OnExit.  AddListener( delegate { ResetGroundGrid();  });
+    }
 
     public void FillConteiner()
     {
-        _groundGrid?.SetItems(_items);
+        if (_groundGrid == null)
+            return;
+
+        if (_items.Count <= 0) 
+            return;
+
+        Debug.Log("Filling ground grid!");
+        _groundGrid.SetItems(_items);
+    }
+
+    public void OnAreaEnter()
+    {
+        if (_groundGrid == null) 
+            return; 
         _groundGrid.currentConteiner = this;
     }
 
+
     public void ResetGroundGrid()
     {
-        _groundGrid?.ResetGrid();
+        Debug.Log("Reseting ground grid!");
+        if (_groundGrid == null) 
+            return;
+
+        _groundGrid.ResetGrid();
         _groundGrid.currentConteiner = null;
     }
 
-    public void RemoveItem(int instanceID)  => _items.Remove(_items.Find(e => e.GetInstanceID() == instanceID));
-    public void AddItem(ItemData item)      => _items.Add(item);
+    public void RemoveItem(int instanceID)  => _items.Remove(_items.Find(e => e.Data.GetInstanceID() == instanceID));
 
-
-    private void OnTriggerEnter(Collider other)
+    public void AddItemInPosition(ItemSave item)
     {
-        if (other.transform.CompareTag("Player")) 
-            FillConteiner();
+        Debug.Log("Adding item to conteiner inv!");
+        _items.Add(item);
+
     }
+}
 
-    private void OnTriggerExit(Collider other)
+[Serializable]
+public class ItemSave
+{
+    public ItemData     Data;
+    public Vector2Int?  Position;
+
+    public ItemSave(ItemData data, int posX, int posY)
     {
-        if (other.transform.CompareTag("Player")) 
-            ResetGroundGrid();
+        Data = data;
+        Position = new Vector2Int(posX, posY);
     }
 }

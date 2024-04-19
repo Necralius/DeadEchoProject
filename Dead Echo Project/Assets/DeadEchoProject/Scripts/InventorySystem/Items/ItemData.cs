@@ -13,7 +13,4 @@ public class ItemData : ScriptableObject
     [Header("Item Settings")]
     public int Width    = 1;
     public int Height   = 1;
-
-    public Vector2 xAngleLimit = Vector2.zero;
-    public Vector2 yAngleLimit = Vector2.zero;
 }

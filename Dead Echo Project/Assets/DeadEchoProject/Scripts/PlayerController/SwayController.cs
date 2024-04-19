@@ -47,8 +47,8 @@ public class SwayController : MonoBehaviour
 
     private void Update()
     {
-        _look = _inptManager.Look;
-        _move = _inptManager.Move;
+        _look = _inptManager.LookAction.Vector;
+        _move = _inptManager.MoveAction.Vector;
 
         _isAiming = _playerInstance.BodyController._equippedGun._isAiming;
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,52 +18,33 @@ public class InputManager : MonoBehaviour
     private PlayerInput playerInput => GetComponent<PlayerInput>();
 
     #region - Input Class Data -
-    //Public Data
-    public Vector2 Move { get; private set; }
-    public Vector2 Look { get; private set; }
-
-    public bool sprint              = false;
-    public bool R_State             = false;
-    public bool mouseLeft           = false;
-    public bool mouseRight          = false;
-    public bool jumping             = false;
-    public bool crouching           = false;
-    public bool changingGunMode     = false;
-    public bool isHoldingRock       = false;
-    public bool flashlightActive    = false;
-    public bool pauseMenu           = false;
-    public bool E_State             = false;
-    public bool Z_State             = false;
-    public bool permanentHolst      = false;
-    public bool Tab_State           = false;
 
     //Private Data
     public InputActionMap currentMap = null;
 
     //Movment Actions
-    [HideInInspector] public InputAction moveAction     = null;
-    [HideInInspector] public InputAction lookAction     = null;
-    [HideInInspector] public InputAction jumpAction     = null;
-    [HideInInspector] public InputAction crouchAction   = null;
-    [HideInInspector] public InputAction sprintAction   = null;
+    [HideInInspector] public InputContent MoveAction        = new InputContent();
+    [HideInInspector] public InputContent LookAction        = new InputContent();
+    [HideInInspector] public InputContent SpaceAction       = new InputContent();
+    [HideInInspector] public InputContent CtrlAction        = new InputContent();
+    [HideInInspector] public InputContent LeftShiftAction   = new InputContent();
 
-    //Gun Behavior Actions
-    [HideInInspector] public InputAction R_Action           = null;
-    [HideInInspector] public InputAction mouseLeftAction    = null;
-    [HideInInspector] public InputAction mouseRightAction   = null;
-    [HideInInspector] public InputAction gunModeAction      = null;
-    [HideInInspector] public InputAction throwRockAction    = null;
-    [HideInInspector] public InputAction permaHolstAction   = null;
+    [HideInInspector] public InputContent mouseLeftAction   = new InputContent();
+    [HideInInspector] public InputContent mouseRightAction  = new InputContent();
+    [HideInInspector] public InputContent R_Action          = new InputContent();
+    [HideInInspector] public InputContent B_Action          = new InputContent();
+    [HideInInspector] public InputContent T_Action          = new InputContent();
+    [HideInInspector] public InputContent C_Action          = new InputContent();
 
-    [HideInInspector] public InputAction flashLightAction   = null;
+    [HideInInspector] public InputContent F_Action          = new InputContent();
 
-    [HideInInspector] public InputAction primaryGun         = null;
-    [HideInInspector] public InputAction secondaryGun       = null;
+    [HideInInspector] public InputContent One_Action        = new InputContent();
+    [HideInInspector] public InputContent Two_Action        = new InputContent();
 
-    [HideInInspector] public InputAction pauseMenuAction    = null;
-    [HideInInspector] public InputAction E_Action           = null;
-    [HideInInspector] public InputAction Z_Action           = null;
-    [HideInInspector] public InputAction Tab_Action         = null;
+    [HideInInspector] public InputContent Escape_Action     = new InputContent();
+    [HideInInspector] public InputContent E_Action          = new InputContent();
+    [HideInInspector] public InputContent Z_Action          = new InputContent();
+    [HideInInspector] public InputContent Tab_Action        = new InputContent();
 
     #endregion
 
@@ -84,81 +66,88 @@ public class InputManager : MonoBehaviour
         currentMap      = playerInput.currentActionMap;
 
         //Movment Actions
-        moveAction          = currentMap.FindAction("Move");
-        lookAction          = currentMap.FindAction("Look");
-        sprintAction        = currentMap.FindAction("SprintAction");
-        jumpAction          = currentMap.FindAction("JumpAction");
-        crouchAction        = currentMap.FindAction("CrouchAction");
-        throwRockAction     = currentMap.FindAction("ThrowRockAction");
+        MoveAction.Action                   = currentMap.FindAction("Move");
+        LookAction.Action                   = currentMap.FindAction("Look");
+        LeftShiftAction.Action              = currentMap.FindAction("LeftShiftAction");
+        SpaceAction.Action                  = currentMap.FindAction("SpaceAction");
+        CtrlAction.Action                   = currentMap.FindAction("CtrlAction");
 
         //Gun Behavior Actions
-        R_Action            = currentMap.FindAction("R_Action");
-        mouseLeftAction     = currentMap.FindAction("LeftMouseAction");
-        mouseRightAction    = currentMap.FindAction("RightMouseAction");
-        gunModeAction       = currentMap.FindAction("ChangeGunMode");
-        permaHolstAction    = currentMap.FindAction("PermanentHolst");
+        R_Action.Action                     = currentMap.FindAction("R_Action");
+        mouseLeftAction.Action              = currentMap.FindAction("LeftMouseAction");
+        mouseRightAction.Action             = currentMap.FindAction("RightMouseAction");
 
-        flashLightAction    = currentMap.FindAction("FlashLightAction");
+        One_Action.Action                   = currentMap.FindAction("1_Action");
+        Two_Action.Action                   = currentMap.FindAction("2_Action");
+        Escape_Action.Action                = currentMap.FindAction("EscapeAction");
+        Tab_Action.Action                   = currentMap.FindAction("Tab_Action");
+        T_Action.Action                     = currentMap.FindAction("T_Action");
+        B_Action.Action                     = currentMap.FindAction("B_Action");
+        C_Action.Action                     = currentMap.FindAction("C_Action");
+        F_Action.Action                     = currentMap.FindAction("F_Action");
+        E_Action.Action                     = currentMap.FindAction("E_Action");
+        Z_Action.Action                     = currentMap.FindAction("Z_Action");
 
-        primaryGun          = currentMap.FindAction("PrimaryGun");
-        secondaryGun        = currentMap.FindAction("SecondaryGun");
-        pauseMenuAction     = currentMap.FindAction("PauseMenu");
-        E_Action            = currentMap.FindAction("E_Action");
-        Z_Action            = currentMap.FindAction("Z_Action");
-        Tab_Action          = currentMap.FindAction("Tab_Action");
+        MoveAction.Action.performed         += on_Move;
+        LookAction.Action.performed         += on_Look;
+        LeftShiftAction.Action.performed    += on_LeftShift;
+        mouseLeftAction.Action.performed    += on_MouseLeft;
+        mouseRightAction.Action.performed   += on_MouseRight;
+        SpaceAction.Action.performed        += on_Jump;
+        CtrlAction.Action.performed         += on_Crouch;
+        Escape_Action.Action.performed      += on_PauseMenu;
+        Tab_Action.Action.performed         += on_Tab;
+        R_Action.Action.performed           += on_R;
+        B_Action.Action.performed           += on_B;
+        T_Action.Action.performed           += on_T;
+        F_Action.Action.performed           += on_F;
+        E_Action.Action.performed           += on_E;
+        Z_Action.Action.performed           += on_Z;
+        C_Action.Action.performed           += on_C;
 
-        moveAction.performed        += onMove;
-        lookAction.performed        += onLook;
-        sprintAction.performed      += onSprint;
-        R_Action.performed          += on_R;
-        mouseLeftAction.performed   += onMouseLeft;
-        mouseRightAction.performed  += onMouseRight;
-        jumpAction.performed        += onJump;
-        crouchAction.performed      += onCrouch;
-        gunModeAction.performed     += onModeChanged;
-        throwRockAction.performed   += onThrowRocked;
-        flashLightAction.performed  += onFlashlight;
-        pauseMenuAction.performed   += onPauseMenu;
-        E_Action.performed          += on_E;
-        Z_Action.performed          += on_Z;
-        permaHolstAction.performed  += onPermaHolst;
-        Tab_Action.performed        += on_Tab;
-
-        moveAction.canceled         += onMove;
-        lookAction.canceled         += onLook;
-        sprintAction.canceled       += onSprint;
-        R_Action.canceled           += on_R;
-        mouseLeftAction.canceled    += onMouseLeft;
-        mouseRightAction.canceled   += onMouseRight;
-        jumpAction.canceled         += onJump;
-        crouchAction.canceled       += onCrouch;
-        gunModeAction.canceled      += onModeChanged;
-        throwRockAction.canceled    += onThrowRocked;
-        flashLightAction.canceled   += onFlashlight;
-        pauseMenuAction.canceled    += onPauseMenu;
-        E_Action.canceled           += on_E;
-        Z_Action.canceled           += on_Z;
-        permaHolstAction.canceled   += onPermaHolst;
-        Tab_Action.canceled         += on_Tab;
+        MoveAction.Action.canceled          += on_Move;
+        LookAction.Action.canceled          += on_Look;
+        LeftShiftAction.Action.canceled     += on_LeftShift;
+        mouseLeftAction.Action.canceled     += on_MouseLeft;
+        mouseRightAction.Action.canceled    += on_MouseRight;
+        SpaceAction.Action.canceled         += on_Jump;
+        CtrlAction.Action.canceled          += on_Crouch;
+        Escape_Action.Action.canceled       += on_PauseMenu;
+        Tab_Action.Action.canceled          += on_Tab;
+        R_Action.Action.canceled            += on_R;
+        B_Action.Action.canceled            += on_B;
+        T_Action.Action.canceled            += on_T;
+        F_Action.Action.canceled            += on_F;
+        E_Action.Action.canceled            += on_E;
+        Z_Action.Action.canceled            += on_Z;
+        C_Action.Action.canceled            += on_C;
     }
     #endregion
 
     #region - Input Gethering -
-    private void onMove(InputAction.CallbackContext context)        => Move             = context.ReadValue<Vector2>();
-    private void onLook(InputAction.CallbackContext context)        => Look             = context.ReadValue<Vector2>();
-    private void onSprint(InputAction.CallbackContext context)      => sprint           = context.ReadValueAsButton();
-    private void on_R(InputAction.CallbackContext context)          => R_State          = context.ReadValueAsButton();
-    private void onMouseLeft(InputAction.CallbackContext context)   => mouseLeft        = context.ReadValueAsButton();
-    private void onMouseRight(InputAction.CallbackContext context)  => mouseRight       = context.ReadValueAsButton();
-    private void onJump(InputAction.CallbackContext context)        => jumping          = context.ReadValueAsButton();
-    private void onCrouch(InputAction.CallbackContext context)      => crouching        = context.ReadValueAsButton();
-    private void onModeChanged(InputAction.CallbackContext context) => changingGunMode  = context.ReadValueAsButton();
-    private void onThrowRocked(InputAction.CallbackContext context) => isHoldingRock    = context.ReadValueAsButton();
-    private void onFlashlight(InputAction.CallbackContext context)  => flashlightActive = context.ReadValueAsButton();
-    private void onPauseMenu(InputAction.CallbackContext context)   => pauseMenu        = context.ReadValueAsButton();
-    private void on_E(InputAction.CallbackContext context)          => E_State          = context.ReadValueAsButton();
-    private void on_Z(InputAction.CallbackContext context)          => Z_State          = context.ReadValueAsButton();
-    private void onPermaHolst(InputAction.CallbackContext context)  => permanentHolst   = context.ReadValueAsButton();
-    private void on_Tab(InputAction.CallbackContext context)        => Tab_State        = context.ReadValueAsButton();
+    private void on_Move(InputAction.CallbackContext context)           => MoveAction.Vector            = context.ReadValue<Vector2>();
+    private void on_Look(InputAction.CallbackContext context)           => LookAction.Vector            = context.ReadValue<Vector2>();
+    private void on_LeftShift(InputAction.CallbackContext context)      => LeftShiftAction.State        = context.ReadValueAsButton();
+    private void on_MouseLeft(InputAction.CallbackContext context)      => mouseLeftAction.State        = context.ReadValueAsButton();
+    private void on_MouseRight(InputAction.CallbackContext context)     => mouseRightAction.State       = context.ReadValueAsButton();
+    private void on_Jump(InputAction.CallbackContext context)           => SpaceAction.State            = context.ReadValueAsButton();
+    private void on_Crouch(InputAction.CallbackContext context)         => CtrlAction.State             = context.ReadValueAsButton();
+    private void on_PauseMenu(InputAction.CallbackContext context)      => Escape_Action.State          = context.ReadValueAsButton();
+    private void on_Tab(InputAction.CallbackContext context)            => Tab_Action.State             = context.ReadValueAsButton();
+    private void on_R(InputAction.CallbackContext context)              => R_Action.State               = context.ReadValueAsButton();
+    private void on_B(InputAction.CallbackContext context)              => B_Action.State               = context.ReadValueAsButton();
+    private void on_T(InputAction.CallbackContext context)              => T_Action.State               = context.ReadValueAsButton();
+    private void on_F(InputAction.CallbackContext context)              => F_Action.State               = context.ReadValueAsButton();
+    private void on_E(InputAction.CallbackContext context)              => E_Action.State               = context.ReadValueAsButton();
+    private void on_Z(InputAction.CallbackContext context)              => Z_Action.State               = context.ReadValueAsButton();
+    private void on_C(InputAction.CallbackContext context)              => C_Action.State               = context.ReadValueAsButton();
     #endregion
+}
+
+[Serializable]
+public class InputContent
+{
+    public InputAction Action;
+    public bool        State;
+    public Vector2     Vector;
 }

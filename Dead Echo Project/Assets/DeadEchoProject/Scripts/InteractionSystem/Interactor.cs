@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,9 +22,22 @@ public class Interactor : MonoBehaviour
 
     [SerializeField] private bool _debug = false;
 
+    public UnityEvent OnEnter   { get => onInteractEnter;   }
+    public UnityEvent OnStart   { get => onInteractStart;   }
+    
+    public UnityEvent OnExit    { get => onInteractExit;    }
+
     public virtual void InteractStart()
     {
-        onInteractStart.Invoke();
+        try
+        {
+            onInteractStart.Invoke();
+        }
+        catch(Exception ex)
+        {
+            Debug.LogWarning(ex);
+        }
+
         if (_debug) 
             Debug.Log($"Interactor: {gameObject.name} started a interaction.");
     }
@@ -47,6 +61,5 @@ public class Interactor : MonoBehaviour
         onInteractExit.Invoke();
         if (_debug)
             Debug.Log($"Interactor: {gameObject.name} is getting out of the interaction area.");
-
     }
 }

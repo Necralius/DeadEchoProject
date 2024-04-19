@@ -18,19 +18,29 @@ MonoBehaviour:
   Prefab: {fileID: 8847410894454424919, guid: 24f54e023a259e142b3532a9b14eed6c, type: 3}
   Width: 1
   Height: 1
-  xAngleLimit: {x: 0, y: 90}
-  yAngleLimit: {x: 0, y: 60}
   NodeSprite: {fileID: 21300000, guid: 01f9554cc9152994d804c3155d6091db, type: 3}
   Font: {fileID: 0}
   TextColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
-  Transcription: "Se voc\xEA t\xE1 lendo isso, espero que ainda tenha um pouco de
-    humanidade nesse mundo desgra\xE7ado. Fui pego pelos Ju\xEDzes faz umas semanas.
-    Eles se acham os donos da justi\xE7a, mas \xE9 tudo torto e cruel. J\xE1 vi cada
-    coisa horr\xEDvel debaixo da m\xE3o deles. Julgamentos r\xE1pidos, execu\xE7\xF5es
-    sem piedade, tudo em nome de uma tal de ordem deles. N\xE3o s\xE3o ju\xEDzes,
-    s\xE3o uns carrascos se escondendo atr\xE1s de uma ins\xEDgnia. N\xE3o sei se
-    vou aguentar essa parada, mas \xE9 importante que algu\xE9m saiba a verdade sobre
-    esses Ju\xEDzes. Eles n\xE3o t\xE3o aqui pra proteger ningu\xE9m, s\xF3 t\xE3o
-    querendo botar medo nos fracos e desamparados. Por favor, se tu achar essa nota,
-    passa adiante. Quem sabe ainda tenha esperan\xE7a de mais gente resistir e lutar
-    contra essa tirania dos Ju\xEDzes. Assinado, Um prisioneiro dos Ju\xEDzes"
+  Content:
+    Title:
+      Content: "Relat\xF3rio Confidencial #1452"
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      Font: {fileID: 11400000, guid: 34969edce1799e146ab6c56671ab30f8, type: 2}
+    Subtitle:
+      Content: Ronda Noturna - 15/04/2034
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      Font: {fileID: 11400000, guid: 4aae28f6463ab904fad8fad7afdf617a, type: 2}
+    Content:
+      Content: "\tDurante a ronda, avistei um suspeito na \xE1rea. Ap\xF3s devitamente
+        identificado, o mesmo foi descoberto como um antigo fugitivo da na\xE7\xE3o,
+        o mesmo foi encarcerado e encaminhado para julgamento em bridgeport."
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      Font: {fileID: 11400000, guid: aa6e2d461a888d947b073a4baa087829, type: 2}
+    Signature:
+      Content: Michel Nickelo
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      Font: {fileID: 11400000, guid: 4aae28f6463ab904fad8fad7afdf617a, type: 2}
+    Footer:
+      Content: "Gl\xF3ria aos Juizes"
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      Font: {fileID: 11400000, guid: 34969edce1799e146ab6c56671ab30f8, type: 2}

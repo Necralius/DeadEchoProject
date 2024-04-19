@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class DynamicUI_Manager : MonoBehaviour
 {
+    #region - Singleton Pattern -
+    public static DynamicUI_Manager Instance;
+    private void Awake()
+    {
+        if (Instance != null) 
+            Destroy(Instance);
+        Instance = this;
+    }
+    #endregion
+
     [SerializeField] private List<FaderItem> _faders = new List<FaderItem>();
 
     public FaderItem this[int I]

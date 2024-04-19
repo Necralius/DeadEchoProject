@@ -24,18 +24,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SprintAction",
+                    "name": "RightMouseAction",
                     "type": "Button",
-                    "id": "20232a6b-56b0-409b-9325-82cea4458247",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "R_Action",
-                    "type": "Button",
-                    "id": "05b057e4-ddbe-4c7e-b513-7afaff3dfac5",
+                    "id": "74ed7541-5876-4bcc-8bfe-24deadeff1a5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -51,25 +42,16 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightMouseAction",
+                    "name": "LeftShiftAction",
                     "type": "Button",
-                    "id": "74ed7541-5876-4bcc-8bfe-24deadeff1a5",
+                    "id": "20232a6b-56b0-409b-9325-82cea4458247",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "JumpAction",
-                    "type": "Button",
-                    "id": "86b93aa6-8a7c-4c23-aa91-6a96ee6fbff3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "CrouchAction",
+                    "name": "CtrlAction",
                     "type": "Button",
                     "id": "8ba6f3c5-b014-4ec2-a48b-3743121d18eb",
                     "expectedControlType": "Button",
@@ -78,16 +60,34 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChangeGunMode",
+                    "name": "SpaceAction",
                     "type": "Button",
-                    "id": "62d6a029-ca79-490d-b5a9-9cfaed9680ff",
+                    "id": "86b93aa6-8a7c-4c23-aa91-6a96ee6fbff3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PrimaryGun",
+                    "name": "Tab_Action",
+                    "type": "Button",
+                    "id": "02d666b1-a2ab-4739-932b-5e70fe130922",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EscapeAction",
+                    "type": "Button",
+                    "id": "252d593d-605f-46ce-b5ee-c9e80c81d652",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "1_Action",
                     "type": "Button",
                     "id": "bf3ba2e1-5351-421a-8f39-4a7894e0105d",
                     "expectedControlType": "Button",
@@ -96,7 +96,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SecondaryGun",
+                    "name": "2_Action",
                     "type": "Button",
                     "id": "e2787042-9cf5-4ad1-870d-00826d51bac7",
                     "expectedControlType": "Button",
@@ -105,7 +105,25 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ThrowRockAction",
+                    "name": "R_Action",
+                    "type": "Button",
+                    "id": "05b057e4-ddbe-4c7e-b513-7afaff3dfac5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "B_Action",
+                    "type": "Button",
+                    "id": "62d6a029-ca79-490d-b5a9-9cfaed9680ff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "T_Action",
                     "type": "Button",
                     "id": "01046a71-1f9d-4bd2-8d5b-be4a618e9520",
                     "expectedControlType": "Button",
@@ -114,18 +132,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FlashLightAction",
+                    "name": "F_Action",
                     "type": "Button",
                     "id": "98563690-a0f4-47e8-856a-3a81017236b3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PauseMenu",
-                    "type": "Button",
-                    "id": "252d593d-605f-46ce-b5ee-c9e80c81d652",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -141,7 +150,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PermanentHolst",
+                    "name": "C_Action",
                     "type": "Button",
                     "id": "c6ed3035-5d5b-4bc3-810e-97fc86f35aa1",
                     "expectedControlType": "Button",
@@ -153,15 +162,6 @@
                     "name": "Z_Action",
                     "type": "Button",
                     "id": "323dea5c-4e3c-41a7-ba0b-f84b18def1c6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Tab_Action",
-                    "type": "Button",
-                    "id": "02d666b1-a2ab-4739-932b-5e70fe130922",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -237,28 +237,6 @@
                 },
                 {
                     "name": "",
-                    "id": "551dcbf2-16d1-4b6b-a58e-3416bada146a",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SprintAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f0c0bf4d-8c6d-4783-8c12-c288995b740a",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "R_Action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "915a71ff-630d-4414-b47f-71b45d5ffeae",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -270,67 +248,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1a6ed2fc-749b-4453-b113-72814d065177",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightMouseAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5fb44032-9168-4008-be58-44dea3ee670f",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "JumpAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "610f58d6-e4fe-426e-9297-f6dd7311c5fc",
-                    "path": "<Keyboard>/leftCtrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CrouchAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a1cc373f-2eb8-4b61-a613-8005ab0c6b94",
                     "path": "<Keyboard>/b",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChangeGunMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "80bfcb6d-a9a7-44de-afc8-6c678e32c34e",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PrimaryGun",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3159b0d3-2639-4326-9bd8-214f682b220e",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SecondaryGun",
+                    "action": "B_Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -341,7 +264,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ThrowRockAction",
+                    "action": "T_Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -352,18 +275,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FlashLightAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8b8e4862-53a9-468b-8f93-b075768971fa",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PauseMenu",
+                    "action": "F_Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -385,7 +297,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PermanentHolst",
+                    "action": "C_Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -402,12 +314,100 @@
                 },
                 {
                     "name": "",
+                    "id": "f0c0bf4d-8c6d-4783-8c12-c288995b740a",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "R_Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5fb44032-9168-4008-be58-44dea3ee670f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpaceAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5c85780d-b02a-4924-b502-7c119b8edac4",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Tab_Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b8e4862-53a9-468b-8f93-b075768971fa",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EscapeAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3159b0d3-2639-4326-9bd8-214f682b220e",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "2_Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80bfcb6d-a9a7-44de-afc8-6c678e32c34e",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "1_Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1a6ed2fc-749b-4453-b113-72814d065177",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightMouseAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "551dcbf2-16d1-4b6b-a58e-3416bada146a",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftShiftAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "610f58d6-e4fe-426e-9297-f6dd7311c5fc",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CtrlAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

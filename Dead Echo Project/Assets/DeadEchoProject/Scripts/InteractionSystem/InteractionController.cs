@@ -1,40 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(InteractionView))]
 public class InteractionController : MonoBehaviour
 {
     //Direct Dependencies
-    private InteractionView _interactionView => GetComponent<InteractionView>();
+    private InteractionView _interactionView    => GetComponent<InteractionView>();
+    private InputManager    _inputManager       => InputManager.Instance;
 
     [Header("Current Interaction")]
-    [SerializeField] private Interactor _interactionInArea = null;
-    [SerializeField] private bool _hasInteractionAround = false;
+    [SerializeField] private Interactor _interactionInArea      = null;
+    [SerializeField] private bool       _hasInteractionAround   = false;
 
-    [SerializeField] private bool _interacting = false;
+    [SerializeField] private bool       _interacting            = false;
 
     private void Update()
     {
-        if (_interactionInArea) 
-            _interactionView.SetUpInteraction(_interactionInArea);
-        else _interactionView.ResetInteractionUI();
-    }
-
-    public void InteractWith()
-    {
         if (_interactionInArea)
         {
-            if (_interacting)
+            _interactionView.SetUpInteraction(_interactionInArea);
+
+            if (_interacting && _inputManager.E_Action.Action.inProgress)
             {
                 _interactionInArea.InteractionPersistent();
-                return;
+                if (_inputManager.E_Action.Action.WasReleasedThisFrame())
+                    _interacting = false;
             }
-            _interactionInArea.InteractStart();
-            _interacting = true;
+
+            if (_inputManager.E_Action.Action.WasPressedThisFrame())
+            {
+                _interactionInArea.InteractStart();
+                _interacting = true;
+            }        
         }
-        else return;
+        else _interactionView.ResetInteractionUI();
     }
 
     private void OnTriggerEnter(Collider other)

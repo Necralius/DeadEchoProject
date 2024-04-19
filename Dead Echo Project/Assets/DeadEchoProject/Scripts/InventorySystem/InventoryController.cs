@@ -5,8 +5,9 @@ public class InventoryController : MonoBehaviour
 {
     public static InventoryController Instance;
     
-
     [SerializeField] private ItemGrid selectedItemGrid;
+
+    public GroundItemGrid groundGrid;
 
     public ItemGrid SelectedItemGrid { get => selectedItemGrid; 
         set
@@ -46,13 +47,13 @@ public class InventoryController : MonoBehaviour
     {
         ItemDrag();
 
-        if (_inputManager.flashLightAction.WasPressedThisFrame()) 
+        if (_inputManager.F_Action.Action.WasPressedThisFrame()) 
             CreateRandomItem();
 
-        if (_inputManager.R_Action.WasPressedThisFrame()) 
+        if (_inputManager.R_Action.Action.WasPressedThisFrame()) 
             RotateItem();
 
-        if (_inputManager.Z_Action.WasPressedThisFrame()) 
+        if (_inputManager.Z_Action.Action.WasPressedThisFrame()) 
             InsertRandomItem();
 
         if (selectedItemGrid == null || !GameSceneManager.Instance.inventoryIsOpen)
@@ -63,9 +64,9 @@ public class InventoryController : MonoBehaviour
 
         HandleHighlight();
 
-        if (_inputManager.mouseLeftAction.WasPressedThisFrame()) 
+        if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame()) 
             ItemGet();
-        if (_inputManager.mouseRightAction.WasPressedThisFrame()) 
+        if (_inputManager.mouseRightAction.Action.WasPressedThisFrame()) 
             InspectionView.Instance.InspectItem(GetItemReference());
     }
 

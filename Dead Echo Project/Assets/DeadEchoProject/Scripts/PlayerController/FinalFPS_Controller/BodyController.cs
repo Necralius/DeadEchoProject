@@ -92,19 +92,24 @@ public class BodyController : MonoBehaviour, IDataPersistence
     public BodyState _currentBodyState = new BodyState();
     [SerializeField] private List<BodyState>    _bodyStates = new List<BodyState>();
 
+    [SerializeField] private GameObject _flashlight     = null;
+    [SerializeField] private AudioClip  _flashlightClip = null;
+
     private void Start()
     {
-        if (GameStateManager.Instance != null) RegisterDataSaver();
+        if (GameStateManager.Instance != null) 
+            RegisterDataSaver();
         _camController = GameObject.FindGameObjectWithTag("CameraObject").GetComponent<FPSCamera>();
     }
 
     private void Update()
     {
         //Nulables checks, if any crucial component is null, the system will return without any execution.
-        if (_playerManager                  == null) return;
-        if (_playerManager._armsAnimator    == null) return;
-        if (_playerManager.InputManager     == null) return;
-        if (GameSceneManager.Instance._gameIsPaused) return;
+        if (_playerManager                  == null)        return;
+        if (_playerManager._armsAnimator    == null)        return;
+        if (_playerManager.InputManager     == null)        return;
+        if (GameSceneManager.Instance._gameIsPaused)        return;
+        if (GameSceneManager.Instance._isInspectingItem)    return;
 
         UpdateCalls();
         MovementController();
@@ -113,10 +118,10 @@ public class BodyController : MonoBehaviour, IDataPersistence
     private void UpdateCalls()
     {
         _isGrounded         = Physics.CheckSphere(_feetChecker.position, _floorDistance, _groundMask);     
-        _isWalking          = _inputManager.Move != Vector2.zero;
-        _isSprinting        = _playerManager.InputManager.sprint && _isWalking && !_isWalkingBackwards && !_isCrouching;
-        _isWalkingBackwards = _inputManager.Move.y < 0;
-        _isWalkingSidewards = _inputManager.Move.x != 0;
+        _isWalking          = _inputManager.MoveAction.Vector != Vector2.zero;
+        _isSprinting        = _playerManager.InputManager.LeftShiftAction.State && _isWalking && !_isWalkingBackwards && !_isCrouching;
+        _isWalkingBackwards = _inputManager.MoveAction.Vector.y < 0;
+        _isWalkingSidewards = _inputManager.MoveAction.Vector.x != 0;
 
         _playerManager._armsAnimator.SetBool(armWalkHash,       _isWalking);
         _playerManager._armsAnimator.SetBool(armRunningHash,    _isSprinting);    
@@ -131,7 +136,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
         if (_isGrounded && _velocity.y < 0)
             _velocity.y = -2f;
 
-        Vector3 move = transform.right * _inputManager.Move.x + transform.forward * _inputManager.Move.y; // Movement calculation.
+        Vector3 move = transform.right * _inputManager.MoveAction.Vector.x + transform.forward * _inputManager.MoveAction.Vector.y; // Movement calculation.
 
         _controller?.Move(move * _targetSpeed * Time.deltaTime);// Movement direction apply.
 
@@ -142,8 +147,8 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
     private void AnimationController()
     {
-        _targetX = Mathf.Lerp(_targetX, _inputManager.Move.x, _animBlendSpeed * Time.deltaTime);
-        _targetY = Mathf.Lerp(_targetY, _isSprinting ? _inputManager.Move.y * 2 : _inputManager.Move.y, _animBlendSpeed * Time.deltaTime);
+        _targetX = Mathf.Lerp(_targetX, _inputManager.MoveAction.Vector.x, _animBlendSpeed * Time.deltaTime);
+        _targetY = Mathf.Lerp(_targetY, _isSprinting ? _inputManager.MoveAction.Vector.y * 2 : _inputManager.MoveAction.Vector.y, _animBlendSpeed * Time.deltaTime);
 
         _animator.SetFloat(xHash, _targetX);
         _animator.SetFloat(yHash, _targetY);
@@ -158,7 +163,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     {
         if (GameSceneManager.Instance.inventoryIsOpen) return;
 
-        if (_inputManager.jumpAction.WasPressedThisFrame() && _canJump && _isGrounded)
+        if (_inputManager.SpaceAction.Action.WasPressedThisFrame() && _canJump && _isGrounded)
         {
             _playerManager.PlayerAudioManager.JumpAudioAction();
             _inAir      = true;
@@ -170,42 +175,39 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
         _inAir = !_isGrounded;
 
-        if (_inputManager.E_Action.WasPressedThisFrame())
-            _playerManager.InteractionController.InteractWith();
-
-        if (_inputManager.permaHolstAction.WasPressedThisFrame())
+        if (_inputManager.C_Action.Action.WasPressedThisFrame())
             GunHolstingBehavior();
 
         if (GameStateManager.Instance != null)
         {
             if (GameStateManager.Instance.currentApplicationData.crouchType == 0)//Crouch Type -> Hold
             {
-                if (_inputManager.crouchAction.WasPerformedThisFrame() && _isGrounded && !_isSprinting) 
+                if (_inputManager.CtrlAction.Action.WasPerformedThisFrame() && _isGrounded && !_isSprinting) 
                     _isCrouching = true;
-                else if (_inputManager.crouchAction.WasReleasedThisFrame()) 
+                else if (_inputManager.CtrlAction.Action.WasReleasedThisFrame()) 
                     _isCrouching = false;
             }
             else if (GameStateManager.Instance.currentApplicationData.crouchType == 1)//Crouch Type -> Toggle
             {
-                if (_inputManager.crouchAction.WasPerformedThisFrame() && _isGrounded && !_isSprinting) 
+                if (_inputManager.CtrlAction.Action.WasPerformedThisFrame() && _isGrounded && !_isSprinting) 
                     _isCrouching = true;
-                else if (_inputManager.crouchAction.WasPerformedThisFrame() && _isCrouching) 
+                else if (_inputManager.CtrlAction.Action.WasPerformedThisFrame() && _isCrouching) 
                     _isCrouching = false;
             }
         }
         else
         {
-            if (_inputManager.crouchAction.WasPerformedThisFrame() && _isGrounded && !_isSprinting) 
+            if (_inputManager.CtrlAction.Action.WasPerformedThisFrame() && _isGrounded && !_isSprinting) 
                 _isCrouching = true;
 
-            if (_inputManager.crouchAction.WasReleasedThisFrame() && _isGrounded) 
+            if (_inputManager.CtrlAction.Action.WasReleasedThisFrame() && _isGrounded) 
                 _isCrouching = false;
         }
 
         if (_gunsInHand.Count > 0)
         {
-            if (_inputManager.primaryGun.WasPressedThisFrame()      && !_changingWeapon) EquipGun(0);
-            if (_inputManager.secondaryGun.WasPressedThisFrame()    && !_changingWeapon) EquipGun(1);
+            if (_inputManager.One_Action.Action.WasPressedThisFrame()      && !_changingWeapon) EquipGun(0);
+            if (_inputManager.Two_Action.Action.WasPressedThisFrame()    && !_changingWeapon) EquipGun(1);
         }
         _animator.SetBool(isCrouchingHash, _isCrouching);
     }
@@ -326,6 +328,17 @@ public class BodyController : MonoBehaviour, IDataPersistence
     #endregion
 
     public void DoStickiness()      => _dragMultiplier = 1f - _npcStickiness;
+
+    private void ChangeFlashlightState()
+    {
+        _flashlight.SetActive(!_flashlight.activeInHierarchy);
+        SS_Flashlight();
+    }
+    private void SS_Flashlight()
+    {
+        if (!_flashlightClip.Equals(null))
+            AudioManager.Instance.PlayOneShotSound("Effects", _flashlightClip, transform.position, 1f, 0, 128);
+    }
 }
 
 [Serializable]

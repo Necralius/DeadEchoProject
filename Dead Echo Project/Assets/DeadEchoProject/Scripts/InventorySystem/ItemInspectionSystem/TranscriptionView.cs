@@ -1,29 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TranscriptionView : MonoBehaviour
 {
-    [SerializeField] private Image           _img;
-    [SerializeField] private TextMeshProUGUI _transcriptionText;
-    [SerializeField] private Button          _transcriptionButton;
-    [SerializeField] private GameObject      _transcriptionArea;
+    [Header("Dependencies")]
+    [SerializeField] private TextMeshProUGUI _title;
+    [SerializeField] private TextMeshProUGUI _subtitle;
+    [SerializeField] private TextMeshProUGUI _content;
+    [SerializeField] private TextMeshProUGUI _signature;
+    [SerializeField] private TextMeshProUGUI _footer;
 
     public void OpenView(NodeItem item)
     {
-        if (item               == null) return;
-        if (_transcriptionArea == null) return;
-        if (_transcriptionText == null) return;
-        if (_transcriptionArea == null) return;
+        if (item    == null) return;
+        if (_title  == null) return;
 
-        _transcriptionArea.SetActive(true);
+        gameObject.SetActive(true);
 
-        _transcriptionText.text = item.Transcription;
-
-        if (item.Font       != null) _transcriptionText.font    = item.Font;
-        if (item.TextColor  != null) _transcriptionText.color   = item.TextColor;
-        else _transcriptionText.color = Color.white;
+        if (item.Content != null)
+        {
+            item.Content.Title.     ChangeText(ref _title);
+            item.Content.Subtitle.  ChangeText(ref _subtitle);
+            item.Content.Content.   ChangeText(ref _content);
+            item.Content.Signature. ChangeText(ref _signature);
+            item.Content.Footer.    ChangeText(ref _footer);
+        }
     }
 }

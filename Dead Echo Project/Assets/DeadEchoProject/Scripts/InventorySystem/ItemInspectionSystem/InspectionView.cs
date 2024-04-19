@@ -40,10 +40,13 @@ public class InspectionView : MonoBehaviour
         if (_inpsectItem    == null) return;
         if (item            == null)
         {
-
             Debug.Log("Null item");
             return;
-        }   
+        }
+
+        if (item.data is NodeItem) 
+            _inpsectItem.gameObject.SetActive(true);
+        else _inpsectItem.gameObject.SetActive(false);
 
         ItemData selectedItem = item.data;
 

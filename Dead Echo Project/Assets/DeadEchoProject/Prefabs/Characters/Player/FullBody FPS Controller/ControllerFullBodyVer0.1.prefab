@@ -150,14 +150,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 49534398926867382}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.013155071, y: 0.19555682, z: 0.14401469, w: 0.9699713}
+  m_LocalPosition: {x: 0.81153286, y: -0.6824378, z: 0.21435869}
+  m_LocalScale: {x: 0.98735976, y: 0.87742263, z: 0.9111641}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4524663056500540416}
   - {fileID: 1977767900964363187}
-  m_Father: {fileID: 108541117726196546}
+  m_Father: {fileID: 256333039551041774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &112533106245246741
 GameObject:
@@ -1334,6 +1334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18132634d0263184da653e0b1fa33a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInstance: {fileID: 0}
   _gunDataConteiner:
     gunData:
       gunName: Makarov
@@ -13148,9 +13149,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedItemGrid: {fileID: 0}
+  groundGrid: {fileID: 0}
   selectedItem: {fileID: 0}
   items:
   - {fileID: 11400000, guid: 48622c9ddfb9569488da9a8360dda76a, type: 2}
+  - {fileID: 11400000, guid: f26435894aaa94943b1320d399b058a8, type: 2}
   _highlighter: {fileID: 1079441931727089345}
   itemPrefab: {fileID: 1780710578786468693, guid: 146368dbe4ddd614c859a37bc14a57fd,
     type: 3}
@@ -23327,7 +23330,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2912089895065765384}
-  - {fileID: 3034026585865094647}
   - {fileID: 1741060986791035026}
   - {fileID: 4650448574602987865}
   - {fileID: 526322933368388545}
@@ -30948,6 +30950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fa65ef46f951147b56a03a37ab29fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInstance: {fileID: 0}
   _gunDataConteiner:
     gunData:
       gunName: Remington 12
@@ -33030,6 +33033,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3888653108541314710}
+  - {fileID: 3034026585865094647}
   m_Father: {fileID: 5684901809594780881}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7005055903440599256
@@ -45655,6 +45659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f5d6adb76e56740872f42844d23264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInstance: {fileID: 0}
   _gunDataConteiner:
     gunData:
       gunName: AK47
@@ -47184,8 +47189,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1946299165315891944}
-        m_TargetAssemblyTypeName: BodyController, Assembly-CSharp
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameSceneManager, Assembly-CSharp
         m_MethodName: CloseInspectionView
         m_Mode: 1
         m_Arguments:
@@ -48207,188 +48212,228 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836fd6e5562a0fe4181ea2daaf71c9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprint: 0
-  R_State: 0
-  mouseLeft: 0
-  mouseRight: 0
-  jumping: 0
-  crouching: 0
-  changingGunMode: 0
-  isHoldingRock: 0
-  flashlightActive: 0
-  pauseMenu: 0
-  E_State: 0
-  Z_State: 0
-  permanentHolst: 0
-  Tab_State: 0
   currentMap:
     m_Name: Current Map
     m_Id: e2a76d37-61e4-4e03-bb3f-495338ec8c15
     m_Asset: {fileID: 0}
     m_Actions: []
     m_Bindings: []
-  moveAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: ac671c87-cbe7-4684-8cf1-404883e0ad46
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  lookAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 00e8edcd-c8a6-4725-9fb8-a42fe89467b8
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  jumpAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 3f32a717-e027-4ee2-b2a4-77177a4e9dc8
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  crouchAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 076d6c1f-0d61-4097-9848-1cdcdc0aa3bb
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  sprintAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 18ae7310-9bf5-4956-8d2e-ce64c0b5bea7
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  R_Action:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 24871ba9-34e7-4644-a54d-5012bacf3750
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+  MoveAction:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 6916d171-0a7c-48d4-8ce2-50e141be8d14
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  LookAction:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 829af51e-5e12-4037-8183-442be5038706
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  SpaceAction:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: e25a9fe0-e141-4c4a-b852-beb6e8a30349
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  CtrlAction:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: d9a0edf3-26b3-49bb-9fdc-96cdbc626bee
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  LeftShiftAction:
+    Action:
+      m_Name: Action
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 97628e32-59a1-42ad-95a9-314d0e2b12f4
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
   mouseLeftAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: ef9d167d-3232-4b0f-9795-bacb761df25c
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 8bd84c42-f762-4fc9-9939-898962ed1404
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
   mouseRightAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: df7db058-b586-4c05-94d7-1f179b980c70
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  gunModeAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 95c71e38-6d38-4c02-a095-ece5628aec55
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  throwRockAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 55b9b08e-7980-403f-9014-52aaa674e983
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  permaHolstAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: acdc1f7e-6d07-4b95-ae3d-352bf5d2b836
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  flashLightAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: a8ff1954-dc8d-4676-b470-b4b975b15f79
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  primaryGun:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: c6660e0b-ffa6-4e77-9202-38aa47e25747
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  secondaryGun:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 1fd31226-6978-4a13-8b9a-8df3e1c26fb2
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  pauseMenuAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 056317cd-b74b-4c15-8853-cfc0de41cfc6
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b18591b6-4c02-45d4-b171-ec9f6ae66531
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  R_Action:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 66fe9b3e-cf80-414d-a44a-ffcb4307872f
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  B_Action:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 9875b5dc-2448-4fca-a841-b0db4e9654ba
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  T_Action:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 3f6797ed-43d4-4dcf-80a2-53def88e6d69
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  C_Action:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ad10bba6-7bd3-4898-ad50-f2db2d47a8e0
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  F_Action:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: e4304b0d-1647-4a19-bc27-b9657fbe5045
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  One_Action:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: d406d1f3-7734-43ae-b9ef-980c96b716c6
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  Two_Action:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 89331903-ab4f-474e-85ff-b843e99f1232
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
+  Escape_Action:
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: aa84a83b-b85a-466c-a9f2-5d68b098197b
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
   E_Action:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 265b8028-68b4-420d-8d82-d80867c9a80d
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 2ab9ee99-dd46-4846-ad26-6258585a8b92
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
   Z_Action:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 12e0b14d-27d0-4020-a74f-1517b8f97897
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 71a7d8c7-f6f6-4af5-8902-495e9fb80ef9
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
   Tab_Action:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 03cbb3ff-aa45-496f-aede-5f6e139d976c
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+    Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 3108c762-2be2-4941-9745-4d75f3ad7e36
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    State: 0
+    Vector: {x: 0, y: 0}
 --- !u!114 &1946299165315891944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48460,6 +48505,8 @@ MonoBehaviour:
     CameraY_Offset: 0.9
     Sprite: {fileID: 0}
     MovementState: 0
+  _flashlight: {fileID: 0}
+  _flashlightClip: {fileID: 0}
 --- !u!114 &7555141536224167663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48529,7 +48576,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637b169f2c117604085fd454f0baf24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animLayers: []
+  _animLayers:
+  - {fileID: 4776479602912110331}
   _rockThrower: {fileID: 0}
   _armsAnimator: {fileID: 0}
   gunShootJam: {fileID: 0}

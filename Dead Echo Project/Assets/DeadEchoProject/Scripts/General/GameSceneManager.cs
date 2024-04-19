@@ -44,6 +44,7 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] private GameObject _playerView;
 
     public bool _gameIsPaused;
+    public bool _isInspectingItem;
 
     public ParticleSystem bloodParticles { get => _bloodParticles; }
 
@@ -137,10 +138,10 @@ public class GameSceneManager : MonoBehaviour
 
         if (inputManager != null && !CharacterManager.Instance.isDead)
         {
-            if (inputManager.pauseMenuAction.WasPressedThisFrame()) 
+            if (inputManager.Escape_Action.Action.WasPressedThisFrame()) 
                 PauseMenuSystem();
 
-            if (inputManager.Tab_Action.WasPressedThisFrame()) 
+            if (inputManager.Tab_Action.Action.WasPressedThisFrame()) 
                 ChangeInventoryState();
         }
     }

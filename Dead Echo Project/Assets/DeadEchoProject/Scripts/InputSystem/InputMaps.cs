@@ -46,18 +46,9 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""SprintAction"",
+                    ""name"": ""RightMouseAction"",
                     ""type"": ""Button"",
-                    ""id"": ""20232a6b-56b0-409b-9325-82cea4458247"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""R_Action"",
-                    ""type"": ""Button"",
-                    ""id"": ""05b057e4-ddbe-4c7e-b513-7afaff3dfac5"",
+                    ""id"": ""74ed7541-5876-4bcc-8bfe-24deadeff1a5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -73,25 +64,16 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RightMouseAction"",
+                    ""name"": ""LeftShiftAction"",
                     ""type"": ""Button"",
-                    ""id"": ""74ed7541-5876-4bcc-8bfe-24deadeff1a5"",
+                    ""id"": ""20232a6b-56b0-409b-9325-82cea4458247"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""JumpAction"",
-                    ""type"": ""Button"",
-                    ""id"": ""86b93aa6-8a7c-4c23-aa91-6a96ee6fbff3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""CrouchAction"",
+                    ""name"": ""CtrlAction"",
                     ""type"": ""Button"",
                     ""id"": ""8ba6f3c5-b014-4ec2-a48b-3743121d18eb"",
                     ""expectedControlType"": ""Button"",
@@ -100,16 +82,34 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ChangeGunMode"",
+                    ""name"": ""SpaceAction"",
                     ""type"": ""Button"",
-                    ""id"": ""62d6a029-ca79-490d-b5a9-9cfaed9680ff"",
+                    ""id"": ""86b93aa6-8a7c-4c23-aa91-6a96ee6fbff3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PrimaryGun"",
+                    ""name"": ""Tab_Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""02d666b1-a2ab-4739-932b-5e70fe130922"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EscapeAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""252d593d-605f-46ce-b5ee-c9e80c81d652"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""1_Action"",
                     ""type"": ""Button"",
                     ""id"": ""bf3ba2e1-5351-421a-8f39-4a7894e0105d"",
                     ""expectedControlType"": ""Button"",
@@ -118,7 +118,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SecondaryGun"",
+                    ""name"": ""2_Action"",
                     ""type"": ""Button"",
                     ""id"": ""e2787042-9cf5-4ad1-870d-00826d51bac7"",
                     ""expectedControlType"": ""Button"",
@@ -127,7 +127,25 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ThrowRockAction"",
+                    ""name"": ""R_Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""05b057e4-ddbe-4c7e-b513-7afaff3dfac5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""B_Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""62d6a029-ca79-490d-b5a9-9cfaed9680ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""T_Action"",
                     ""type"": ""Button"",
                     ""id"": ""01046a71-1f9d-4bd2-8d5b-be4a618e9520"",
                     ""expectedControlType"": ""Button"",
@@ -136,18 +154,9 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""FlashLightAction"",
+                    ""name"": ""F_Action"",
                     ""type"": ""Button"",
                     ""id"": ""98563690-a0f4-47e8-856a-3a81017236b3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""PauseMenu"",
-                    ""type"": ""Button"",
-                    ""id"": ""252d593d-605f-46ce-b5ee-c9e80c81d652"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -163,7 +172,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PermanentHolst"",
+                    ""name"": ""C_Action"",
                     ""type"": ""Button"",
                     ""id"": ""c6ed3035-5d5b-4bc3-810e-97fc86f35aa1"",
                     ""expectedControlType"": ""Button"",
@@ -175,15 +184,6 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""name"": ""Z_Action"",
                     ""type"": ""Button"",
                     ""id"": ""323dea5c-4e3c-41a7-ba0b-f84b18def1c6"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Tab_Action"",
-                    ""type"": ""Button"",
-                    ""id"": ""02d666b1-a2ab-4739-932b-5e70fe130922"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -259,28 +259,6 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""551dcbf2-16d1-4b6b-a58e-3416bada146a"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SprintAction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f0c0bf4d-8c6d-4783-8c12-c288995b740a"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""R_Action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""915a71ff-630d-4414-b47f-71b45d5ffeae"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -292,67 +270,12 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1a6ed2fc-749b-4453-b113-72814d065177"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RightMouseAction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5fb44032-9168-4008-be58-44dea3ee670f"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""JumpAction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""610f58d6-e4fe-426e-9297-f6dd7311c5fc"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CrouchAction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a1cc373f-2eb8-4b61-a613-8005ab0c6b94"",
                     ""path"": ""<Keyboard>/b"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ChangeGunMode"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""80bfcb6d-a9a7-44de-afc8-6c678e32c34e"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PrimaryGun"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3159b0d3-2639-4326-9bd8-214f682b220e"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SecondaryGun"",
+                    ""action"": ""B_Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -363,7 +286,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ThrowRockAction"",
+                    ""action"": ""T_Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -374,18 +297,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""FlashLightAction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8b8e4862-53a9-468b-8f93-b075768971fa"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PauseMenu"",
+                    ""action"": ""F_Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -407,7 +319,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PermanentHolst"",
+                    ""action"": ""C_Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -424,12 +336,100 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""f0c0bf4d-8c6d-4783-8c12-c288995b740a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""R_Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fb44032-9168-4008-be58-44dea3ee670f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpaceAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""5c85780d-b02a-4924-b502-7c119b8edac4"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Tab_Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b8e4862-53a9-468b-8f93-b075768971fa"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EscapeAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3159b0d3-2639-4326-9bd8-214f682b220e"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""2_Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80bfcb6d-a9a7-44de-afc8-6c678e32c34e"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""1_Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1a6ed2fc-749b-4453-b113-72814d065177"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightMouseAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""551dcbf2-16d1-4b6b-a58e-3416bada146a"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftShiftAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""610f58d6-e4fe-426e-9297-f6dd7311c5fc"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CtrlAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -442,22 +442,22 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
         m_PC_Map = asset.FindActionMap("PC_Map", throwIfNotFound: true);
         m_PC_Map_Look = m_PC_Map.FindAction("Look", throwIfNotFound: true);
         m_PC_Map_Move = m_PC_Map.FindAction("Move", throwIfNotFound: true);
-        m_PC_Map_SprintAction = m_PC_Map.FindAction("SprintAction", throwIfNotFound: true);
-        m_PC_Map_R_Action = m_PC_Map.FindAction("R_Action", throwIfNotFound: true);
-        m_PC_Map_LeftMouseAction = m_PC_Map.FindAction("LeftMouseAction", throwIfNotFound: true);
         m_PC_Map_RightMouseAction = m_PC_Map.FindAction("RightMouseAction", throwIfNotFound: true);
-        m_PC_Map_JumpAction = m_PC_Map.FindAction("JumpAction", throwIfNotFound: true);
-        m_PC_Map_CrouchAction = m_PC_Map.FindAction("CrouchAction", throwIfNotFound: true);
-        m_PC_Map_ChangeGunMode = m_PC_Map.FindAction("ChangeGunMode", throwIfNotFound: true);
-        m_PC_Map_PrimaryGun = m_PC_Map.FindAction("PrimaryGun", throwIfNotFound: true);
-        m_PC_Map_SecondaryGun = m_PC_Map.FindAction("SecondaryGun", throwIfNotFound: true);
-        m_PC_Map_ThrowRockAction = m_PC_Map.FindAction("ThrowRockAction", throwIfNotFound: true);
-        m_PC_Map_FlashLightAction = m_PC_Map.FindAction("FlashLightAction", throwIfNotFound: true);
-        m_PC_Map_PauseMenu = m_PC_Map.FindAction("PauseMenu", throwIfNotFound: true);
-        m_PC_Map_E_Action = m_PC_Map.FindAction("E_Action", throwIfNotFound: true);
-        m_PC_Map_PermanentHolst = m_PC_Map.FindAction("PermanentHolst", throwIfNotFound: true);
-        m_PC_Map_Z_Action = m_PC_Map.FindAction("Z_Action", throwIfNotFound: true);
+        m_PC_Map_LeftMouseAction = m_PC_Map.FindAction("LeftMouseAction", throwIfNotFound: true);
+        m_PC_Map_LeftShiftAction = m_PC_Map.FindAction("LeftShiftAction", throwIfNotFound: true);
+        m_PC_Map_CtrlAction = m_PC_Map.FindAction("CtrlAction", throwIfNotFound: true);
+        m_PC_Map_SpaceAction = m_PC_Map.FindAction("SpaceAction", throwIfNotFound: true);
         m_PC_Map_Tab_Action = m_PC_Map.FindAction("Tab_Action", throwIfNotFound: true);
+        m_PC_Map_EscapeAction = m_PC_Map.FindAction("EscapeAction", throwIfNotFound: true);
+        m_PC_Map__1_Action = m_PC_Map.FindAction("1_Action", throwIfNotFound: true);
+        m_PC_Map__2_Action = m_PC_Map.FindAction("2_Action", throwIfNotFound: true);
+        m_PC_Map_R_Action = m_PC_Map.FindAction("R_Action", throwIfNotFound: true);
+        m_PC_Map_B_Action = m_PC_Map.FindAction("B_Action", throwIfNotFound: true);
+        m_PC_Map_T_Action = m_PC_Map.FindAction("T_Action", throwIfNotFound: true);
+        m_PC_Map_F_Action = m_PC_Map.FindAction("F_Action", throwIfNotFound: true);
+        m_PC_Map_E_Action = m_PC_Map.FindAction("E_Action", throwIfNotFound: true);
+        m_PC_Map_C_Action = m_PC_Map.FindAction("C_Action", throwIfNotFound: true);
+        m_PC_Map_Z_Action = m_PC_Map.FindAction("Z_Action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -521,44 +521,44 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
     private List<IPC_MapActions> m_PC_MapActionsCallbackInterfaces = new List<IPC_MapActions>();
     private readonly InputAction m_PC_Map_Look;
     private readonly InputAction m_PC_Map_Move;
-    private readonly InputAction m_PC_Map_SprintAction;
-    private readonly InputAction m_PC_Map_R_Action;
-    private readonly InputAction m_PC_Map_LeftMouseAction;
     private readonly InputAction m_PC_Map_RightMouseAction;
-    private readonly InputAction m_PC_Map_JumpAction;
-    private readonly InputAction m_PC_Map_CrouchAction;
-    private readonly InputAction m_PC_Map_ChangeGunMode;
-    private readonly InputAction m_PC_Map_PrimaryGun;
-    private readonly InputAction m_PC_Map_SecondaryGun;
-    private readonly InputAction m_PC_Map_ThrowRockAction;
-    private readonly InputAction m_PC_Map_FlashLightAction;
-    private readonly InputAction m_PC_Map_PauseMenu;
-    private readonly InputAction m_PC_Map_E_Action;
-    private readonly InputAction m_PC_Map_PermanentHolst;
-    private readonly InputAction m_PC_Map_Z_Action;
+    private readonly InputAction m_PC_Map_LeftMouseAction;
+    private readonly InputAction m_PC_Map_LeftShiftAction;
+    private readonly InputAction m_PC_Map_CtrlAction;
+    private readonly InputAction m_PC_Map_SpaceAction;
     private readonly InputAction m_PC_Map_Tab_Action;
+    private readonly InputAction m_PC_Map_EscapeAction;
+    private readonly InputAction m_PC_Map__1_Action;
+    private readonly InputAction m_PC_Map__2_Action;
+    private readonly InputAction m_PC_Map_R_Action;
+    private readonly InputAction m_PC_Map_B_Action;
+    private readonly InputAction m_PC_Map_T_Action;
+    private readonly InputAction m_PC_Map_F_Action;
+    private readonly InputAction m_PC_Map_E_Action;
+    private readonly InputAction m_PC_Map_C_Action;
+    private readonly InputAction m_PC_Map_Z_Action;
     public struct PC_MapActions
     {
         private @InputMaps m_Wrapper;
         public PC_MapActions(@InputMaps wrapper) { m_Wrapper = wrapper; }
         public InputAction @Look => m_Wrapper.m_PC_Map_Look;
         public InputAction @Move => m_Wrapper.m_PC_Map_Move;
-        public InputAction @SprintAction => m_Wrapper.m_PC_Map_SprintAction;
-        public InputAction @R_Action => m_Wrapper.m_PC_Map_R_Action;
-        public InputAction @LeftMouseAction => m_Wrapper.m_PC_Map_LeftMouseAction;
         public InputAction @RightMouseAction => m_Wrapper.m_PC_Map_RightMouseAction;
-        public InputAction @JumpAction => m_Wrapper.m_PC_Map_JumpAction;
-        public InputAction @CrouchAction => m_Wrapper.m_PC_Map_CrouchAction;
-        public InputAction @ChangeGunMode => m_Wrapper.m_PC_Map_ChangeGunMode;
-        public InputAction @PrimaryGun => m_Wrapper.m_PC_Map_PrimaryGun;
-        public InputAction @SecondaryGun => m_Wrapper.m_PC_Map_SecondaryGun;
-        public InputAction @ThrowRockAction => m_Wrapper.m_PC_Map_ThrowRockAction;
-        public InputAction @FlashLightAction => m_Wrapper.m_PC_Map_FlashLightAction;
-        public InputAction @PauseMenu => m_Wrapper.m_PC_Map_PauseMenu;
-        public InputAction @E_Action => m_Wrapper.m_PC_Map_E_Action;
-        public InputAction @PermanentHolst => m_Wrapper.m_PC_Map_PermanentHolst;
-        public InputAction @Z_Action => m_Wrapper.m_PC_Map_Z_Action;
+        public InputAction @LeftMouseAction => m_Wrapper.m_PC_Map_LeftMouseAction;
+        public InputAction @LeftShiftAction => m_Wrapper.m_PC_Map_LeftShiftAction;
+        public InputAction @CtrlAction => m_Wrapper.m_PC_Map_CtrlAction;
+        public InputAction @SpaceAction => m_Wrapper.m_PC_Map_SpaceAction;
         public InputAction @Tab_Action => m_Wrapper.m_PC_Map_Tab_Action;
+        public InputAction @EscapeAction => m_Wrapper.m_PC_Map_EscapeAction;
+        public InputAction @_1_Action => m_Wrapper.m_PC_Map__1_Action;
+        public InputAction @_2_Action => m_Wrapper.m_PC_Map__2_Action;
+        public InputAction @R_Action => m_Wrapper.m_PC_Map_R_Action;
+        public InputAction @B_Action => m_Wrapper.m_PC_Map_B_Action;
+        public InputAction @T_Action => m_Wrapper.m_PC_Map_T_Action;
+        public InputAction @F_Action => m_Wrapper.m_PC_Map_F_Action;
+        public InputAction @E_Action => m_Wrapper.m_PC_Map_E_Action;
+        public InputAction @C_Action => m_Wrapper.m_PC_Map_C_Action;
+        public InputAction @Z_Action => m_Wrapper.m_PC_Map_Z_Action;
         public InputActionMap Get() { return m_Wrapper.m_PC_Map; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -574,54 +574,54 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @SprintAction.started += instance.OnSprintAction;
-            @SprintAction.performed += instance.OnSprintAction;
-            @SprintAction.canceled += instance.OnSprintAction;
-            @R_Action.started += instance.OnR_Action;
-            @R_Action.performed += instance.OnR_Action;
-            @R_Action.canceled += instance.OnR_Action;
-            @LeftMouseAction.started += instance.OnLeftMouseAction;
-            @LeftMouseAction.performed += instance.OnLeftMouseAction;
-            @LeftMouseAction.canceled += instance.OnLeftMouseAction;
             @RightMouseAction.started += instance.OnRightMouseAction;
             @RightMouseAction.performed += instance.OnRightMouseAction;
             @RightMouseAction.canceled += instance.OnRightMouseAction;
-            @JumpAction.started += instance.OnJumpAction;
-            @JumpAction.performed += instance.OnJumpAction;
-            @JumpAction.canceled += instance.OnJumpAction;
-            @CrouchAction.started += instance.OnCrouchAction;
-            @CrouchAction.performed += instance.OnCrouchAction;
-            @CrouchAction.canceled += instance.OnCrouchAction;
-            @ChangeGunMode.started += instance.OnChangeGunMode;
-            @ChangeGunMode.performed += instance.OnChangeGunMode;
-            @ChangeGunMode.canceled += instance.OnChangeGunMode;
-            @PrimaryGun.started += instance.OnPrimaryGun;
-            @PrimaryGun.performed += instance.OnPrimaryGun;
-            @PrimaryGun.canceled += instance.OnPrimaryGun;
-            @SecondaryGun.started += instance.OnSecondaryGun;
-            @SecondaryGun.performed += instance.OnSecondaryGun;
-            @SecondaryGun.canceled += instance.OnSecondaryGun;
-            @ThrowRockAction.started += instance.OnThrowRockAction;
-            @ThrowRockAction.performed += instance.OnThrowRockAction;
-            @ThrowRockAction.canceled += instance.OnThrowRockAction;
-            @FlashLightAction.started += instance.OnFlashLightAction;
-            @FlashLightAction.performed += instance.OnFlashLightAction;
-            @FlashLightAction.canceled += instance.OnFlashLightAction;
-            @PauseMenu.started += instance.OnPauseMenu;
-            @PauseMenu.performed += instance.OnPauseMenu;
-            @PauseMenu.canceled += instance.OnPauseMenu;
-            @E_Action.started += instance.OnE_Action;
-            @E_Action.performed += instance.OnE_Action;
-            @E_Action.canceled += instance.OnE_Action;
-            @PermanentHolst.started += instance.OnPermanentHolst;
-            @PermanentHolst.performed += instance.OnPermanentHolst;
-            @PermanentHolst.canceled += instance.OnPermanentHolst;
-            @Z_Action.started += instance.OnZ_Action;
-            @Z_Action.performed += instance.OnZ_Action;
-            @Z_Action.canceled += instance.OnZ_Action;
+            @LeftMouseAction.started += instance.OnLeftMouseAction;
+            @LeftMouseAction.performed += instance.OnLeftMouseAction;
+            @LeftMouseAction.canceled += instance.OnLeftMouseAction;
+            @LeftShiftAction.started += instance.OnLeftShiftAction;
+            @LeftShiftAction.performed += instance.OnLeftShiftAction;
+            @LeftShiftAction.canceled += instance.OnLeftShiftAction;
+            @CtrlAction.started += instance.OnCtrlAction;
+            @CtrlAction.performed += instance.OnCtrlAction;
+            @CtrlAction.canceled += instance.OnCtrlAction;
+            @SpaceAction.started += instance.OnSpaceAction;
+            @SpaceAction.performed += instance.OnSpaceAction;
+            @SpaceAction.canceled += instance.OnSpaceAction;
             @Tab_Action.started += instance.OnTab_Action;
             @Tab_Action.performed += instance.OnTab_Action;
             @Tab_Action.canceled += instance.OnTab_Action;
+            @EscapeAction.started += instance.OnEscapeAction;
+            @EscapeAction.performed += instance.OnEscapeAction;
+            @EscapeAction.canceled += instance.OnEscapeAction;
+            @_1_Action.started += instance.On_1_Action;
+            @_1_Action.performed += instance.On_1_Action;
+            @_1_Action.canceled += instance.On_1_Action;
+            @_2_Action.started += instance.On_2_Action;
+            @_2_Action.performed += instance.On_2_Action;
+            @_2_Action.canceled += instance.On_2_Action;
+            @R_Action.started += instance.OnR_Action;
+            @R_Action.performed += instance.OnR_Action;
+            @R_Action.canceled += instance.OnR_Action;
+            @B_Action.started += instance.OnB_Action;
+            @B_Action.performed += instance.OnB_Action;
+            @B_Action.canceled += instance.OnB_Action;
+            @T_Action.started += instance.OnT_Action;
+            @T_Action.performed += instance.OnT_Action;
+            @T_Action.canceled += instance.OnT_Action;
+            @F_Action.started += instance.OnF_Action;
+            @F_Action.performed += instance.OnF_Action;
+            @F_Action.canceled += instance.OnF_Action;
+            @E_Action.started += instance.OnE_Action;
+            @E_Action.performed += instance.OnE_Action;
+            @E_Action.canceled += instance.OnE_Action;
+            @C_Action.started += instance.OnC_Action;
+            @C_Action.performed += instance.OnC_Action;
+            @C_Action.canceled += instance.OnC_Action;
+            @Z_Action.started += instance.OnZ_Action;
+            @Z_Action.performed += instance.OnZ_Action;
+            @Z_Action.canceled += instance.OnZ_Action;
         }
 
         private void UnregisterCallbacks(IPC_MapActions instance)
@@ -632,54 +632,54 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @SprintAction.started -= instance.OnSprintAction;
-            @SprintAction.performed -= instance.OnSprintAction;
-            @SprintAction.canceled -= instance.OnSprintAction;
-            @R_Action.started -= instance.OnR_Action;
-            @R_Action.performed -= instance.OnR_Action;
-            @R_Action.canceled -= instance.OnR_Action;
-            @LeftMouseAction.started -= instance.OnLeftMouseAction;
-            @LeftMouseAction.performed -= instance.OnLeftMouseAction;
-            @LeftMouseAction.canceled -= instance.OnLeftMouseAction;
             @RightMouseAction.started -= instance.OnRightMouseAction;
             @RightMouseAction.performed -= instance.OnRightMouseAction;
             @RightMouseAction.canceled -= instance.OnRightMouseAction;
-            @JumpAction.started -= instance.OnJumpAction;
-            @JumpAction.performed -= instance.OnJumpAction;
-            @JumpAction.canceled -= instance.OnJumpAction;
-            @CrouchAction.started -= instance.OnCrouchAction;
-            @CrouchAction.performed -= instance.OnCrouchAction;
-            @CrouchAction.canceled -= instance.OnCrouchAction;
-            @ChangeGunMode.started -= instance.OnChangeGunMode;
-            @ChangeGunMode.performed -= instance.OnChangeGunMode;
-            @ChangeGunMode.canceled -= instance.OnChangeGunMode;
-            @PrimaryGun.started -= instance.OnPrimaryGun;
-            @PrimaryGun.performed -= instance.OnPrimaryGun;
-            @PrimaryGun.canceled -= instance.OnPrimaryGun;
-            @SecondaryGun.started -= instance.OnSecondaryGun;
-            @SecondaryGun.performed -= instance.OnSecondaryGun;
-            @SecondaryGun.canceled -= instance.OnSecondaryGun;
-            @ThrowRockAction.started -= instance.OnThrowRockAction;
-            @ThrowRockAction.performed -= instance.OnThrowRockAction;
-            @ThrowRockAction.canceled -= instance.OnThrowRockAction;
-            @FlashLightAction.started -= instance.OnFlashLightAction;
-            @FlashLightAction.performed -= instance.OnFlashLightAction;
-            @FlashLightAction.canceled -= instance.OnFlashLightAction;
-            @PauseMenu.started -= instance.OnPauseMenu;
-            @PauseMenu.performed -= instance.OnPauseMenu;
-            @PauseMenu.canceled -= instance.OnPauseMenu;
-            @E_Action.started -= instance.OnE_Action;
-            @E_Action.performed -= instance.OnE_Action;
-            @E_Action.canceled -= instance.OnE_Action;
-            @PermanentHolst.started -= instance.OnPermanentHolst;
-            @PermanentHolst.performed -= instance.OnPermanentHolst;
-            @PermanentHolst.canceled -= instance.OnPermanentHolst;
-            @Z_Action.started -= instance.OnZ_Action;
-            @Z_Action.performed -= instance.OnZ_Action;
-            @Z_Action.canceled -= instance.OnZ_Action;
+            @LeftMouseAction.started -= instance.OnLeftMouseAction;
+            @LeftMouseAction.performed -= instance.OnLeftMouseAction;
+            @LeftMouseAction.canceled -= instance.OnLeftMouseAction;
+            @LeftShiftAction.started -= instance.OnLeftShiftAction;
+            @LeftShiftAction.performed -= instance.OnLeftShiftAction;
+            @LeftShiftAction.canceled -= instance.OnLeftShiftAction;
+            @CtrlAction.started -= instance.OnCtrlAction;
+            @CtrlAction.performed -= instance.OnCtrlAction;
+            @CtrlAction.canceled -= instance.OnCtrlAction;
+            @SpaceAction.started -= instance.OnSpaceAction;
+            @SpaceAction.performed -= instance.OnSpaceAction;
+            @SpaceAction.canceled -= instance.OnSpaceAction;
             @Tab_Action.started -= instance.OnTab_Action;
             @Tab_Action.performed -= instance.OnTab_Action;
             @Tab_Action.canceled -= instance.OnTab_Action;
+            @EscapeAction.started -= instance.OnEscapeAction;
+            @EscapeAction.performed -= instance.OnEscapeAction;
+            @EscapeAction.canceled -= instance.OnEscapeAction;
+            @_1_Action.started -= instance.On_1_Action;
+            @_1_Action.performed -= instance.On_1_Action;
+            @_1_Action.canceled -= instance.On_1_Action;
+            @_2_Action.started -= instance.On_2_Action;
+            @_2_Action.performed -= instance.On_2_Action;
+            @_2_Action.canceled -= instance.On_2_Action;
+            @R_Action.started -= instance.OnR_Action;
+            @R_Action.performed -= instance.OnR_Action;
+            @R_Action.canceled -= instance.OnR_Action;
+            @B_Action.started -= instance.OnB_Action;
+            @B_Action.performed -= instance.OnB_Action;
+            @B_Action.canceled -= instance.OnB_Action;
+            @T_Action.started -= instance.OnT_Action;
+            @T_Action.performed -= instance.OnT_Action;
+            @T_Action.canceled -= instance.OnT_Action;
+            @F_Action.started -= instance.OnF_Action;
+            @F_Action.performed -= instance.OnF_Action;
+            @F_Action.canceled -= instance.OnF_Action;
+            @E_Action.started -= instance.OnE_Action;
+            @E_Action.performed -= instance.OnE_Action;
+            @E_Action.canceled -= instance.OnE_Action;
+            @C_Action.started -= instance.OnC_Action;
+            @C_Action.performed -= instance.OnC_Action;
+            @C_Action.canceled -= instance.OnC_Action;
+            @Z_Action.started -= instance.OnZ_Action;
+            @Z_Action.performed -= instance.OnZ_Action;
+            @Z_Action.canceled -= instance.OnZ_Action;
         }
 
         public void RemoveCallbacks(IPC_MapActions instance)
@@ -701,21 +701,21 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
     {
         void OnLook(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
-        void OnSprintAction(InputAction.CallbackContext context);
-        void OnR_Action(InputAction.CallbackContext context);
-        void OnLeftMouseAction(InputAction.CallbackContext context);
         void OnRightMouseAction(InputAction.CallbackContext context);
-        void OnJumpAction(InputAction.CallbackContext context);
-        void OnCrouchAction(InputAction.CallbackContext context);
-        void OnChangeGunMode(InputAction.CallbackContext context);
-        void OnPrimaryGun(InputAction.CallbackContext context);
-        void OnSecondaryGun(InputAction.CallbackContext context);
-        void OnThrowRockAction(InputAction.CallbackContext context);
-        void OnFlashLightAction(InputAction.CallbackContext context);
-        void OnPauseMenu(InputAction.CallbackContext context);
-        void OnE_Action(InputAction.CallbackContext context);
-        void OnPermanentHolst(InputAction.CallbackContext context);
-        void OnZ_Action(InputAction.CallbackContext context);
+        void OnLeftMouseAction(InputAction.CallbackContext context);
+        void OnLeftShiftAction(InputAction.CallbackContext context);
+        void OnCtrlAction(InputAction.CallbackContext context);
+        void OnSpaceAction(InputAction.CallbackContext context);
         void OnTab_Action(InputAction.CallbackContext context);
+        void OnEscapeAction(InputAction.CallbackContext context);
+        void On_1_Action(InputAction.CallbackContext context);
+        void On_2_Action(InputAction.CallbackContext context);
+        void OnR_Action(InputAction.CallbackContext context);
+        void OnB_Action(InputAction.CallbackContext context);
+        void OnT_Action(InputAction.CallbackContext context);
+        void OnF_Action(InputAction.CallbackContext context);
+        void OnE_Action(InputAction.CallbackContext context);
+        void OnC_Action(InputAction.CallbackContext context);
+        void OnZ_Action(InputAction.CallbackContext context);
     }
 }

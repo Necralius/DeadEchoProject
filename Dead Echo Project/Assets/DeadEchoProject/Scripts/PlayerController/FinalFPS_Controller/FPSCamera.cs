@@ -45,10 +45,11 @@ public class FPSCamera : MonoBehaviour, IDataPersistence
     void Update()
     {
         if (GameSceneManager.Instance.inventoryIsOpen) return;
+        if (GameSceneManager.Instance._isInspectingItem) return;
 
         //Input gethering
-        mouseX = _inputManager.Look.y;
-        mouseY = _inputManager.Look.x;
+        mouseX = _inputManager.LookAction.Vector.y;
+        mouseY = _inputManager.LookAction.Vector.x;
 
         //Rotation calculation and clamping
         rotX -= mouseX * _sensX * Time.deltaTime;

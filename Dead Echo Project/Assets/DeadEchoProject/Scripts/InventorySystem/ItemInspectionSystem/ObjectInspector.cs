@@ -1,40 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ObjectInspector : MonoBehaviour
 {
     [Header("Dependencies")]
-    [SerializeField] private Transform  _objectArea             = null;
-    [SerializeField] private GameObject _currentInspectedItem   = null;
+    [SerializeField] private Transform          _objectArea             = null;
+    [SerializeField] private GameObject         _currentSpawnedItem     = null;
+    [SerializeField] private TranscriptionView  _transcriptionView      = null;
 
-    //[SerializeField] private GameObject _inspectionScreen       = null;
+    [SerializeField] private BodyController     _bodyController         = null;
 
-    //[Header("Transcription")]
-    //[SerializeField] private ObjectDrag         _objectDragger       = null;
-    //[SerializeField] private TranscriptionView  _transcriptionView   = null;
-    //[SerializeField] private Button             _transcriptionButton = null;
-
-    [SerializeField] private BodyController _bodyController = null;
+    private ItemData currentInspectedItem = null;
 
     public void Inspect(ItemData data)
     {
         GameSceneManager.Instance.OpenInspectionView();
-        //GameSceneManager.Instance.ChangeInventoryState(false);
+        GameSceneManager.Instance._isInspectingItem = true;
 
-        //_inspectionScreen.SetActive(true);
+        currentInspectedItem = data;
+    }
 
-        //if (data is NodeItem)
-        //{
-        //    _transcriptionButton.gameObject.SetActive(data is NodeItem);
-        //    _transcriptionButton.onClick.AddListener(delegate { _transcriptionView.OpenView((NodeItem)data); });
-        //}
+    public void Transcript()
+    {
+        _transcriptionView.OpenView(currentInspectedItem as NodeItem);
+    }
 
-        if (_currentInspectedItem != null)
-            Destroy(_currentInspectedItem);
-
-        _currentInspectedItem = Instantiate(data.Prefab, _objectArea);
+    public void EndInspection()
+    {
+        GameSceneManager.Instance._isInspectingItem = false;
     }
 }

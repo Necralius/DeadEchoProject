@@ -10,7 +10,7 @@ public class ItemGrid : MonoBehaviour
 
     protected InventoryItem[,] _inventoryItemSlot;
 
-    RectTransform rect => GetComponent<RectTransform>();
+    protected RectTransform rect => GetComponent<RectTransform>();
 
     [SerializeField] protected int sizeWidth  = 8;
     [SerializeField] protected int sizeHeight = 9;
@@ -99,6 +99,27 @@ public class ItemGrid : MonoBehaviour
         rectTrans.localPosition = position;
     }
 
+    public virtual void PlaceItem(InventoryItem item, int posX, int posY, bool ready)
+    {
+        Debug.Log("Adding item to grid and inventory!");
+        RectTransform rectTrans = item.GetComponent<RectTransform>();
+        rectTrans.SetParent(this.rect);
+
+        for (int x = 0; x < item.WIDTH; x++)
+            for (int y = 0; y < item.HEIGHT; y++)
+                _inventoryItemSlot[posX + x, posY + y] = item;
+
+        item.onGridPosX = posX;
+        item.onGridPosY = posY;
+
+        Vector2 position = GetPosOnGrid(item, posX, posY);
+
+        rectTrans.localPosition = position;
+
+
+    }
+
+
     public Vector2 GetPosOnGrid(InventoryItem item, int posX, int posY)
     {
         Vector2 position = new Vector2();
@@ -175,9 +196,10 @@ public class ItemGrid : MonoBehaviour
         return null;
     }
 
-    protected InventoryItem CreateRandomItem(ItemData item)
+    protected InventoryItem CreateNewItem(ItemData item)
     {
         InventoryItem inventoryItem = Instantiate(InventoryController.Instance.itemPrefab).GetComponent<InventoryItem>();
+        inventoryItem.gameObject.transform.localScale = Vector3.one;
         RectTransform itemRect = inventoryItem.GetComponent<RectTransform>();
 
         itemRect.SetParent(InventoryController.Instance.canvasTrans);

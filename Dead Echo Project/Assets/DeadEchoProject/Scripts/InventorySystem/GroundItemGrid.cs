@@ -7,31 +7,24 @@ public class GroundItemGrid : ItemGrid
     //[HideInInspector]
     public InventoryItemConteiner currentConteiner;
 
-    [SerializeField] private GameSceneManager conteinerPrefab = null;
-    [SerializeField] private GameObject playerObject = null;
+    [SerializeField] private GameObject _conteinerPrefab    = null;
+    [SerializeField] private GameObject _conteinersContent  = null;
+    [SerializeField] private GameObject _playerObject       = null;
 
-    public List<InventoryItem> SetItems(List<ItemData> items)
+    public void SetItems(List<ItemSave> items) //Apenas preenche o inventário de chão com o inventário passado pelo conteiner.
     {
-        List<InventoryItem> _itemsAdded = new List<InventoryItem>();
-
-        Init(sizeWidth, sizeHeight);
+        ResetGrid();
         foreach (var item in items)
         {
-            InventoryItem itemView = CreateRandomItem(item);
+            InventoryItem itemView = CreateNewItem(item.Data);
 
-            Vector2Int? posOnGrid = FindSpaceForItem(itemView);
-
-            if (posOnGrid == null)
-                continue;
-
-            PlaceItem(itemView, posOnGrid.Value.x, posOnGrid.Value.y);
-            _itemsAdded.Add(itemView);
+            PlaceItem(itemView, item.Position.Value.x, item.Position.Value.y, false);
         }
-        return _itemsAdded;
     }
 
     public void ResetGrid()
     {
+        Debug.LogWarning("Reseting ground grid!");
         Init(sizeWidth, sizeHeight);
         foreach (Transform trans in transform)
         {
@@ -58,11 +51,15 @@ public class GroundItemGrid : ItemGrid
     {
         if (currentConteiner == null)
         {
-            Instantiate(conteinerPrefab, playerObject.transform.position, Quaternion.identity);
+            Debug.Log("Spawning a new ground item conteiner!");
+            GameObject spawnedConteiner = Instantiate(_conteinerPrefab, _playerObject.transform.position, Quaternion.identity, _conteinersContent.transform);
+            currentConteiner = spawnedConteiner.GetComponent<InventoryItemConteiner>();
         }
 
-        if (currentConteiner != null && item != null) 
-            currentConteiner.AddItem(item.data);
-        base.PlaceItem(item, posX, posY);
+        if (currentConteiner != null && item != null)
+        {
+            currentConteiner.AddItemInPosition(new ItemSave(item.data, posX, posY));
+            base.PlaceItem(item, posX, posY);
+        }
     }
 }
