@@ -1,4 +1,7 @@
 using UnityEngine;
+using static NekraByte.Core.Enumerators;
+using UnityEngine.InputSystem;
+using UnityEditor.Build;
 
 [RequireComponent(typeof(InteractionView))]
 public class InteractionController : MonoBehaviour
@@ -19,20 +22,35 @@ public class InteractionController : MonoBehaviour
         {
             _interactionView.SetUpInteraction(_interactionInArea);
 
-            if (_interacting && _inputManager.E_Action.Action.inProgress)
+            if (_interacting && GetAction(_interactionInArea.model.Button).inProgress)
             {
                 _interactionInArea.InteractionPersistent();
-                if (_inputManager.E_Action.Action.WasReleasedThisFrame())
+                if (GetAction(_interactionInArea.model.Button).WasReleasedThisFrame())
                     _interacting = false;
             }
 
-            if (_inputManager.E_Action.Action.WasPressedThisFrame())
+            if (GetAction(_interactionInArea.model.Button).WasPressedThisFrame())
             {
                 _interactionInArea.InteractStart();
                 _interacting = true;
             }        
         }
         else _interactionView.ResetInteractionUI();
+    }
+
+    private InputAction GetAction(InteractionButton buttton)
+    {
+        InputAction action = null;
+        switch (buttton)
+        {
+            case InteractionButton.TAB:     action = _inputManager.Tab_Action.Action;   break;
+            case InteractionButton.E:       action = _inputManager.E_Action.Action;     break;
+            case InteractionButton.Q:       action = _inputManager.Q_Action.Action;     break;
+            case InteractionButton.ENTER:   action = _inputManager.Enter_Action.Action; break;
+            default:                        action = _inputManager.E_Action.Action;     break;
+        }
+
+        return action;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,6 +65,7 @@ public class InteractionController : MonoBehaviour
             _interactionInArea.InteractionEnter();
         }
     }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Interaction"))
@@ -57,6 +76,7 @@ public class InteractionController : MonoBehaviour
             _hasInteractionAround   = true;
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (_interactionInArea != null)

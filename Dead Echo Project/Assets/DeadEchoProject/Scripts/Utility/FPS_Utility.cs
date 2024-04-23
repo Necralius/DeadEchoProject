@@ -808,6 +808,7 @@ namespace NekraByte
                 Crouch,
                 Jumping
             }
+            public enum InteractionButton { TAB, E, Q, ENTER }
             public enum MovementState { Idle, Walking, Sprinting, Crouching, Air, Sliding }
             #endregion
         }

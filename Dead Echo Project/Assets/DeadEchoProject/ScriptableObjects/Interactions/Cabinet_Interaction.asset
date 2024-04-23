@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Cabinet_Interaction
   m_EditorClassIdentifier: 
   Label: open the gabinet
-  Key: E
+  Button: 1
+  ButtonTag: 

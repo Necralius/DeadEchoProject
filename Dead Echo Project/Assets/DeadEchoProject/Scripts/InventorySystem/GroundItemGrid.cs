@@ -51,7 +51,6 @@ public class GroundItemGrid : ItemGrid
     {
         if (currentConteiner == null)
         {
-            Debug.Log("Spawning a new ground item conteiner!");
             GameObject spawnedConteiner = Instantiate(_conteinerPrefab, _playerObject.transform.position, Quaternion.identity, _conteinersContent.transform);
             currentConteiner = spawnedConteiner.GetComponent<InventoryItemConteiner>();
         }

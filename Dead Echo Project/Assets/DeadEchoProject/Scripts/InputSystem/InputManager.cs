@@ -43,8 +43,10 @@ public class InputManager : MonoBehaviour
 
     [HideInInspector] public InputContent Escape_Action     = new InputContent();
     [HideInInspector] public InputContent E_Action          = new InputContent();
+    [HideInInspector] public InputContent Q_Action          = new InputContent();
     [HideInInspector] public InputContent Z_Action          = new InputContent();
     [HideInInspector] public InputContent Tab_Action        = new InputContent();
+    [HideInInspector] public InputContent Enter_Action      = new InputContent();
 
     #endregion
 
@@ -65,27 +67,32 @@ public class InputManager : MonoBehaviour
 
         currentMap      = playerInput.currentActionMap;
 
-        //Movment Actions
+        //Movement vectors
         MoveAction.Action                   = currentMap.FindAction("Move");
         LookAction.Action                   = currentMap.FindAction("Look");
-        LeftShiftAction.Action              = currentMap.FindAction("LeftShiftAction");
-        SpaceAction.Action                  = currentMap.FindAction("SpaceAction");
-        CtrlAction.Action                   = currentMap.FindAction("CtrlAction");
 
-        //Gun Behavior Actions
-        R_Action.Action                     = currentMap.FindAction("R_Action");
-        mouseLeftAction.Action              = currentMap.FindAction("LeftMouseAction");
-        mouseRightAction.Action             = currentMap.FindAction("RightMouseAction");
+        //Mouse keys
+        mouseLeftAction.Action              = currentMap.FindAction("LeftMouse_Action");
+        mouseRightAction.Action             = currentMap.FindAction("RightMouse_Action");
 
+        //Numeric and special keys
         One_Action.Action                   = currentMap.FindAction("1_Action");
         Two_Action.Action                   = currentMap.FindAction("2_Action");
-        Escape_Action.Action                = currentMap.FindAction("EscapeAction");
+        LeftShiftAction.Action              = currentMap.FindAction("LeftShift_Action");
+        CtrlAction.Action                   = currentMap.FindAction("Ctrl_Action");
+        SpaceAction.Action                  = currentMap.FindAction("Space_Action");
         Tab_Action.Action                   = currentMap.FindAction("Tab_Action");
+        Escape_Action.Action                = currentMap.FindAction("Escape_Action");
+        Enter_Action.Action                 = currentMap.FindAction("Enter_Action");
+        
+        //Default Keyboard Keys
+        R_Action.Action                     = currentMap.FindAction("R_Action");
         T_Action.Action                     = currentMap.FindAction("T_Action");
         B_Action.Action                     = currentMap.FindAction("B_Action");
         C_Action.Action                     = currentMap.FindAction("C_Action");
         F_Action.Action                     = currentMap.FindAction("F_Action");
         E_Action.Action                     = currentMap.FindAction("E_Action");
+        Q_Action.Action                     = currentMap.FindAction("Q_Action");
         Z_Action.Action                     = currentMap.FindAction("Z_Action");
 
         MoveAction.Action.performed         += on_Move;
@@ -97,11 +104,13 @@ public class InputManager : MonoBehaviour
         CtrlAction.Action.performed         += on_Crouch;
         Escape_Action.Action.performed      += on_PauseMenu;
         Tab_Action.Action.performed         += on_Tab;
+        Enter_Action.Action.performed       += on_Enter;
         R_Action.Action.performed           += on_R;
         B_Action.Action.performed           += on_B;
         T_Action.Action.performed           += on_T;
         F_Action.Action.performed           += on_F;
         E_Action.Action.performed           += on_E;
+        Q_Action.Action.performed           += on_Q;
         Z_Action.Action.performed           += on_Z;
         C_Action.Action.performed           += on_C;
 
@@ -114,11 +123,13 @@ public class InputManager : MonoBehaviour
         CtrlAction.Action.canceled          += on_Crouch;
         Escape_Action.Action.canceled       += on_PauseMenu;
         Tab_Action.Action.canceled          += on_Tab;
+        Enter_Action.Action.canceled        += on_Enter;
         R_Action.Action.canceled            += on_R;
         B_Action.Action.canceled            += on_B;
         T_Action.Action.canceled            += on_T;
         F_Action.Action.canceled            += on_F;
         E_Action.Action.canceled            += on_E;
+        Q_Action.Action.canceled            += on_Q;
         Z_Action.Action.canceled            += on_Z;
         C_Action.Action.canceled            += on_C;
     }
@@ -134,11 +145,13 @@ public class InputManager : MonoBehaviour
     private void on_Crouch(InputAction.CallbackContext context)         => CtrlAction.State             = context.ReadValueAsButton();
     private void on_PauseMenu(InputAction.CallbackContext context)      => Escape_Action.State          = context.ReadValueAsButton();
     private void on_Tab(InputAction.CallbackContext context)            => Tab_Action.State             = context.ReadValueAsButton();
+    private void on_Enter(InputAction.CallbackContext context)          => Enter_Action.State           = context.ReadValueAsButton();
     private void on_R(InputAction.CallbackContext context)              => R_Action.State               = context.ReadValueAsButton();
     private void on_B(InputAction.CallbackContext context)              => B_Action.State               = context.ReadValueAsButton();
     private void on_T(InputAction.CallbackContext context)              => T_Action.State               = context.ReadValueAsButton();
     private void on_F(InputAction.CallbackContext context)              => F_Action.State               = context.ReadValueAsButton();
     private void on_E(InputAction.CallbackContext context)              => E_Action.State               = context.ReadValueAsButton();
+    private void on_Q(InputAction.CallbackContext context)              => Q_Action.State               = context.ReadValueAsButton();
     private void on_Z(InputAction.CallbackContext context)              => Z_Action.State               = context.ReadValueAsButton();
     private void on_C(InputAction.CallbackContext context)              => C_Action.State               = context.ReadValueAsButton();
     #endregion

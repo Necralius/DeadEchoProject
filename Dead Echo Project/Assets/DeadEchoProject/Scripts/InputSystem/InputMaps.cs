@@ -46,7 +46,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""RightMouseAction"",
+                    ""name"": ""RightMouse_Action"",
                     ""type"": ""Button"",
                     ""id"": ""74ed7541-5876-4bcc-8bfe-24deadeff1a5"",
                     ""expectedControlType"": ""Button"",
@@ -55,7 +55,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""LeftMouseAction"",
+                    ""name"": ""LeftMouse_Action"",
                     ""type"": ""Button"",
                     ""id"": ""0ce985b0-ff59-4651-8348-475c8f227ccb"",
                     ""expectedControlType"": ""Button"",
@@ -64,7 +64,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""LeftShiftAction"",
+                    ""name"": ""LeftShift_Action"",
                     ""type"": ""Button"",
                     ""id"": ""20232a6b-56b0-409b-9325-82cea4458247"",
                     ""expectedControlType"": ""Button"",
@@ -73,7 +73,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CtrlAction"",
+                    ""name"": ""Ctrl_Action"",
                     ""type"": ""Button"",
                     ""id"": ""8ba6f3c5-b014-4ec2-a48b-3743121d18eb"",
                     ""expectedControlType"": ""Button"",
@@ -82,7 +82,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SpaceAction"",
+                    ""name"": ""Space_Action"",
                     ""type"": ""Button"",
                     ""id"": ""86b93aa6-8a7c-4c23-aa91-6a96ee6fbff3"",
                     ""expectedControlType"": ""Button"",
@@ -100,7 +100,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""EscapeAction"",
+                    ""name"": ""Escape_Action"",
                     ""type"": ""Button"",
                     ""id"": ""252d593d-605f-46ce-b5ee-c9e80c81d652"",
                     ""expectedControlType"": ""Button"",
@@ -188,6 +188,24 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Enter_Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""d66961e9-6b23-40b4-9646-795d4d3d4e74"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Q_Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""026a1ccc-f6a0-4d03-87e1-2c82390309c7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -264,7 +282,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LeftMouseAction"",
+                    ""action"": ""LeftMouse_Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -352,7 +370,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SpaceAction"",
+                    ""action"": ""Space_Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -374,7 +392,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""EscapeAction"",
+                    ""action"": ""Escape_Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -407,7 +425,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RightMouseAction"",
+                    ""action"": ""RightMouse_Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -418,7 +436,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LeftShiftAction"",
+                    ""action"": ""LeftShift_Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -429,7 +447,29 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CtrlAction"",
+                    ""action"": ""Ctrl_Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5609a18-334c-484a-9847-a4e16b7e6951"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter_Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e9f427d-7e2e-44a8-95fc-5e361e991c57"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Q_Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -442,13 +482,13 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
         m_PC_Map = asset.FindActionMap("PC_Map", throwIfNotFound: true);
         m_PC_Map_Look = m_PC_Map.FindAction("Look", throwIfNotFound: true);
         m_PC_Map_Move = m_PC_Map.FindAction("Move", throwIfNotFound: true);
-        m_PC_Map_RightMouseAction = m_PC_Map.FindAction("RightMouseAction", throwIfNotFound: true);
-        m_PC_Map_LeftMouseAction = m_PC_Map.FindAction("LeftMouseAction", throwIfNotFound: true);
-        m_PC_Map_LeftShiftAction = m_PC_Map.FindAction("LeftShiftAction", throwIfNotFound: true);
-        m_PC_Map_CtrlAction = m_PC_Map.FindAction("CtrlAction", throwIfNotFound: true);
-        m_PC_Map_SpaceAction = m_PC_Map.FindAction("SpaceAction", throwIfNotFound: true);
+        m_PC_Map_RightMouse_Action = m_PC_Map.FindAction("RightMouse_Action", throwIfNotFound: true);
+        m_PC_Map_LeftMouse_Action = m_PC_Map.FindAction("LeftMouse_Action", throwIfNotFound: true);
+        m_PC_Map_LeftShift_Action = m_PC_Map.FindAction("LeftShift_Action", throwIfNotFound: true);
+        m_PC_Map_Ctrl_Action = m_PC_Map.FindAction("Ctrl_Action", throwIfNotFound: true);
+        m_PC_Map_Space_Action = m_PC_Map.FindAction("Space_Action", throwIfNotFound: true);
         m_PC_Map_Tab_Action = m_PC_Map.FindAction("Tab_Action", throwIfNotFound: true);
-        m_PC_Map_EscapeAction = m_PC_Map.FindAction("EscapeAction", throwIfNotFound: true);
+        m_PC_Map_Escape_Action = m_PC_Map.FindAction("Escape_Action", throwIfNotFound: true);
         m_PC_Map__1_Action = m_PC_Map.FindAction("1_Action", throwIfNotFound: true);
         m_PC_Map__2_Action = m_PC_Map.FindAction("2_Action", throwIfNotFound: true);
         m_PC_Map_R_Action = m_PC_Map.FindAction("R_Action", throwIfNotFound: true);
@@ -458,6 +498,8 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
         m_PC_Map_E_Action = m_PC_Map.FindAction("E_Action", throwIfNotFound: true);
         m_PC_Map_C_Action = m_PC_Map.FindAction("C_Action", throwIfNotFound: true);
         m_PC_Map_Z_Action = m_PC_Map.FindAction("Z_Action", throwIfNotFound: true);
+        m_PC_Map_Enter_Action = m_PC_Map.FindAction("Enter_Action", throwIfNotFound: true);
+        m_PC_Map_Q_Action = m_PC_Map.FindAction("Q_Action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -521,13 +563,13 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
     private List<IPC_MapActions> m_PC_MapActionsCallbackInterfaces = new List<IPC_MapActions>();
     private readonly InputAction m_PC_Map_Look;
     private readonly InputAction m_PC_Map_Move;
-    private readonly InputAction m_PC_Map_RightMouseAction;
-    private readonly InputAction m_PC_Map_LeftMouseAction;
-    private readonly InputAction m_PC_Map_LeftShiftAction;
-    private readonly InputAction m_PC_Map_CtrlAction;
-    private readonly InputAction m_PC_Map_SpaceAction;
+    private readonly InputAction m_PC_Map_RightMouse_Action;
+    private readonly InputAction m_PC_Map_LeftMouse_Action;
+    private readonly InputAction m_PC_Map_LeftShift_Action;
+    private readonly InputAction m_PC_Map_Ctrl_Action;
+    private readonly InputAction m_PC_Map_Space_Action;
     private readonly InputAction m_PC_Map_Tab_Action;
-    private readonly InputAction m_PC_Map_EscapeAction;
+    private readonly InputAction m_PC_Map_Escape_Action;
     private readonly InputAction m_PC_Map__1_Action;
     private readonly InputAction m_PC_Map__2_Action;
     private readonly InputAction m_PC_Map_R_Action;
@@ -537,19 +579,21 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
     private readonly InputAction m_PC_Map_E_Action;
     private readonly InputAction m_PC_Map_C_Action;
     private readonly InputAction m_PC_Map_Z_Action;
+    private readonly InputAction m_PC_Map_Enter_Action;
+    private readonly InputAction m_PC_Map_Q_Action;
     public struct PC_MapActions
     {
         private @InputMaps m_Wrapper;
         public PC_MapActions(@InputMaps wrapper) { m_Wrapper = wrapper; }
         public InputAction @Look => m_Wrapper.m_PC_Map_Look;
         public InputAction @Move => m_Wrapper.m_PC_Map_Move;
-        public InputAction @RightMouseAction => m_Wrapper.m_PC_Map_RightMouseAction;
-        public InputAction @LeftMouseAction => m_Wrapper.m_PC_Map_LeftMouseAction;
-        public InputAction @LeftShiftAction => m_Wrapper.m_PC_Map_LeftShiftAction;
-        public InputAction @CtrlAction => m_Wrapper.m_PC_Map_CtrlAction;
-        public InputAction @SpaceAction => m_Wrapper.m_PC_Map_SpaceAction;
+        public InputAction @RightMouse_Action => m_Wrapper.m_PC_Map_RightMouse_Action;
+        public InputAction @LeftMouse_Action => m_Wrapper.m_PC_Map_LeftMouse_Action;
+        public InputAction @LeftShift_Action => m_Wrapper.m_PC_Map_LeftShift_Action;
+        public InputAction @Ctrl_Action => m_Wrapper.m_PC_Map_Ctrl_Action;
+        public InputAction @Space_Action => m_Wrapper.m_PC_Map_Space_Action;
         public InputAction @Tab_Action => m_Wrapper.m_PC_Map_Tab_Action;
-        public InputAction @EscapeAction => m_Wrapper.m_PC_Map_EscapeAction;
+        public InputAction @Escape_Action => m_Wrapper.m_PC_Map_Escape_Action;
         public InputAction @_1_Action => m_Wrapper.m_PC_Map__1_Action;
         public InputAction @_2_Action => m_Wrapper.m_PC_Map__2_Action;
         public InputAction @R_Action => m_Wrapper.m_PC_Map_R_Action;
@@ -559,6 +603,8 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
         public InputAction @E_Action => m_Wrapper.m_PC_Map_E_Action;
         public InputAction @C_Action => m_Wrapper.m_PC_Map_C_Action;
         public InputAction @Z_Action => m_Wrapper.m_PC_Map_Z_Action;
+        public InputAction @Enter_Action => m_Wrapper.m_PC_Map_Enter_Action;
+        public InputAction @Q_Action => m_Wrapper.m_PC_Map_Q_Action;
         public InputActionMap Get() { return m_Wrapper.m_PC_Map; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -574,27 +620,27 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @RightMouseAction.started += instance.OnRightMouseAction;
-            @RightMouseAction.performed += instance.OnRightMouseAction;
-            @RightMouseAction.canceled += instance.OnRightMouseAction;
-            @LeftMouseAction.started += instance.OnLeftMouseAction;
-            @LeftMouseAction.performed += instance.OnLeftMouseAction;
-            @LeftMouseAction.canceled += instance.OnLeftMouseAction;
-            @LeftShiftAction.started += instance.OnLeftShiftAction;
-            @LeftShiftAction.performed += instance.OnLeftShiftAction;
-            @LeftShiftAction.canceled += instance.OnLeftShiftAction;
-            @CtrlAction.started += instance.OnCtrlAction;
-            @CtrlAction.performed += instance.OnCtrlAction;
-            @CtrlAction.canceled += instance.OnCtrlAction;
-            @SpaceAction.started += instance.OnSpaceAction;
-            @SpaceAction.performed += instance.OnSpaceAction;
-            @SpaceAction.canceled += instance.OnSpaceAction;
+            @RightMouse_Action.started += instance.OnRightMouse_Action;
+            @RightMouse_Action.performed += instance.OnRightMouse_Action;
+            @RightMouse_Action.canceled += instance.OnRightMouse_Action;
+            @LeftMouse_Action.started += instance.OnLeftMouse_Action;
+            @LeftMouse_Action.performed += instance.OnLeftMouse_Action;
+            @LeftMouse_Action.canceled += instance.OnLeftMouse_Action;
+            @LeftShift_Action.started += instance.OnLeftShift_Action;
+            @LeftShift_Action.performed += instance.OnLeftShift_Action;
+            @LeftShift_Action.canceled += instance.OnLeftShift_Action;
+            @Ctrl_Action.started += instance.OnCtrl_Action;
+            @Ctrl_Action.performed += instance.OnCtrl_Action;
+            @Ctrl_Action.canceled += instance.OnCtrl_Action;
+            @Space_Action.started += instance.OnSpace_Action;
+            @Space_Action.performed += instance.OnSpace_Action;
+            @Space_Action.canceled += instance.OnSpace_Action;
             @Tab_Action.started += instance.OnTab_Action;
             @Tab_Action.performed += instance.OnTab_Action;
             @Tab_Action.canceled += instance.OnTab_Action;
-            @EscapeAction.started += instance.OnEscapeAction;
-            @EscapeAction.performed += instance.OnEscapeAction;
-            @EscapeAction.canceled += instance.OnEscapeAction;
+            @Escape_Action.started += instance.OnEscape_Action;
+            @Escape_Action.performed += instance.OnEscape_Action;
+            @Escape_Action.canceled += instance.OnEscape_Action;
             @_1_Action.started += instance.On_1_Action;
             @_1_Action.performed += instance.On_1_Action;
             @_1_Action.canceled += instance.On_1_Action;
@@ -622,6 +668,12 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
             @Z_Action.started += instance.OnZ_Action;
             @Z_Action.performed += instance.OnZ_Action;
             @Z_Action.canceled += instance.OnZ_Action;
+            @Enter_Action.started += instance.OnEnter_Action;
+            @Enter_Action.performed += instance.OnEnter_Action;
+            @Enter_Action.canceled += instance.OnEnter_Action;
+            @Q_Action.started += instance.OnQ_Action;
+            @Q_Action.performed += instance.OnQ_Action;
+            @Q_Action.canceled += instance.OnQ_Action;
         }
 
         private void UnregisterCallbacks(IPC_MapActions instance)
@@ -632,27 +684,27 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @RightMouseAction.started -= instance.OnRightMouseAction;
-            @RightMouseAction.performed -= instance.OnRightMouseAction;
-            @RightMouseAction.canceled -= instance.OnRightMouseAction;
-            @LeftMouseAction.started -= instance.OnLeftMouseAction;
-            @LeftMouseAction.performed -= instance.OnLeftMouseAction;
-            @LeftMouseAction.canceled -= instance.OnLeftMouseAction;
-            @LeftShiftAction.started -= instance.OnLeftShiftAction;
-            @LeftShiftAction.performed -= instance.OnLeftShiftAction;
-            @LeftShiftAction.canceled -= instance.OnLeftShiftAction;
-            @CtrlAction.started -= instance.OnCtrlAction;
-            @CtrlAction.performed -= instance.OnCtrlAction;
-            @CtrlAction.canceled -= instance.OnCtrlAction;
-            @SpaceAction.started -= instance.OnSpaceAction;
-            @SpaceAction.performed -= instance.OnSpaceAction;
-            @SpaceAction.canceled -= instance.OnSpaceAction;
+            @RightMouse_Action.started -= instance.OnRightMouse_Action;
+            @RightMouse_Action.performed -= instance.OnRightMouse_Action;
+            @RightMouse_Action.canceled -= instance.OnRightMouse_Action;
+            @LeftMouse_Action.started -= instance.OnLeftMouse_Action;
+            @LeftMouse_Action.performed -= instance.OnLeftMouse_Action;
+            @LeftMouse_Action.canceled -= instance.OnLeftMouse_Action;
+            @LeftShift_Action.started -= instance.OnLeftShift_Action;
+            @LeftShift_Action.performed -= instance.OnLeftShift_Action;
+            @LeftShift_Action.canceled -= instance.OnLeftShift_Action;
+            @Ctrl_Action.started -= instance.OnCtrl_Action;
+            @Ctrl_Action.performed -= instance.OnCtrl_Action;
+            @Ctrl_Action.canceled -= instance.OnCtrl_Action;
+            @Space_Action.started -= instance.OnSpace_Action;
+            @Space_Action.performed -= instance.OnSpace_Action;
+            @Space_Action.canceled -= instance.OnSpace_Action;
             @Tab_Action.started -= instance.OnTab_Action;
             @Tab_Action.performed -= instance.OnTab_Action;
             @Tab_Action.canceled -= instance.OnTab_Action;
-            @EscapeAction.started -= instance.OnEscapeAction;
-            @EscapeAction.performed -= instance.OnEscapeAction;
-            @EscapeAction.canceled -= instance.OnEscapeAction;
+            @Escape_Action.started -= instance.OnEscape_Action;
+            @Escape_Action.performed -= instance.OnEscape_Action;
+            @Escape_Action.canceled -= instance.OnEscape_Action;
             @_1_Action.started -= instance.On_1_Action;
             @_1_Action.performed -= instance.On_1_Action;
             @_1_Action.canceled -= instance.On_1_Action;
@@ -680,6 +732,12 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
             @Z_Action.started -= instance.OnZ_Action;
             @Z_Action.performed -= instance.OnZ_Action;
             @Z_Action.canceled -= instance.OnZ_Action;
+            @Enter_Action.started -= instance.OnEnter_Action;
+            @Enter_Action.performed -= instance.OnEnter_Action;
+            @Enter_Action.canceled -= instance.OnEnter_Action;
+            @Q_Action.started -= instance.OnQ_Action;
+            @Q_Action.performed -= instance.OnQ_Action;
+            @Q_Action.canceled -= instance.OnQ_Action;
         }
 
         public void RemoveCallbacks(IPC_MapActions instance)
@@ -701,13 +759,13 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
     {
         void OnLook(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
-        void OnRightMouseAction(InputAction.CallbackContext context);
-        void OnLeftMouseAction(InputAction.CallbackContext context);
-        void OnLeftShiftAction(InputAction.CallbackContext context);
-        void OnCtrlAction(InputAction.CallbackContext context);
-        void OnSpaceAction(InputAction.CallbackContext context);
+        void OnRightMouse_Action(InputAction.CallbackContext context);
+        void OnLeftMouse_Action(InputAction.CallbackContext context);
+        void OnLeftShift_Action(InputAction.CallbackContext context);
+        void OnCtrl_Action(InputAction.CallbackContext context);
+        void OnSpace_Action(InputAction.CallbackContext context);
         void OnTab_Action(InputAction.CallbackContext context);
-        void OnEscapeAction(InputAction.CallbackContext context);
+        void OnEscape_Action(InputAction.CallbackContext context);
         void On_1_Action(InputAction.CallbackContext context);
         void On_2_Action(InputAction.CallbackContext context);
         void OnR_Action(InputAction.CallbackContext context);
@@ -717,5 +775,7 @@ public partial class @InputMaps: IInputActionCollection2, IDisposable
         void OnE_Action(InputAction.CallbackContext context);
         void OnC_Action(InputAction.CallbackContext context);
         void OnZ_Action(InputAction.CallbackContext context);
+        void OnEnter_Action(InputAction.CallbackContext context);
+        void OnQ_Action(InputAction.CallbackContext context);
     }
 }

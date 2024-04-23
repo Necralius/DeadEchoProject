@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: LampOnOff
   m_EditorClassIdentifier: 
   Label: turn the Lamp on/off
-  Key: E
+  Button: 1
+  ButtonTag: 

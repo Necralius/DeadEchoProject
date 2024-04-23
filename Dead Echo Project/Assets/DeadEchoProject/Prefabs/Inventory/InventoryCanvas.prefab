@@ -933,7 +933,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7435099531491406846}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ObjectDrag, Assembly-CSharp
         m_MethodName: RecenterObject
         m_Mode: 1
@@ -2429,7 +2429,6 @@ GameObject:
   - component: {fileID: 6597746647298919297}
   - component: {fileID: 6900984642616719252}
   - component: {fileID: 797091979772890829}
-  - component: {fileID: 7435099531491406846}
   m_Layer: 5
   m_Name: ObjectDragger
   m_TagString: Untagged
@@ -2491,20 +2490,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &7435099531491406846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4941214057293316605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af633d752bd107349a30a85f26f479bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _draggedObject: {fileID: 0}
-  _rotationSpeed: 0.4
 --- !u!1 &5033303339154082112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2821,10 +2806,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71860d4943204f94891365bec9896914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _img: {fileID: 7160571824657704374}
-  _transcriptionText: {fileID: 6844865725727795581}
-  _transcriptionButton: {fileID: 5899900796517409136}
-  _transcriptionArea: {fileID: 2787866343553652346}
+  _title: {fileID: 0}
+  _subtitle: {fileID: 0}
+  _content: {fileID: 0}
+  _signature: {fileID: 0}
+  _footer: {fileID: 0}
 --- !u!1 &5477922193881969917
 GameObject:
   m_ObjectHideFlags: 0
@@ -2875,11 +2861,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectArea: {fileID: 0}
-  _inspectionScreen: {fileID: 1226833849508354511}
-  _currentInspectedItem: {fileID: 0}
-  _objectDragger: {fileID: 7435099531491406846}
+  _currentSpawnedItem: {fileID: 0}
   _transcriptionView: {fileID: 5087241447176338294}
-  _transcriptionButton: {fileID: 5896752809104066903}
+  _bodyController: {fileID: 0}
 --- !u!1 &5716696958610065237
 GameObject:
   m_ObjectHideFlags: 0
@@ -3720,8 +3704,9 @@ MonoBehaviour:
   sizeWidth: 4
   sizeHeight: 9
   currentConteiner: {fileID: 0}
-  conteinerPrefab: {fileID: 0}
-  playerObject: {fileID: 0}
+  _conteinerPrefab: {fileID: 0}
+  _conteinersContent: {fileID: 0}
+  _playerObject: {fileID: 0}
 --- !u!114 &6655607443262405359
 MonoBehaviour:
   m_ObjectHideFlags: 0

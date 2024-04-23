@@ -21,6 +21,8 @@ public class InventoryItemConteiner : MonoBehaviour
         interactor.OnExit.  AddListener( delegate { ResetGroundGrid();  });
     }
 
+    public int ItemsQuantity() => _items.Count;
+
     public void FillConteiner()
     {
         if (_groundGrid == null)
@@ -29,7 +31,6 @@ public class InventoryItemConteiner : MonoBehaviour
         if (_items.Count <= 0) 
             return;
 
-        Debug.Log("Filling ground grid!");
         _groundGrid.SetItems(_items);
     }
 
@@ -40,10 +41,8 @@ public class InventoryItemConteiner : MonoBehaviour
         _groundGrid.currentConteiner = this;
     }
 
-
     public void ResetGroundGrid()
     {
-        Debug.Log("Reseting ground grid!");
         if (_groundGrid == null) 
             return;
 
@@ -51,14 +50,15 @@ public class InventoryItemConteiner : MonoBehaviour
         _groundGrid.currentConteiner = null;
     }
 
-    public void RemoveItem(int instanceID)  => _items.Remove(_items.Find(e => e.Data.GetInstanceID() == instanceID));
-
-    public void AddItemInPosition(ItemSave item)
+    public void RemoveItem(int instanceID)
     {
-        Debug.Log("Adding item to conteiner inv!");
-        _items.Add(item);
+        _items.Remove(_items.Find(e => e.Data.GetInstanceID() == instanceID));
 
+        if (_items.Count <= 0) 
+            Destroy(gameObject);
     }
+
+    public void AddItemInPosition(ItemSave item) => _items.Add(item);
 }
 
 [Serializable]
