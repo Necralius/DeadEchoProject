@@ -4,36 +4,45 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ActionButton : Button, ISelectHandler
+public class ActionButton : Button
 {
-    private UnityEvent _onSelect       = null;
-    private UnityEvent _onDeselect     = null;
+    private UnityEvent _onSelect       = new UnityEvent();
+    private UnityEvent _onDeselect     = new UnityEvent();
 
-    private TextMeshProUGUI _childText = null;
+    private     TextMeshProUGUI _childText = null;
+    [SerializeField] private GameObject _pointer = null;
+    public      bool            selected = false;
 
     protected override void Awake()
     {
         _childText = GetComponentInChildren<TextMeshProUGUI>();
+        onClick.AddListener(delegate { UpdateState(); });
         base.Awake();
     }
 
-    public void SetupActions(UnityEvent onSelect, UnityEvent onDeselect)
+    public override void OnPointerEnter(PointerEventData eventData)
     {
-        _onSelect       = onSelect;
-        _onDeselect     = onDeselect;
+        _pointer.SetActive(true);
+        base.OnPointerEnter(eventData);
     }
 
-    public override void OnSelect(BaseEventData eventData)
+    public override void OnPointerExit(PointerEventData eventData)
     {
-        _onSelect.Invoke();
-        _childText.color = colors.selectedColor;
-        base.OnSelect(eventData);
+        _pointer.SetActive(false);
+        base.OnPointerExit(eventData);
     }
 
-    public override void OnDeselect(BaseEventData eventData)
+    public void UpdateState()
     {
-        _onDeselect.Invoke();
-        _childText.color = colors.normalColor;
-        base.OnDeselect(eventData);
+        if (selected)
+        {
+            _onSelect.Invoke();
+            _childText.color = colors.selectedColor;
+        }
+        else
+        {
+            _onDeselect.Invoke();
+            _childText.color = colors.normalColor;
+        }
     }
 }

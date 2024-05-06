@@ -14,6 +14,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     private CharacterController _controller     => GetComponent<CharacterController>();
     private PlayerManager       _playerManager  => GetComponent<PlayerManager>();
     private FPSCamera           _camController  = null;
+    [SerializeField] private Animator _shadowBodyAnimator; 
 
     [Header("Player Settings")]
     [SerializeField]            private SpeedSettings _speedSettings    = new SpeedSettings();
@@ -65,6 +66,10 @@ public class BodyController : MonoBehaviour, IDataPersistence
     [SerializeField] private Transform  _feetChecker;
     [SerializeField] private float      _floorDistance;
     [SerializeField] private LayerMask  _groundMask;
+
+    [Header("Foot IK")]
+    [SerializeField] private bool   _footIK = true;
+    [SerializeField] private float  _distanceToGround = 1f;
 
     //Encapsulated Data
     public float dragMultiplierLimit    { get => _dragMultiplierLimit;  set => _dragMultiplierLimit = Mathf.Clamp01(value);                 }
@@ -153,7 +158,13 @@ public class BodyController : MonoBehaviour, IDataPersistence
         _animator.SetFloat(xHash, _targetX);
         _animator.SetFloat(yHash, _targetY);
 
+        _shadowBodyAnimator.SetFloat(xHash, _targetX);
+        _shadowBodyAnimator.SetFloat(yHash, _targetY);
+
         _animator.SetBool(isRunningHash, _isSprinting);
+
+        _shadowBodyAnimator.SetBool(isRunningHash, _isSprinting);
+        _shadowBodyAnimator.speed = _speedSettings.AnimationSpeed(this);
 
         _animator.speed                     = _speedSettings.AnimationSpeed(this);
         _playerManager._armsAnimator.speed  = _speedSettings.AnimationSpeed(this);
@@ -210,6 +221,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
             if (_inputManager.Two_Action.Action.WasPressedThisFrame()    && !_changingWeapon) EquipGun(1);
         }
         _animator.SetBool(isCrouchingHash, _isCrouching);
+        _shadowBodyAnimator.SetBool(isCrouchingHash, _isCrouching);
     }
 
     private void JumpAction() // Executes an calculation of an jump height value, and set is to the new Y direction vector considering the gravity.
@@ -338,6 +350,44 @@ public class BodyController : MonoBehaviour, IDataPersistence
     {
         if (!_flashlightClip.Equals(null))
             AudioManager.Instance.PlayOneShotSound("Effects", _flashlightClip, transform.position, 1f, 0, 128);
+    }
+
+    protected virtual void OnAnimatorIK(int layerIndex)
+    {
+        if (_animator == null) return;
+
+        if (_footIK)
+        {
+            _animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1f);
+            _animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1f);
+
+            _animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1f);
+            _animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1f);
+
+            RaycastHit hit;
+            Ray ray = new Ray(_animator.GetIKPosition(AvatarIKGoal.LeftFoot), Vector3.down);
+            if (Physics.Raycast(ray, out hit, _distanceToGround + 1f, _groundMask))
+            {
+                Vector3 footPosition = hit.point;
+                footPosition.y += _distanceToGround;
+                _animator.SetIKPosition(AvatarIKGoal.LeftFoot, footPosition);
+                _animator.SetIKRotation(AvatarIKGoal.LeftFoot, Quaternion.LookRotation(transform.forward, hit.normal));
+            }
+
+            ray = new Ray(_animator.GetIKPosition(AvatarIKGoal.RightFoot), Vector3.down);
+            if (Physics.Raycast(ray, out hit, _distanceToGround + 1f, _groundMask))
+            {
+                Vector3 footPosition = hit.point;
+                footPosition.y += _distanceToGround;
+                _animator.SetIKPosition(AvatarIKGoal.RightFoot, footPosition);
+                _animator.SetIKRotation(AvatarIKGoal.RightHand, Quaternion.LookRotation(transform.forward, hit.normal));
+            }
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(_animator.GetIKPosition(AvatarIKGoal.LeftFoot), _animator.GetIKPosition(AvatarIKGoal.LeftFoot) + Vector3.down * _distanceToGround);
+        Gizmos.DrawLine(_animator.GetIKPosition(AvatarIKGoal.RightFoot), _animator.GetIKPosition(AvatarIKGoal.RightFoot) + Vector3.down * _distanceToGround);
     }
 }
 

@@ -139,8 +139,8 @@ namespace NekraByte
                     saveTime = new DateTimeSerialized(DateTime.Now);
 
                     //Create a default resolution
-                    currentResolution.width = 1920;
-                    currentResolution.height = 1080;
+                    currentResolution.width     = 1920;
+                    currentResolution.height    = 1080;
 
                     //Reset all settings to default
                     ResetToDefault();
@@ -190,8 +190,12 @@ namespace NekraByte
                 public bool invertX = false;
                 public bool invertY = false;
 
-                public int aimType = 0;
-                public int crouchType = 0;
+                public int aimType              = 0;
+                public int crouchType           = 0;
+
+                public bool subtitles           = true;
+                public int  subtitlesLanguage   = 0;
+                public int  audioLanguage       = 0;
 
                 public void StartNewSave(SaveDirectory info)
                 {
@@ -810,6 +814,18 @@ namespace NekraByte
             }
             public enum InteractionButton { TAB, E, Q, ENTER }
             public enum MovementState { Idle, Walking, Sprinting, Crouching, Air, Sliding }
+            #endregion
+
+            #region - Languages - 
+            public enum LanguageOption
+            {
+                English     = 0,
+                Portuguese  = 1,
+                Spanish     = 2,
+                German      = 3,
+                Italian     = 4,
+                French      = 5
+            }
             #endregion
         }
     }

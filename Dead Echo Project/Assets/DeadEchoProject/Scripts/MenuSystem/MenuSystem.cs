@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static NekraByte.Core.DataTypes;
+using static UnityEngine.Rendering.DebugUI;
 
 public class MenuSystem : MonoBehaviour
 {
@@ -23,27 +24,30 @@ public class MenuSystem : MonoBehaviour
     private List<Resolution> resolutions                            = new List<Resolution>();
     private int currentResolutionIndex                              = 0;
     private Resolution currentResolution;
-    [SerializeField] private TMP_Dropdown resolutionDrp             = null;
+    [SerializeField] private DropsideOption resolutionDrp             = null;
 
-    [SerializeField] private TMP_Dropdown   vSyncDrp                 = null;
+    [SerializeField] private DropsideOption vSyncDrp                 = null;
     [SerializeField] private TMP_Dropdown   presetQualityDrp         = null;
-    [SerializeField] private TMP_Dropdown   textureQualityDrp        = null;
-    [SerializeField] private TMP_Dropdown   antialisingQualityDrp    = null;
-    [SerializeField] private TMP_Dropdown   anisotropicQualityDrp    = null;
-    [SerializeField] private TMP_Dropdown   shadowQualityDrp         = null;
-    [SerializeField] private TMP_Dropdown   shadowResolutionDrp      = null;
+    [SerializeField] private DropsideOption textureQualityDrp        = null;
+    [SerializeField] private DropsideOption antialisingQualityDrp    = null;
+    [SerializeField] private DropsideOption anisotropicQualityDrp    = null;
+    [SerializeField] private DropsideOption shadowQualityDrp         = null;
+    [SerializeField] private DropsideOption shadowResolutionDrp      = null;
     #endregion
 
     #region - Gameplay Data -
     [Header("Gameplay Settings")]
-    [SerializeField] private Toggle         tgl_InvertedX            = null;
-    [SerializeField] private Toggle         tgl_InvertedY            = null;
+    [SerializeField] private Toggle_OnOFF   _tgl_InvertedX       = null;
+    [SerializeField] private Toggle_OnOFF   _tgl_InvertedY       = null;
+    [SerializeField] private Toggle_OnOFF   _subtitleState       = null;
 
-    [SerializeField] private TMP_Dropdown   aimTypeDrp               = null;
-    [SerializeField] private TMP_Dropdown   crouchTypeDrp            = null;
+    [SerializeField] private DropsideOption _aimDropside         = null;
+    [SerializeField] private DropsideOption _crouchDropside      = null;
+    [SerializeField] private DropsideOption _subtitleLanguage    = null;
+    [SerializeField] private DropsideOption _audioLanguage       = null;
 
-    [SerializeField] private SliderFloatField sensitivityX          = null;
-    [SerializeField] private SliderFloatField sensitivityY          = null;
+    [SerializeField] private SliderFloatField _sensitivityX          = null;
+    [SerializeField] private SliderFloatField _sensitivityY          = null;
     #endregion
 
     GameStateManager _gameStateManager;
@@ -59,8 +63,9 @@ public class MenuSystem : MonoBehaviour
 
         currentResolution.width     = 1920;
         currentResolution.height    = 1080;
-        Screen.SetResolution(currentResolution.width, currentResolution.height, fullscreenActive.isOn);
 
+        Screen.SetResolution(currentResolution.width, currentResolution.height, fullscreenActive.isOn);
+      
         LoadSettings();
     }
 
@@ -71,17 +76,20 @@ public class MenuSystem : MonoBehaviour
     // ----------------------------------------------------------------------
     public void LoadVolumeSettings()
     {
-        if (_gameStateManager == null || _gameStateManager.currentApplicationData == null) return;
+        if (_gameStateManager == null || _gameStateManager.currentApplicationData == null) 
+            return;
 
         if (_gameStateManager.currentApplicationData._volumes.Count <= 0)
         {
             _gameStateManager.currentApplicationData._volumes.Clear();
-            foreach (Transform child in _volumeSlidersContent) Destroy(child.gameObject);
+            foreach (Transform child in _volumeSlidersContent) 
+                Destroy(child.gameObject);
 
             foreach (var track in AudioManager.Instance._tracks)
             {
                 SliderFloatField obj = Instantiate(SliderFloatFieldPrefab, _volumeSlidersContent).GetComponentInChildren<SliderFloatField>();
                 AudioTrackVolume trackVolumeInfo = new AudioTrackVolume(track.Key, DecibelsToVolume(AudioManager.Instance.GetTrackVolume(obj._fieldName)));
+                trackVolumeInfo.Volume = 1f;
 
                 obj.SetUp(trackVolumeInfo);
                 _volumesSliders.Add(obj);
@@ -120,10 +128,10 @@ public class MenuSystem : MonoBehaviour
     {
         if (_gameStateManager == null || _gameStateManager.currentApplicationData == null) return;
 
-        ApplicationData currentApplData = _gameStateManager.currentApplicationData;
+        ApplicationData currentAppData = _gameStateManager.currentApplicationData;
 
-        for (int i = 0; i < currentApplData._volumes.Count; i++) 
-            AudioManager.Instance.SetTrackVolume(currentApplData._volumes[i].Name, ConvertToDecibels(currentApplData._volumes[i].Volume));
+        for (int i = 0; i < currentAppData._volumes.Count; i++) 
+            AudioManager.Instance.SetTrackVolume(currentAppData._volumes[i].Name, ConvertToDecibels(currentAppData._volumes[i].Volume));
     }
 
     // ----------------------------------------------------------------------
@@ -174,7 +182,8 @@ public class MenuSystem : MonoBehaviour
     public void ResetVolumeSettings()
     {
         _volumesSliders.Clear();
-        foreach (Transform child in _volumeSlidersContent) Destroy(child.gameObject);
+        foreach (Transform child in _volumeSlidersContent) 
+            Destroy(child.gameObject);
 
         _gameStateManager.currentApplicationData.ResetVolumeSettings();
 
@@ -198,20 +207,18 @@ public class MenuSystem : MonoBehaviour
             options.Add(newOption);
         }
 
-        resolutionDrp.AddOptions(options);
-        resolutionDrp.value = currentResolutionIndex;
-        resolutionDrp.RefreshShownValue();
-
-        resolutionDrp.onValueChanged.AddListener(delegate { VerifyResolution(); });
+        resolutionDrp.AddCostumOptions(options);
     }
+
     private void VerifyResolution()
     {
         for (int i = 0; i < resolutions.Count; i++)
         {
             if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
-                currentResolutionIndex = i;
-                currentResolution = resolutions[i];
+                currentResolutionIndex  = i;
+                currentResolution       = resolutions[i];
+                resolutionDrp._snapController.GoToPanel(i);
             }
         }
     }
@@ -223,13 +230,13 @@ public class MenuSystem : MonoBehaviour
         Screen.SetResolution(currentResolution.width, currentResolution.height, fullscreenActive.isOn);
         QualitySettings.SetQualityLevel(presetQualityDrp.value);
 
-        QualitySettings.shadows                     = (ShadowQuality)shadowQualityDrp.value;
-        QualitySettings.shadowResolution            = (ShadowResolution)shadowResolutionDrp.value;
-        QualitySettings.anisotropicFiltering        = (AnisotropicFiltering)anisotropicQualityDrp.value;
-        QualitySettings.antiAliasing                = antialisingQualityDrp.value;
-        QualitySettings.globalTextureMipmapLimit    = textureQualityDrp.value;
+        QualitySettings.shadows                     = (ShadowQuality)shadowQualityDrp.Value;
+        QualitySettings.shadowResolution            = (ShadowResolution)shadowResolutionDrp.Value;
+        QualitySettings.anisotropicFiltering        = (AnisotropicFiltering)anisotropicQualityDrp.Value;
+        QualitySettings.antiAliasing                = antialisingQualityDrp.Value;
+        QualitySettings.globalTextureMipmapLimit    = textureQualityDrp.Value;
 
-        if (vSyncActive) QualitySettings.vSyncCount = vSyncDrp.value;
+        if (vSyncActive) QualitySettings.vSyncCount = vSyncDrp.Value;
         else QualitySettings.vSyncCount = 0;
         #endregion
 
@@ -242,13 +249,13 @@ public class MenuSystem : MonoBehaviour
         _gameStateManager.currentApplicationData.isFullscreen           = fullscreenActive.isOn;
 
         _gameStateManager.currentApplicationData.vSyncActive            = vSyncActive.isOn;
-        _gameStateManager.currentApplicationData.vSyncCount             = vSyncDrp.value;
+        _gameStateManager.currentApplicationData.vSyncCount             = vSyncDrp.Value;
 
-        _gameStateManager.currentApplicationData.shadowQuality          = shadowQualityDrp.value;
-        _gameStateManager.currentApplicationData.shadowResolution       = shadowResolutionDrp.value;
+        _gameStateManager.currentApplicationData.shadowQuality          = shadowQualityDrp.Value;
+        _gameStateManager.currentApplicationData.shadowResolution       = shadowResolutionDrp.Value;
 
-        _gameStateManager.currentApplicationData.antialiasing           = antialisingQualityDrp.value;
-        _gameStateManager.currentApplicationData.anisotropicFiltering   = anisotropicQualityDrp.value;
+        _gameStateManager.currentApplicationData.antialiasing           = antialisingQualityDrp.Value;
+        _gameStateManager.currentApplicationData.anisotropicFiltering   = anisotropicQualityDrp.Value;
 
         _gameStateManager.currentApplicationData.qualityLevelIndex      = presetQualityDrp.value;
 
@@ -266,22 +273,23 @@ public class MenuSystem : MonoBehaviour
     public void UpdateGraphicsUI()
     {
         UpdateResolutionDrpd();
+        resolutionDrp._snapController.GoToPanel(resolutionDrp._snapController.NumberOfPanels - 1);
 
         if (_gameStateManager.currentApplicationData == null)
             return;
 
-        resolutionDrp.value         = _gameStateManager.currentApplicationData.resolutionIndex;
+        resolutionDrp.Value         = _gameStateManager.currentApplicationData.resolutionIndex;
 
         vSyncActive.isOn            = _gameStateManager.currentApplicationData.vSyncActive;
-        vSyncDrp.value              = _gameStateManager.currentApplicationData.vSyncCount;
+        vSyncDrp.Value              = _gameStateManager.currentApplicationData.vSyncCount;
 
         presetQualityDrp.value      = _gameStateManager.currentApplicationData.qualityLevelIndex;
 
-        shadowQualityDrp.value      = _gameStateManager.currentApplicationData.shadowQuality;
-        shadowResolutionDrp.value   = _gameStateManager.currentApplicationData.shadowResolution;
+        shadowQualityDrp.Value      = _gameStateManager.currentApplicationData.shadowQuality;
+        shadowResolutionDrp.Value   = _gameStateManager.currentApplicationData.shadowResolution;
 
-        antialisingQualityDrp.value = _gameStateManager.currentApplicationData.antialiasing;
-        anisotropicQualityDrp.value = _gameStateManager.currentApplicationData.anisotropicFiltering;      
+        antialisingQualityDrp.Value = _gameStateManager.currentApplicationData.antialiasing;
+        anisotropicQualityDrp.Value = _gameStateManager.currentApplicationData.anisotropicFiltering;      
     }
     #endregion
 
@@ -322,16 +330,21 @@ public class MenuSystem : MonoBehaviour
     // ----------------------------------------------------------------------
     public void SetAndSaveGameplaySettings()
     {
-        if (_gameStateManager == null) return;
+        if (_gameStateManager == null) 
+            return;
 
-        _gameStateManager.currentApplicationData.invertX        = tgl_InvertedX.isOn;
-        _gameStateManager.currentApplicationData.invertY        = tgl_InvertedY.isOn;
+        _gameStateManager.currentApplicationData.invertX        = _tgl_InvertedX.State;
+        _gameStateManager.currentApplicationData.invertY        = _tgl_InvertedY.State;
 
-        _gameStateManager.currentApplicationData.xSensitivity   = sensitivityX.GetValue();
-        _gameStateManager.currentApplicationData.ySensitivity   = sensitivityY.GetValue();
+        _gameStateManager.currentApplicationData.xSensitivity   = _sensitivityX.GetValue();
+        _gameStateManager.currentApplicationData.ySensitivity   = _sensitivityY.GetValue();
 
-        _gameStateManager.currentApplicationData.aimType        = aimTypeDrp.value;
-        _gameStateManager.currentApplicationData.crouchType     = crouchTypeDrp.value;
+        _gameStateManager.currentApplicationData.aimType        = _aimDropside.Value;
+        _gameStateManager.currentApplicationData.crouchType     = _crouchDropside.Value;
+
+        _gameStateManager.currentApplicationData.subtitlesLanguage  = _subtitleLanguage.Value;
+        _gameStateManager.currentApplicationData.audioLanguage      = _subtitleLanguage.Value;
+        _gameStateManager.currentApplicationData.subtitles          = _subtitleState.State;
 
         _gameStateManager.SaveApplicationData();
     } 
@@ -343,14 +356,17 @@ public class MenuSystem : MonoBehaviour
     // ----------------------------------------------------------------------
     public void UpdateGameplaySettings()
     {
-        tgl_InvertedX.isOn = _gameStateManager.currentApplicationData.invertX;
-        tgl_InvertedY.isOn = _gameStateManager.currentApplicationData.invertY;
+        _tgl_InvertedX.State = _gameStateManager.currentApplicationData.invertX;
+        _tgl_InvertedY.State = _gameStateManager.currentApplicationData.invertY;
+        _subtitleState.State = _gameStateManager.currentApplicationData.subtitles;
 
-        sensitivityX.OverrideValue(_gameStateManager.currentApplicationData.xSensitivity);
-        sensitivityY.OverrideValue(_gameStateManager.currentApplicationData.ySensitivity);
-
-        aimTypeDrp.value        = _gameStateManager.currentApplicationData.aimType;
-        crouchTypeDrp.value     = _gameStateManager.currentApplicationData.crouchType;
+        _sensitivityX.OverrideValue(_gameStateManager.currentApplicationData.xSensitivity);
+        _sensitivityY.OverrideValue(_gameStateManager.currentApplicationData.ySensitivity);
+        
+        _aimDropside.Value          = _gameStateManager.currentApplicationData.aimType;
+        _crouchDropside.Value       = _gameStateManager.currentApplicationData.crouchType;
+        _subtitleLanguage.Value     = _gameStateManager.currentApplicationData.subtitlesLanguage;
+        _audioLanguage.Value        = _gameStateManager.currentApplicationData.audioLanguage;
     }
 
     // ----------------------------------------------------------------------

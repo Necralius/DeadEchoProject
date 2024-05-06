@@ -37,6 +37,8 @@ public class TooltipManager : MonoBehaviour
 
     public void ShowTooltip(string tooltipContent)
     {
+        if (tooltipContent == null || tooltipContent == string.Empty) 
+            return;
         _contentText.text               = tooltipContent;
         float   textPaddingSize         = 4f;
         Vector2 backgroundSize          = new Vector2(_contentText.preferredWidth + textPaddingSize * 2f, 
