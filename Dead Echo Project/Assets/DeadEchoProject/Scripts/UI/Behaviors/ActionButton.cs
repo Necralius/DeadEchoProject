@@ -4,45 +4,48 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AB_Extension))]
 public class ActionButton : Button
 {
+    public AB_Extension _extension     => GetComponent<AB_Extension>();
+
     private UnityEvent _onSelect       = new UnityEvent();
     private UnityEvent _onDeselect     = new UnityEvent();
 
-    private     TextMeshProUGUI _childText = null;
-    [SerializeField] private GameObject _pointer = null;
-    public      bool            selected = false;
-
     protected override void Awake()
     {
-        _childText = GetComponentInChildren<TextMeshProUGUI>();
+        _extension.childText = GetComponentInChildren<TextMeshProUGUI>();
         onClick.AddListener(delegate { UpdateState(); });
         base.Awake();
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
     {
-        _pointer.SetActive(true);
+        _extension.pointer.SetActive(true);
         base.OnPointerEnter(eventData);
     }
 
     public override void OnPointerExit(PointerEventData eventData)
     {
-        _pointer.SetActive(false);
+        if (_extension.selected) 
+            return;
+        _extension.pointer.SetActive(false);
         base.OnPointerExit(eventData);
     }
 
     public void UpdateState()
     {
-        if (selected)
+        if (_extension.selected)
         {
             _onSelect.Invoke();
-            _childText.color = colors.selectedColor;
+            _extension.pointer.SetActive(true);
+            _extension.childText.color = colors.selectedColor;
         }
         else
         {
             _onDeselect.Invoke();
-            _childText.color = colors.normalColor;
+            _extension.pointer.SetActive(false);
+            _extension.childText.color = colors.normalColor;
         }
     }
 }

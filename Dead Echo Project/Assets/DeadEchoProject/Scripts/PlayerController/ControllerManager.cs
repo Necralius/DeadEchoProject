@@ -254,15 +254,15 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
     // ----------------------------------------------------------------------
     private void UpdateCalls()
     {
-        _isMoving       = _rb.velocity != Vector3.zero;
+        _isMoving       = _rb.linearVelocity != Vector3.zero;
         _isSprinting    = _inptManager.LeftShiftAction.State && _isMoving && !_walkingBackwards && !_isCrouching;
         _isWalking      = _inptManager.MoveAction.Vector != Vector2.zero;
         _isGrounded     = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.3f, _groundMask);
         _onSlope        = OnSlope();
         _inAir          = !_isGrounded;
 
-        if (_isGrounded) _rb.drag = _groundDrag;
-        else _rb.drag = 0f;
+        if (_isGrounded) _rb.linearDamping = _groundDrag;
+        else _rb.linearDamping = 0f;
 
         //ReticleManager.Instance.DataReceiver(this);
 
@@ -434,7 +434,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
         {
             _rb.AddForce(GetSlopeMoveDirection() * _targetSpeed * 10f, ForceMode.Force);
 
-            if (_rb.velocity.y > 0)
+            if (_rb.linearVelocity.y > 0)
                 _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
             
@@ -484,17 +484,17 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
     {
         if (_onSlope && !_exitingSlope)
         {
-            if (_rb.velocity.magnitude > _targetSpeed) 
-                _rb.velocity = _rb.velocity.normalized * _targetSpeed;
+            if (_rb.linearVelocity.magnitude > _targetSpeed) 
+                _rb.linearVelocity = _rb.linearVelocity.normalized * _targetSpeed;
         }
         else
         {
-            Vector3 flatVel = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+            Vector3 flatVel = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
 
             if (flatVel.magnitude > _targetSpeed)
             {
                 Vector3 limitedVel = flatVel.normalized * _targetSpeed;
-                _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
+                _rb.linearVelocity = new Vector3(limitedVel.x, _rb.linearVelocity.y, limitedVel.z);
             }
         }
     }
@@ -513,7 +513,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
         _canJump        = false;
         _exitingSlope   = true;
 
-        _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+        _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
         _rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
@@ -581,7 +581,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
     // ----------------------------------------------------------------------
     private void SlidingMovement()
     {
-        if (!_onSlope || _rb.velocity.y > -0.1f)
+        if (!_onSlope || _rb.linearVelocity.y > -0.1f)
         {
             _rb.AddForce(_moveDirection.normalized * _slideForce, ForceMode.Force);
             _slideTimer -= Time.deltaTime;
@@ -681,7 +681,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
 
     public IEnumerator LoadWithTime(SaveData gameData)
     {
-        _rb.velocity    = Vector3.zero;
+        _rb.linearVelocity    = Vector3.zero;
 
         yield return new WaitForSeconds(0.05f);
 

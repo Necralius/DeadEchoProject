@@ -1,7 +1,14 @@
 fileFormatVersion: 2
 guid: abc00000000006729772468879583746
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Meshes/sm_GarageColumnn_01_01.fbx
+  uploadId: 620614
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       1: 100000
@@ -100,8 +107,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -128,6 +133,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -155,6 +161,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -163,17 +170,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips:
-  - abc00000000011057786976223615816
-  - abc00000000016187670611582998161
-  - abc00000000003549090594727069128
-  - abc00000000002879445337851888417
-  - abc00000000006279610635363913353
-  - abc00000000008414956146671576265
-  - abc00000000002526993695092035698
-  - abc00000000007089806652367760478
-  - abc00000000016055524114208351161
-  - abc00000000006398185271594824825
+  referencedClips: []
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
@@ -197,14 +194,9 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 256451
-  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
-  packageVersion: 1.1
-  assetPath: Assets/ScansFactory/UrbanDistrict/Meshes/sm_GarageColumnn_01_01.fbx
-  uploadId: 620614

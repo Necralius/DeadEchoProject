@@ -10,8 +10,20 @@ public class OptionSelector : MonoBehaviour
     {
         foreach(var btn  in _buttons)
         {
-            if (btn == button) btn.selected = true;
-            else btn.selected = false;
+            if (btn == button) 
+                btn._extension.selected = true;
+            else btn._extension.selected = false;
+
+            btn.UpdateState();
+        }
+    }
+
+    public void DeselectAll()
+    {
+        foreach(var btn in _buttons)
+        {
+            btn._extension.selected = false;
+            btn.UpdateState();
         }
     }
 }
