@@ -13,9 +13,10 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
 
     //Inspector assinged
     [Header("Dependencies")]
-    public                      ScreenDamageManager        _damageManager  = null;
-    [SerializeField] private    CapsuleCollider            _meleeTrigger   = null;
-    [SerializeField] private    Camera                     _fpsCamera      = null;
+    public                      ScreenDamageManager        _damageManager       = null;
+    [SerializeField] private    CapsuleCollider            _meleeTrigger        = null;
+    [SerializeField] private    Camera                     _fpsCamera           = null;
+    [SerializeField] private    InGame_UIManager           _inGameUI_Manager    = null;
 
     [Header("Health System")]
     private                 float      _currentHealth  = 100f;
@@ -23,7 +24,7 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
 
     //Private
     private Collider                _collider               = null;
-    private ControllerManager       _fpsController          = null;
+    [SerializeField] private BodyController          _fpsController          = null;
     private GameSceneManager        _gameSceneManager       = null;
 
     [SerializeField] private    float _cureValuePerSec  = 1f;
@@ -46,15 +47,13 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
     }
 
     #region - BuiltIn Methods -
-    //
-    //
-    //
-    //
     private void Start()
     {
         _collider               = GetComponentInChildren<Collider>();
-        _fpsController          = GetComponent<ControllerManager>();
+        _fpsController          = GetComponent<BodyController>();
         _gameSceneManager       = GameSceneManager.Instance;
+        _inGameUI_Manager       = InGame_UIManager.Instance;
+
         RegisterDataSaver();
 
         if (_gameSceneManager != null)
@@ -77,7 +76,7 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
             if (_cureTimer >= _timeToCure)
             {
                 CurrentHealth += _cureValuePerSec / 1000;
-                InGame_UIManager.Instance.UpdatePlayerState(_fpsController, this);
+                _inGameUI_Manager.UpdatePlayerState(_fpsController, this);
             }
             else _cureTimer += Time.deltaTime;
         }
@@ -85,10 +84,6 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
     #endregion
 
     #region - Damage System -
-    //
-    //
-    //
-    //
     public void TakeDamage(float value)
     {
         CurrentHealth = Mathf.Max(_currentHealth - value, 0f);
@@ -102,17 +97,13 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
         if (CurrentHealth <= (_maxHealth / 4)) _damageManager.SetCriticalHealth();
         else _damageManager.SetCriticalHealth();
 
-        InGame_UIManager.Instance.UpdatePlayerState(_fpsController, this);
+        _inGameUI_Manager.UpdatePlayerState(_fpsController, this);
 
         if (CurrentHealth <= 0) Die();
         _cureTimer = 0f;
     }
     #endregion
 
-    //
-    //
-    //
-    //
     private void Die()
     {
         GameSceneManager.Instance.DeathScreen(true);
@@ -127,31 +118,18 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
         CurrentHealth = _maxHealth;
     }
 
-    //
-    //
-    //
-    //
     public void RegisterDataSaver()
     {
         if (GameStateManager.Instance != null)
             GameStateManager.Instance.RegisterSavableInstance(this);
-
     }
 
-    //
-    //
-    //
-    //
     public void Load(SaveData gameData)
     {
         CurrentHealth = gameData.GetPlayerData().playerHealth;
         Revive();
     }
 
-    //
-    //
-    //
-    //
     public void Save(SaveData gameData)
     {
         gameData.GetPlayerData().playerHealth = CurrentHealth;

@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class RockThrower : MonoBehaviour
 {
+    //Dependencies
+    private                  Animator       _anim               => GetComponent<Animator>();
+    [SerializeField] private BodyController _playerController   = null;
+    [SerializeField] private GameObject     _rockObject         = null;
+
     // Private animations hashes
     private int startThrowingHash       = Animator.StringToHash("StartThrowing");
     private int endThrowingHash         = Animator.StringToHash("EndThrowing");
     private int cancelThrowingHash      = Animator.StringToHash("CancelThrowing");
-
-    //Dependencies
-    ControllerManager   _playerController   => ControllerManager.Instance;
-    Animator            _anim               => GetComponent<Animator>();
 
     // ------------------------------------------ Methods ------------------------------------------ //
 
@@ -22,8 +23,8 @@ public class RockThrower : MonoBehaviour
     // ----------------------------------------------------------------------
     public void ThrowRock()
     {
-        if (_playerController == null)                      return;
-        if (_playerController._rockThrowPosition == null)   return;
+        if (_playerController == null) 
+            return;
 
         _anim.SetTrigger(startThrowingHash);
     }
@@ -43,13 +44,14 @@ public class RockThrower : MonoBehaviour
         if (rock.GetComponent<Rigidbody>())
         {
             Rigidbody rb = rock.GetComponent<Rigidbody>();
-            Vector3 forceToAdd = _playerController._cameraObject.forward *
+            Vector3 forceToAdd = _playerController._camController.transform.forward *
                 _playerController._objectThrowForce +
                 transform.up *
                 _playerController._objectThrowUpForce;
 
             rb.AddForce(forceToAdd, ForceMode.Impulse);
         }
+        _rockObject.gameObject.SetActive(false);
     }
 
     // ----------------------------------------------------------------------
@@ -65,8 +67,16 @@ public class RockThrower : MonoBehaviour
 
     #region - Animation Events -
     //Animation Events
-    public void ActivateArms()      => transform.GetChild(0).gameObject.SetActive(true);
-    public void DeactivateArms()    => transform.GetChild(0).gameObject.SetActive(false);
+    public void ActivateArms()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        _rockObject.gameObject.SetActive(true);
+    }
+    public void DeactivateArms()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        _rockObject.gameObject.SetActive(false);
+    }
     public void FinishThrow()       => _anim.SetTrigger(endThrowingHash);
     public void CancelThrowing()    => _anim.SetTrigger(cancelThrowingHash);
     public void FinishThrowAction() => _playerController._isThrowingObject = false;

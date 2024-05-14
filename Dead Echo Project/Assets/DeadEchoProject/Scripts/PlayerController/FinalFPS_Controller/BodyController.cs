@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro.Examples;
 using UnityEngine;
 using static NekraByte.Core.DataTypes;
 using static NekraByte.Core.Enumerators;
@@ -9,12 +11,13 @@ using static NekraByte.Core.Enumerators;
 public class BodyController : MonoBehaviour, IDataPersistence
 {
     //Main System Dependencies
-    private InputManager        _inputManager   => GetComponent<InputManager>();
-    private Animator            _animator       => GetComponent<Animator>(); 
-    private CharacterController _controller     => GetComponent<CharacterController>();
-    private PlayerManager       _playerManager  => GetComponent<PlayerManager>();
-    private FPSCamera           _camController  = null;
-    [SerializeField] private Animator _shadowBodyAnimator; 
+    private InputManager                _inputManager       => GetComponent<InputManager>();
+    private Animator                    _animator           => GetComponent<Animator>(); 
+    private CharacterController         _controller         => GetComponent<CharacterController>();
+    private PlayerManager               _playerManager      => GetComponent<PlayerManager>();
+    [HideInInspector] public FPSCamera  _camController      = null;
+
+    [SerializeField] private Animator   _shadowBodyAnimator = null;
 
     [Header("Player Settings")]
     [SerializeField]            private SpeedSettings _speedSettings    = new SpeedSettings();
@@ -38,7 +41,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     public bool _canJump            = true;
     public bool _inAir              = false;
 
-    public MovementState _currentState = MovementState.Walking;
+    [SerializeField] private MovementState _currentState = MovementState.Idle;
 
     private Vector3     _velocity       = Vector3.zero;
     private float       _targetX        = 0f;
@@ -61,6 +64,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     [SerializeField, Range(0f, 1f)] float _npcStickiness = 0.5f;
     float _dragMultiplier       = 1f;
     float _dragMultiplierLimit  = 1f;
+    public Collider playerCollider = null;
 
     [Header("Ground Check")]
     [SerializeField] private Transform  _feetChecker;
@@ -75,16 +79,20 @@ public class BodyController : MonoBehaviour, IDataPersistence
     public float dragMultiplierLimit    { get => _dragMultiplierLimit;  set => _dragMultiplierLimit = Mathf.Clamp01(value);                 }
     public float dragMultiplier         { get => _dragMultiplier;       set => _dragMultiplier = Mathf.Min(value, _dragMultiplierLimit);    }
     public Vector3 Velocity             { get => _velocity; }
+    public MovementState CurrentState   { get => _currentState; }
 
     [Header("Gun Handler States")]
     public bool _changingWeapon     = false;
     public bool _isThrowingObject   = false;
     public bool _flashlightActive   = false;
 
+    #region - Rock Throwing -
     [Header("Rock Throwing System")]
-    [SerializeField, Range(1f, 20f)] private float  _objectThrowForce    = 5f;
-    [SerializeField, Range(1f, 20f)] private float  _objectThrowUpForce  = 5f;
-    [SerializeField] private Transform              _rockThrowPosition   = null;
+    [Range(1f, 20f)] public float           _objectThrowForce    = 5f;
+    [Range(1f, 20f)] public float           _objectThrowUpForce  = 5f;
+    public Transform                        _rockThrowPosition   = null;
+    [SerializeField] private RockThrower    _rockThrower         = null;
+    #endregion
 
     [Header("Gun System")]
     public GameObject       _shootPoint     = null;
@@ -102,9 +110,11 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        if (GameStateManager.Instance != null) 
+        if (GameStateManager.Instance != null)
             RegisterDataSaver();
-        _camController = GameObject.FindGameObjectWithTag("CameraObject").GetComponent<FPSCamera>();
+
+        _camController  = GameObject.FindGameObjectWithTag("CameraObject").GetComponent<FPSCamera>();
+        _rockThrower    = AnimationLayer.GetAnimationLayer("RockThrowerLayer", _playerManager._animLayers).layerObject.GetComponent<RockThrower>();
     }
 
     private void Update()
@@ -217,11 +227,38 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
         if (_gunsInHand.Count > 0)
         {
-            if (_inputManager.One_Action.Action.WasPressedThisFrame()      && !_changingWeapon) EquipGun(0);
-            if (_inputManager.Two_Action.Action.WasPressedThisFrame()    && !_changingWeapon) EquipGun(1);
+            if (_inputManager.One_Action.Action.WasPressedThisFrame() && !_changingWeapon)
+            {
+                EquipGun(0);
+                CancelThrowRock();
+            }
+
+            if (_inputManager.Two_Action.Action.WasPressedThisFrame() && !_changingWeapon)
+            {
+                EquipGun(1);
+                CancelThrowRock();
+            }
         }
+
+        if (_equippedGun != null)
+        {
+            if (!_equippedGun._isReloading && !_isSprinting)
+            {
+                if (_inputManager.T_Action.Action.WasPressedThisFrame()) 
+                    StartThrowing();
+                if (_isThrowingObject) 
+                    if (_inputManager.T_Action.Action.WasReleasedThisFrame()) 
+                        EndRockThrow();
+            }
+        }
+
         _animator.SetBool(isCrouchingHash, _isCrouching);
         _shadowBodyAnimator.SetBool(isCrouchingHash, _isCrouching);
+
+        if (_flashlight != null)
+            if (_inputManager.F_Action.Action.WasPressedThisFrame()) ChangeFlashlightState();
+
+        _dragMultiplier = Mathf.Min(_dragMultiplier + Time.deltaTime, _dragMultiplierLimit);
     }
 
     private void JumpAction() // Executes an calculation of an jump height value, and set is to the new Y direction vector considering the gravity.
@@ -281,10 +318,11 @@ public class BodyController : MonoBehaviour, IDataPersistence
     {
         SetBodyState(_isCrouching ? "Crouching" : "Standing");
 
-        if (_isCrouching)                                   SetMovementState(MovementState.Crouching);
+        if (_isGrounded && _isWalking)                      SetMovementState(MovementState.Walking);
+        else if (_isCrouching)                              SetMovementState(MovementState.Crouching);
         else if (_isGrounded && _isWalking && _isSprinting) SetMovementState(MovementState.Sprinting);
-        else if (_isGrounded && _isWalking)                 SetMovementState(MovementState.Walking);
-        else                                                SetMovementState(MovementState.Air);
+        else if (!_isGrounded)                              SetMovementState(MovementState.Air);
+        else                                                SetMovementState(MovementState.Idle);
 
         _targetSpeed = _speedSettings.GetFinalSpeed(this);
     }
@@ -304,8 +342,8 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
     private void SetMovementState(MovementState state)
     {
-        if (!(_currentBodyState is null)) 
-            _currentBodyState.MovementState = state;
+        _currentBodyState.MovementState = state;
+        _currentState                   = state;
     }
 
     #region - Gun Managing -
@@ -341,17 +379,39 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
     public void DoStickiness()      => _dragMultiplier = 1f - _npcStickiness;
 
+    #region - Flashlight System -
     private void ChangeFlashlightState()
     {
         _flashlight.SetActive(!_flashlight.activeInHierarchy);
         SS_Flashlight();
     }
+
     private void SS_Flashlight()
     {
         if (!_flashlightClip.Equals(null))
             AudioManager.Instance.PlayOneShotSound("Effects", _flashlightClip, transform.position, 1f, 0, 128);
     }
+    #endregion
 
+    #region - Throw Rock State -
+    private void StartThrowing()
+    {
+        if (_rockThrower        == null) return;
+        if (_rockThrowPosition  == null) return;
+        if (_equippedGun        != null) _equippedGun.GunHolst(true);
+
+        _isThrowingObject = true;
+        _rockThrower.ThrowRock();
+    }
+    private void CancelThrowRock()
+    {
+        _rockThrower.CancelThrowing();
+        _isThrowingObject = false;
+    }
+    private void EndRockThrow() => _rockThrower.FinishThrow();
+    #endregion
+
+    #region - Foot IK -
     protected virtual void OnAnimatorIK(int layerIndex)
     {
         if (_animator == null) return;
@@ -384,11 +444,15 @@ public class BodyController : MonoBehaviour, IDataPersistence
             }
         }
     }
+    #endregion
+
+    #region - Gizmos -
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(_animator.GetIKPosition(AvatarIKGoal.LeftFoot), _animator.GetIKPosition(AvatarIKGoal.LeftFoot) + Vector3.down * _distanceToGround);
         Gizmos.DrawLine(_animator.GetIKPosition(AvatarIKGoal.RightFoot), _animator.GetIKPosition(AvatarIKGoal.RightFoot) + Vector3.down * _distanceToGround);
     }
+    #endregion
 }
 
 [Serializable]

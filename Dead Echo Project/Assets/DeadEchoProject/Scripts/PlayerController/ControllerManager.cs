@@ -498,6 +498,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
             }
         }
     }
+
     public void DoStickiness() => _dragMultiplier = 1f - _npcStickiness;
     #endregion
 
@@ -610,7 +611,8 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
     private void StartThrowing()
     {
         if (_rockThrower == null) return;
-        if (_equippedGun != null) _equippedGun.GunHolst(true);
+        if (_equippedGun != null) 
+            _equippedGun.GunHolst(true);
 
         _isThrowingObject = true;
         _rockThrower.ThrowRock();
@@ -671,7 +673,6 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
         SS_Flashlight();
     }
     #endregion
-
 
     #region - Saving and Load System -
     public void RegisterDataSaver()

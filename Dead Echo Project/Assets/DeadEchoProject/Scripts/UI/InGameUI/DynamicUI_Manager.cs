@@ -27,13 +27,13 @@ public class DynamicUI_Manager : MonoBehaviour
             fader.data.OnUpdate();
     }
 
-    public ColorFader GetFader(string Tag)
+    public ColorFader GetFader(string Tag, Color defaultColor)
     {
         foreach(var fader in _faders) 
             if (fader.faderTag == Tag) 
                 return fader.data;
 
-        FaderItem newItem = new FaderItem(Tag);
+        FaderItem newItem = new FaderItem(Tag, defaultColor);
         _faders.Add(newItem);
         return newItem.data;
     }
@@ -45,10 +45,11 @@ public struct FaderItem
     public string faderTag;
     public ColorFader data;
 
-    public FaderItem(string Tag)
+    public FaderItem(string Tag, Color defaultColor)
     {
-        this.faderTag = Tag;
-        data = new ColorFader();
+        this.faderTag       = Tag;
+        data                = new ColorFader();
+        data.currentColor   = defaultColor;
     }
 }
 

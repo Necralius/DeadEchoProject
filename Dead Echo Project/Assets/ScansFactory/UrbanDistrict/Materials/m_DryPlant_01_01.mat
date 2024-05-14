@@ -122,7 +122,7 @@ Material:
     - _CullModeForward: 0
     - _DepthOffsetEnable: 0
     - _DetailNormalStrenght: 0
-    - _DiffusionProfileHash: 2.6486764
+    - _DiffusionProfileHash: 3.8324683
     - _DoubleSidedEnable: 1
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
@@ -172,7 +172,7 @@ Material:
     - Color_B058D3E1: {r: 1, g: 1, b: 1, a: 0}
     - View_BufferSizeAndInvSize: {r: 1920, g: 1080, b: 0.00052, a: 0.00092}
     - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    - _DiffusionProfileAsset: {r: -3.698545e+22, g: 20.616848, b: -5.291675e-28, a: -1.3520143e+18}
+    - _DiffusionProfileAsset: {r: -74368450, g: 1.1501581e+22, b: -7.9454856, a: -0.0000012932012}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
@@ -190,5 +190,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DiffusionProfileReferences:
-  - {fileID: 11400000, guid: 879ffae44eefa4412bb327928f1a96dd, type: 2}
+  - {fileID: 11400000, guid: b8d88dcc20e01b646b41fec00e92adb5, type: 2}
   m_MaterialReferences: []

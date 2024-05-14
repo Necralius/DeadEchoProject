@@ -76,6 +76,21 @@ namespace NekraByte
             /// <param name="inputValue"> The Vector to be verified. </param>
             /// <returns> The response if the vector is invalid or not. </returns>
             public static bool IsNaN(Vector3 inputValue) => float.IsNaN(inputValue.x) || float.IsNaN(inputValue.y) || float.IsNaN(inputValue.z);
+
+            public static float Normalize(float value, float min, float max)
+            {
+                // Garante que o valor está dentro do intervalo
+                value = Mathf.Clamp(value, min, max);
+
+                // Calcula a diferença entre o máximo e o mínimo
+                float range = max - min;
+
+                // Normaliza o valor entre 0 e 1
+                float normalizedValue = (value - min) / range;
+
+                return normalizedValue;
+            }
+
         }
 
         // --------------------------------------------------------------
@@ -813,7 +828,7 @@ namespace NekraByte
                 Jumping
             }
             public enum InteractionButton { TAB, E, Q, ENTER }
-            public enum MovementState { Idle, Walking, Sprinting, Crouching, Air, Sliding }
+            public enum MovementState { Idle, Walking, Sprinting, Crouching, Air }
             #endregion
 
             #region - Languages - 

@@ -23,9 +23,10 @@ public abstract class GunBase : MonoBehaviour
     #endregion
 
     //UI Assets
-    [SerializeField] ColorFader ammoTextFader;
-    [SerializeField] private TextMeshPro _ammoText = null;
-    [SerializeField] private TextMeshPro _gunName = null;
+                             ColorFader  _ammoFader         = null;
+                             ColorFader  _gunModeFader      = null;
+    [SerializeField] private TextMeshPro _ammoDisplay       = null;
+    [SerializeField] private TextMeshPro _gunModeDisplay    = null;
 
     #region - Gun State -
     [Header("Gun State"), Tooltip("Gun current states")]
@@ -89,7 +90,6 @@ public abstract class GunBase : MonoBehaviour
         _animator           = GetComponent<Animator>();
         _recoilAsset        = GetComponent<GunProceduralRecoil>();
         _playerInstance     = GetComponentInParent<FPSCamera>().PlayerManager;
-        _ammoText           = GetComponentInChildren<TextMeshPro>();
         _inputManager       = _playerInstance.InputManager;
 
         _aimHolder          = AnimationLayer.GetAnimationLayer("AimLayer",      _playerInstance._animLayers).layerObject.transform;
@@ -97,8 +97,10 @@ public abstract class GunBase : MonoBehaviour
         _camera             = AnimationLayer.GetAnimationLayer("CameraLayer",   _playerInstance._animLayers).layerObject.GetComponent<Camera>();
         _recoilAsset.SetUp(   AnimationLayer.GetAnimationLayer("RecoilLayer",   _playerInstance._animLayers).layerObject);
 
-        ammoTextFader = _playerInstance?.DynamicUI_Manager?.GetFader(_gunDataConteiner.gunData.gunName + " Ammo");
-        ammoTextFader?.FadeIn(4f);
+        _ammoFader       = _playerInstance?.DynamicUI_Manager?.GetFader("Ammo", Color.white);
+        _gunModeFader    = _playerInstance?.DynamicUI_Manager?.GetFader("GunMode", Color.white);
+        //gunModeFader?.  FadeIn(4f);
+        //ammoFader?.     FadeIn(4f);
 
         _originalWeaponPosition = _aimHolder.localPosition;
         
@@ -163,7 +165,8 @@ public abstract class GunBase : MonoBehaviour
         if (_recoilAsset                        == null)    return;
         if (GameSceneManager.Instance.inventoryIsOpen)      return;
 
-        _ammoText.color = ammoTextFader.currentColor;
+        _ammoDisplay.color      = _ammoFader.currentColor;
+        _gunModeDisplay.color   = _gunModeFader.currentColor;
 
         _forcedClip = _gunDataConteiner.gunData.gunMode == GunMode.Locked;
 
@@ -408,16 +411,22 @@ public abstract class GunBase : MonoBehaviour
     // ----------------------------------------------------------------------
     public void UI_Update()
     {
-        if (ammoTextFader is null)  return;
-        if (_ammoText is null)  return;
-        if (!_isEquiped)        return;
+        if (_ammoFader is null)      return;
+        if (_ammoDisplay is null)   return;
+        if (!_isEquiped)            return;
 
-        ammoTextFader?.FadeIn(4f);
+        _ammoFader?.     FadeIn(4f);
 
-        _ammoText.text = $"{_gunDataConteiner.ammoData._magAmmo}/{_gunDataConteiner.ammoData._bagAmmo}";
-        //_playerController.txt_GunName.text = _gunDataConteiner.gunData.gunName;
+        _ammoDisplay.text       = $"{_gunDataConteiner.ammoData._magAmmo}/{_gunDataConteiner.ammoData._bagAmmo}";
+    }
 
-        //InGame_UIManager.Instance.UpdateMode(_gunDataConteiner.gunData.gunMode, gunModes);
+    public void GunModeUpdate()
+    {
+        if (_gunModeDisplay is null) return;
+
+        _gunModeFader?.  FadeIn(4f);
+
+        _gunModeDisplay.text    = $"{_gunDataConteiner.gunData.gunMode}";
     }
     #endregion
 
@@ -438,7 +447,7 @@ public abstract class GunBase : MonoBehaviour
 
         _gunDataConteiner.gunData.gunMode = gunModes[_gunModeIndex];
 
-        UI_Update(); // -> Updates the gun UI.
+        GunModeUpdate();
         AudioManager.Instance.PlayOneShotSound("Effects", _playerInstance.changeGunMode, transform.position, 1f, 0f, 128);
     }
     #endregion

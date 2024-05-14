@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class ScreenDamageManager : MonoBehaviour
 {
-    private CanvasGroup _canvasGroupd      = null;
+    private CanvasGroup _canvasGroupd => GetComponent<CanvasGroup>();
 
     [SerializeField] private float      _bloodAmount        = 0.0f;
     [SerializeField] private float      _minBloodAmount     = 0.0f;
@@ -13,19 +14,14 @@ public class ScreenDamageManager : MonoBehaviour
 
     [SerializeField] private AudioCollection  _heartBeat          = null;
     [SerializeField] private float           _soundFadeValue = 0.5f;
-    private bool _fadeSound = false;
-    private float _currentVolume = 1;
+    private bool    _fadeSound = false;
+    private float   _currentVolume = 1;
 
     // Properties
     public float    bloodAmount     { get   => _bloodAmount;        set => _bloodAmount     = value;  }
     public float    minBloodAmount  { get   => _minBloodAmount;     set => _minBloodAmount  = value;  }
     public float    fadeSpeed       { get   => _fadeSpeed;          set => _fadeSpeed       = value;  }
     public bool     autoFade        { get   => _autoFade;           set => _autoFade        = value;  }
-
-    private void Start()
-    {
-        _canvasGroupd = GetComponent<CanvasGroup>();
-    }
 
     void Update()
     {

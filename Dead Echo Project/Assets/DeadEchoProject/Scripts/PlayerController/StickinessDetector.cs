@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class StickinessDetector : MonoBehaviour
 {
-    ControllerManager _controller = null;
+    BodyController _controller = null;
 
-    private void Start() => _controller = GetComponentInParent<ControllerManager>();
+    private void Start() => _controller = GetComponentInParent<BodyController>();
 
     private void OnTriggerStay(Collider other)
     {
@@ -15,7 +15,7 @@ public class StickinessDetector : MonoBehaviour
         {
             _controller.DoStickiness();
             machine.VisualThreat.Set(AITargetType.Visual_Player, 
-                _controller._playerCol, 
+                _controller.playerCollider, 
                 _controller.transform.position, 
                 Vector3.Distance(machine.transform.position, _controller.transform.position));
             machine.SetStateOverride(AIStateType.Attack);

@@ -16,9 +16,8 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
     private PlayerAudioManager      _playerAudioManager     => GetComponent<PlayerAudioManager>();
     private BodyController          _bodyController         => GetComponent<BodyController>();
     private CapsuleCollider         _playerCollider         => GetComponent<CapsuleCollider>();
-
-    private DynamicUI_Manager       _dynamicUI_Manager  = null;
-    private FPSCamera               _cameraController   = null;
+    private FPSCamera               _cameraController       = null;
+    private DynamicUI_Manager       _dynamicUI_Manager      = null;
 
     //Public encapsulated data
     public InputManager             InputManager            { get => _inptManager;           }
@@ -28,7 +27,15 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
     public InteractionController    InteractionController   { get => _interactionController; }
     public PlayerAudioManager       PlayerAudioManager      { get => _playerAudioManager;    }
     public CapsuleCollider          Collider                { get => _playerCollider;        }
-    public DynamicUI_Manager        DynamicUI_Manager       { get => _dynamicUI_Manager;     }
+    public DynamicUI_Manager        DynamicUI_Manager
+    {
+        get
+        {
+            if (_dynamicUI_Manager == null) 
+                _dynamicUI_Manager = DynamicUI_Manager.Instance; 
+            return _dynamicUI_Manager;
+        }
+    }
 
     public List<AnimationLayer> _animLayers = new List<AnimationLayer>();
 
@@ -51,18 +58,12 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
 
         _armsAnimator       = AnimationLayer.GetAnimationLayer("AnimationsLayer",   _animLayers).animator;
         _rockThrower        = AnimationLayer.GetAnimationLayer("RockThrowerLayer",  _animLayers).layerObject?.GetComponent<RockThrower>();
-        _dynamicUI_Manager  = DynamicUI_Manager.Instance;
     }
 
     private void Start()
     {
         //InGame_UIManager.Instance.UpdatePlayerState(this);
         Cursor.lockState = CursorLockMode.Locked;
-
-    }
-
-    private void Update()
-    {
 
     }
 
