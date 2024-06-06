@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: db1cb5fdf8f36924f9f4771f417847b7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Demo/UrbanDistrict_01_P/Sky and Fog
+    Settings Profile.asset
+  uploadId: 620614
