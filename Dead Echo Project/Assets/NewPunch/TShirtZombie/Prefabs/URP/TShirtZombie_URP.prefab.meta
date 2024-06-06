@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cb2f23e12d3dd984fae70f4ebcca0254
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272156
+  packageName: Zombies with T-shirt
+  packageVersion: 1.0
+  assetPath: Assets/NewPunch/TShirtZombie/Prefabs/URP/TShirtZombie_URP.prefab
+  uploadId: 650250

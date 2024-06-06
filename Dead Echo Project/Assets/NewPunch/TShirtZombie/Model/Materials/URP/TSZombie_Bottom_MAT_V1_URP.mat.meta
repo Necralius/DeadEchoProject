@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 28d72b535b6a6ed4b8fed2f4f968e31e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272156
+  packageName: Zombies with T-shirt
+  packageVersion: 1.0
+  assetPath: Assets/NewPunch/TShirtZombie/Model/Materials/URP/TSZombie_Bottom_MAT_V1_URP.mat
+  uploadId: 650250

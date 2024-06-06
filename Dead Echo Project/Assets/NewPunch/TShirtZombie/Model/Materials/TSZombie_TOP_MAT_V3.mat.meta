@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: c0a395f8faf82824c996ed82b1163219
+timeCreated: 1559301856
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272156
+  packageName: Zombies with T-shirt
+  packageVersion: 1.0
+  assetPath: Assets/NewPunch/TShirtZombie/Model/Materials/TSZombie_TOP_MAT_V3.mat
+  uploadId: 650250

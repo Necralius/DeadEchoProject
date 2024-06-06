@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 1c15c5e583bd10648a1cf876331e20fe
+timeCreated: 1559499162
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272156
+  packageName: Zombies with T-shirt
+  packageVersion: 1.0
+  assetPath: Assets/NewPunch/TShirtZombie/Scripts/TSZ_CharacterInstantiate.cs
+  uploadId: 650250

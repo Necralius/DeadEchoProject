@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 7bf0eb626f25ebb45896fab78fba4a78
+timeCreated: 1559301856
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272156
+  packageName: Zombies with T-shirt
+  packageVersion: 1.0
+  assetPath: Assets/NewPunch/TShirtZombie/Model/Materials/Zombie_Hair_MAT.mat
+  uploadId: 650250

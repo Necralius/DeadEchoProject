@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6e3df3355c69e634ba03b8577f70d60e
+timeCreated: 1559312417
+licenseType: Store
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272156
+  packageName: Zombies with T-shirt
+  packageVersion: 1.0
+  assetPath: Assets/NewPunch/TShirtZombie/Maps/TShirtZombieMap.unity
+  uploadId: 650250

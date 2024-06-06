@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 91db413c2cd5cd14492a33e77a7587d2
+timeCreated: 1559307280
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272156
+  packageName: Zombies with T-shirt
+  packageVersion: 1.0
+  assetPath: Assets/NewPunch/TShirtZombie/Prefabs/TShirtZombie.prefab
+  uploadId: 650250

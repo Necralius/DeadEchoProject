@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e7c2c074985519c4abb52e799568ea0e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272156
+  packageName: Zombies with T-shirt
+  packageVersion: 1.0
+  assetPath: Assets/NewPunch/TShirtZombie/Model/Materials/HDRP/TSZombie_Body_MAT_V2_HDRP.mat
+  uploadId: 650250
