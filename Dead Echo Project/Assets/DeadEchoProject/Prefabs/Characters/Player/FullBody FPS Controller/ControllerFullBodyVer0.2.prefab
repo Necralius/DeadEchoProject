@@ -8563,7 +8563,7 @@ Transform:
   m_GameObject: {fileID: 1332918923057868990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.023}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8615,7 +8615,7 @@ MonoBehaviour:
       shootType: 2
       gunMode: 0
       rateOfFire: 0.1
-      aimOffset: {x: -0.0277, y: -0.1908, z: -0.3}
+      aimOffset: {x: -0.035, y: -0.197, z: -0.17}
       _aimReloadOffset: 0.2
     gunBulletSettings:
       _shootDamageRange: {x: 10, y: 20}
@@ -8626,7 +8626,7 @@ MonoBehaviour:
       _bulletSpread: 0.001
       _bulletLifeTime: 2
       _bulletsPerShoot: 1
-      _bulletImpactForce: 10
+      _bulletImpactForce: 1
       _collisionMask:
         serializedVersion: 2
         m_Bits: 4227858576
@@ -20618,7 +20618,7 @@ Transform:
   m_GameObject: {fileID: 2121268746332011214}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0005687624, y: 0.013847649, z: -0.048496008, w: 0.99872726}
-  m_LocalPosition: {x: -0.024, y: -0.224, z: 0.045}
+  m_LocalPosition: {x: 0.005, y: -0.227, z: 0.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -25710,7 +25710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: b35febb97f04df648810e46beded0e51, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -35161,6 +35161,11 @@ MonoBehaviour:
   _verticalRotationClamp: 75
   _bodyRotationSpeed: 15
   _heightChangeSpeed: 5
+  _headbobActive: 1
+  _amplitude: 0.003
+  _frequency: 9
+  _camera: {fileID: 6924612530191144381}
+  _controller: {fileID: 6112778160557560544}
 --- !u!1 &5763536985444798248
 GameObject:
   m_ObjectHideFlags: 0
@@ -35462,8 +35467,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -47035,7 +47040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -52880,8 +52885,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -53790,7 +53795,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.80759084
+      value: -0.8075908
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5,
         type: 3}
@@ -53800,7 +53805,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.3651779
+      value: -1.365178
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5,
         type: 3}
@@ -54408,12 +54413,12 @@ MonoBehaviour:
   - Name: Standing
     State: 0
     CameraY_Offset: 1.2
-    Sprite: {fileID: 0}
-    MovementState: 4
+    Sprite: {fileID: 21300000, guid: c430301091d05fb4f95562560087764d, type: 3}
+    MovementState: 1
   - Name: Crouching
     State: 1
     CameraY_Offset: 0.85
-    Sprite: {fileID: 0}
+    Sprite: {fileID: 21300000, guid: 9faaf741f39ce87468224011a725c394, type: 3}
     MovementState: 3
   _flashlight: {fileID: 50353977412643558}
   _flashlightClip: {fileID: 8300000, guid: 3cdfb66223dbab04286b6d3276ef3f59, type: 3}
@@ -54542,7 +54547,9 @@ MonoBehaviour:
   _damageManager: {fileID: 9055504254499531942}
   _meleeTrigger: {fileID: 7703797363715037700}
   _fpsCamera: {fileID: 327070727695027314}
+  _inGameUI_Manager: {fileID: 0}
   _maxHealth: 100
+  _fpsController: {fileID: 0}
   _cureValuePerSec: 1
   isDead: 0
 --- !u!4 &6797565125005839072 stripped

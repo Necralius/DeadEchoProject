@@ -30,6 +30,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     private float _targetSpeed          = 7f;
     private float _targetSpeedModifier  = 0f;
 
+
     [Header("Player State")]
     public bool _isWalking          = false;
     public bool _isWalkingBackwards = false;
@@ -62,9 +63,9 @@ public class BodyController : MonoBehaviour, IDataPersistence
     [Header("AI Stickness")]
     [Tooltip("When the AI agent touch the player, the player receive an speed nerf, to make the AI more lethal.")]
     [SerializeField, Range(0f, 1f)] float _npcStickiness = 0.5f;
-    float _dragMultiplier       = 1f;
-    float _dragMultiplierLimit  = 1f;
-    public Collider playerCollider = null;
+    private float   _dragMultiplier       = 1f;
+    private float   _dragMultiplierLimit  = 1f;
+    public Collider playerCollider        = null;
 
     [Header("Ground Check")]
     [SerializeField] private Transform  _feetChecker;
@@ -76,6 +77,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     [SerializeField] private float  _distanceToGround = 1f;
 
     //Encapsulated Data
+    public float TargetSpeed            { get => _targetSpeed; }
     public float dragMultiplierLimit    { get => _dragMultiplierLimit;  set => _dragMultiplierLimit = Mathf.Clamp01(value);                 }
     public float dragMultiplier         { get => _dragMultiplier;       set => _dragMultiplier = Mathf.Min(value, _dragMultiplierLimit);    }
     public Vector3 Velocity             { get => _velocity; }

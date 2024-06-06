@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7eb217029533a9c4f8430556c3607b94
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Prefabs/Cables/CablesElectricPoles.prefab
+  uploadId: 620614

@@ -99,8 +99,6 @@ public abstract class GunBase : MonoBehaviour
 
         _ammoFader       = _playerInstance?.DynamicUI_Manager?.GetFader("Ammo", Color.white);
         _gunModeFader    = _playerInstance?.DynamicUI_Manager?.GetFader("GunMode", Color.white);
-        //gunModeFader?.  FadeIn(4f);
-        //ammoFader?.     FadeIn(4f);
 
         _originalWeaponPosition = _aimHolder.localPosition;
         
@@ -163,7 +161,7 @@ public abstract class GunBase : MonoBehaviour
         if (_playerInstance._armsAnimator       == null)    return;
         if (_animator                           == null)    return;
         if (_recoilAsset                        == null)    return;
-        if (GameSceneManager.Instance.inventoryIsOpen)      return;
+        if (GameSceneManager.Instance.inventoryIsOpen  )    return;
 
         _ammoDisplay.color      = _ammoFader.currentColor;
         _gunModeDisplay.color   = _gunModeFader.currentColor;
@@ -172,13 +170,13 @@ public abstract class GunBase : MonoBehaviour
 
         _recoilAsset?.InitializeData(_gunDataConteiner.recoilData);
 
-        _isAiming = _isClipped ? false : _playerInstance.BodyController._isSprinting ? false : _inputManager.mouseRightAction.State;
 
         //The class focus on limiting the actions, using ifs to limit the actions based in expressions.
         if (!_playerInstance.BodyController._isSprinting)
         {
             if (!_aimOverride)
             { 
+                _isAiming = _isClipped ? false : _playerInstance.BodyController._isSprinting ? false : _inputManager.mouseRightAction.State;
                 if (GameStateManager.Instance != null)
                 {
                     if (GameStateManager.Instance.currentApplicationData.aimType == 0)

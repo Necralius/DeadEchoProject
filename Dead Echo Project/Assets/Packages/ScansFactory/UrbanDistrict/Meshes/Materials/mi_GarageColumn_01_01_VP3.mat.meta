@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 04c7a8a59ce59794b9914508fbf59e9b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Meshes/Materials/mi_GarageColumn_01_01_VP3.mat
+  uploadId: 620614

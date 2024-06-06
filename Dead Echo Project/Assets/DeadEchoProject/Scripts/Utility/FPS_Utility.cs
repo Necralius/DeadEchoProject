@@ -90,7 +90,6 @@ namespace NekraByte
 
                 return normalizedValue;
             }
-
         }
 
         // --------------------------------------------------------------

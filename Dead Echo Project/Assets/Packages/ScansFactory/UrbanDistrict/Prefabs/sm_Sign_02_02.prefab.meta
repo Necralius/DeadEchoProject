@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: abc00000000010994248700671017175
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Prefabs/sm_Sign_02_02.prefab
+  uploadId: 620614

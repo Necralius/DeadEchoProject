@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 53cec5898b4ba1844a732b19e863f080
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Meshes/Materials/mi_ConcreteFence_01_03.mat
+  uploadId: 620614

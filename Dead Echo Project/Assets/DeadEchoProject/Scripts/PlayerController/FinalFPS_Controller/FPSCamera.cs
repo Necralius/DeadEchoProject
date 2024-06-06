@@ -18,23 +18,40 @@ public class FPSCamera : MonoBehaviour, IDataPersistence
     [SerializeField, Range(0.1f, 10f)]  private float _heightChangeSpeed         = 3f;
 
     //Private Data
-    private float mouseX = 0;
-    private float mouseY = 0;
+    private float mouseX    = 0;
+    private float mouseY    = 0;
 
-    private float rotX = 0;
-    private float rotY = 0;
+    private float rotX      = 0;
+    private float rotY      = 0;
 
     private Transform playerTransform = null;
 
     float currentYOffest    = 0f;
     float targetYOffset     = 0f;
 
+    [Header("Headbob Settings")]
+    [SerializeField] private bool                    _headbobActive  = false;
+    [SerializeField, Range(0f, 1f)]   private float  _amplitude      = 0.015f;
+    [SerializeField, Range(0f, 100f)] private float  _frequency      = 10.0f;
+
+    [SerializeField] private Transform _camera          = null;
+    [SerializeField] private Transform      _cameraHolder    => gameObject.transform;
+    [SerializeField] private BodyController _controller      = null;
+
+    private Vector3             _startPos;
+
+    public float Frequency { get => _frequency * _controller.TargetSpeed; }
+    //public float Amplitude { get => _amplitude / _controller.TargetSpeed; }
+
     private void Awake()
     {
-        if (GameStateManager.Instance != null) RegisterDataSaver();
+        if (GameStateManager.Instance != null) 
+            RegisterDataSaver();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         PlayerManager   = playerTransform.GetComponent<PlayerManager>();
         mainLookCamera  = GetComponentInChildren<Camera>();
+
+        _startPos       = _camera.localPosition;
     }
 
     void Start()
@@ -62,7 +79,51 @@ public class FPSCamera : MonoBehaviour, IDataPersistence
 
         currentYOffest  = PlayerManager.BodyController._currentBodyState.CameraY_Offset;
         targetYOffset   = Mathf.Lerp(targetYOffset, currentYOffest, _heightChangeSpeed * Time.deltaTime);
+
+        if (!_headbobActive) return;
+
+        CheckMotion();
+        ResetPosition();
+
+        _camera.LookAt(FocusTarget());
     }
+
+    #region - Headbob System -
+    private Vector3 FootStepMotion()
+    {
+        Vector3 pos = Vector3.zero;
+        pos.y       += Mathf.Sin(Time.time * Frequency) * _amplitude;
+        pos.x       += Mathf.Cos(Time.time * Frequency / 2) * _amplitude * 2;
+        return pos;
+    }
+
+    private void CheckMotion()
+    {
+        if (!_controller._isGrounded) 
+            return;
+
+        if (_controller._isWalking || _controller._isSprinting)
+            PlayMotion(FootStepMotion());
+    }
+
+    private void ResetPosition()
+    {
+        if (_camera.localPosition == _startPos) return;
+        _camera.localPosition = Vector3.Lerp(_camera.localPosition, _startPos, 1 * Time.deltaTime);
+    }
+
+    private void PlayMotion(Vector3 motion)
+    {
+        _camera.localPosition += motion;
+    }
+
+    private Vector3 FocusTarget()
+    {
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y + _cameraHolder.localPosition.y, transform.position.z);
+        pos += _cameraHolder.forward * 15f;
+        return pos;
+    }
+    #endregion
 
     private void LateUpdate()
     {

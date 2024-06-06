@@ -190,7 +190,25 @@ MonoBehaviour:
       - rid: 4392858055613349916
       - rid: 4392858055613349917
     m_RuntimeSettings:
-      m_List: []
+      m_List:
+      - rid: 4392858055613349888
+      - rid: 4392858055613349889
+      - rid: 4392858055613349890
+      - rid: 4392858055613349891
+      - rid: 4392858055613349893
+      - rid: 4392858055613349894
+      - rid: 4392858055613349895
+      - rid: 4392858055613349897
+      - rid: 4392858055613349898
+      - rid: 4392858055613349899
+      - rid: 4392858055613349901
+      - rid: 4392858055613349903
+      - rid: 4392858055613349905
+      - rid: 4392858055613349908
+      - rid: 4392858055613349909
+      - rid: 4392858055613349915
+      - rid: 4392858055613349916
+      - rid: 4392858055613349917
   renderingLayerNames:
   - Light Layer default
   - Light Layer 1
@@ -1068,6 +1086,10 @@ MonoBehaviour:
         skyOcclusionCS: {fileID: 7200000, guid: 798f52ec82fa04048a12826bbbbcf7b4,
           type: 3}
         skyOcclusionRT: {fileID: 4807578003741378534, guid: dfaf42b38dd001f49a72d8102b709f29,
+          type: 3}
+        renderingLayerCS: {fileID: 7200000, guid: a63c9cf933e3d8f41ae680a372784ebf,
+          type: 3}
+        renderingLayerRT: {fileID: 4807578003741378534, guid: c2be09c936362eb49a58f08aeb30627a,
           type: 3}
     - rid: 4392858055613349911
       type: {class: ProbeVolumeGlobalSettings, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}

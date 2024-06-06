@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: abc00000000006697836372299898836
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256451
+  packageName: '[HDRP/SRP/URP] Urban Abandoned District'
+  packageVersion: 1.1
+  assetPath: Assets/ScansFactory/UrbanDistrict/Prefabs/sm_Wall_03_04_Window.prefab
+  uploadId: 620614

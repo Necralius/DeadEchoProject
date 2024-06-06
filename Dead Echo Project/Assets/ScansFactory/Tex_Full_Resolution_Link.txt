@@ -1,6 +1,0 @@
-If you need much better texture resolution for HDRP, here you have it. We had to separate it from the package due to asset store submission requirements.
-
-Here 4x bigger textures(from 2k to 4k): https://bit.ly/3Q1xQ6X
-Just download and replace original Textures folder. If any questions please write at support@scansfactory.com
-
-ScansFactoryTeam
