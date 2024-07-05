@@ -447,14 +447,6 @@ public class BodyController : MonoBehaviour, IDataPersistence
         }
     }
     #endregion
-
-    #region - Gizmos -
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(_animator.GetIKPosition(AvatarIKGoal.LeftFoot), _animator.GetIKPosition(AvatarIKGoal.LeftFoot) + Vector3.down * _distanceToGround);
-        Gizmos.DrawLine(_animator.GetIKPosition(AvatarIKGoal.RightFoot), _animator.GetIKPosition(AvatarIKGoal.RightFoot) + Vector3.down * _distanceToGround);
-    }
-    #endregion
 }
 
 [Serializable]

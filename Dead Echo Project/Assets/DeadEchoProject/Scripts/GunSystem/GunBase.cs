@@ -166,10 +166,9 @@ public abstract class GunBase : MonoBehaviour
         _ammoDisplay.color      = _ammoFader.currentColor;
         _gunModeDisplay.color   = _gunModeFader.currentColor;
 
-        _forcedClip = _gunDataConteiner.gunData.gunMode == GunMode.Locked;
+        _forcedClip             = _gunDataConteiner.gunData.gunMode == GunMode.Locked;
 
         _recoilAsset?.InitializeData(_gunDataConteiner.recoilData);
-
 
         //The class focus on limiting the actions, using ifs to limit the actions based in expressions.
         if (!_playerInstance.BodyController._isSprinting)
@@ -300,6 +299,7 @@ public abstract class GunBase : MonoBehaviour
         _recoilAsset.RecoilFire();
         _gunDataConteiner.ammoData._magAmmo--;
         _muzzleFlash.Emit(1);
+        _muzzleFlash.Play();
         UI_Update();
 
         yield return new WaitForSeconds(_gunDataConteiner.gunData.rateOfFire);

@@ -15,17 +15,18 @@ public abstract class AIState : MonoBehaviour
     public virtual void OnTriggerEvent( AITriggerEventType eventType, Collider other) { }
     public virtual void OnDestinationReached( bool isReached) { }
 
-
     public abstract AIStateType GetStateType();
     public abstract AIStateType OnUpdate();
 
     protected AiStateMachine _stateMachine;
+
     public virtual void OnAnimatorUpdated()
     {
-
-
-        if (_stateMachine.useRootPosition && !GameSceneManager.Instance._gameIsPaused) _stateMachine.navAgent.velocity  = IsNaN(_stateMachine.animator.deltaPosition / Time.deltaTime) ? Vector3.zero : _stateMachine.animator.deltaPosition / Time.deltaTime;
-        if (_stateMachine.useRootRotation && !GameSceneManager.Instance._gameIsPaused) _stateMachine.transform.rotation = _stateMachine.animator.rootRotation;
+        if (_stateMachine.useRootPosition && !GameSceneManager.Instance._gameIsPaused) 
+            _stateMachine.navAgent.velocity  = IsNaN(_stateMachine.animator.deltaPosition / Time.deltaTime) ? Vector3.zero : _stateMachine.animator.deltaPosition / Time.deltaTime;
+        
+        if (_stateMachine.useRootRotation && !GameSceneManager.Instance._gameIsPaused) 
+            _stateMachine.transform.rotation = _stateMachine.animator.rootRotation;
     }
 
     // ----------------------------------------------------------------------

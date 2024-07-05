@@ -283,7 +283,8 @@ public abstract class AiStateMachine : MonoBehaviour
     // ----------------------------------------------------------------------
     protected virtual void Update()
     {
-        if (_currentState == null) return;
+        if (_currentState == null) 
+            return;
 
         AIStateType newStateType = _currentState.OnUpdate();
         if (newStateType != _currentStateType)
@@ -295,8 +296,7 @@ public abstract class AiStateMachine : MonoBehaviour
                 newState.OnEnterState();
                 _currentState = newState;
             }
-            else
-            if (_states.TryGetValue(AIStateType.Idle, out newState))
+            else if (_states.TryGetValue(AIStateType.Idle, out newState))
             {
                 _currentState.OnExitState();
                 newState.OnEnterState();
