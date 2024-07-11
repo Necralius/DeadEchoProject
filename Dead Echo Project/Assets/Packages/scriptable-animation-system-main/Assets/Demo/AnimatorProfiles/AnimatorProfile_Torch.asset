@@ -236,7 +236,7 @@ MonoBehaviour:
   smoothingSpeed: 9
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4093640768
   rayStartOffset: 0.4
   barrelLength: 1
 --- !u!114 &5184282707310519279
@@ -258,8 +258,8 @@ MonoBehaviour:
   isStandalone: 0
   mouseInputProperty: MouseInput
   leanInputProperty: LeanInput
-  useTurnOffset: 0
-  turnOffsetProperty: 
+  useTurnOffset: 1
+  turnOffsetProperty: None
   pitchOffsetElements:
   - rigElement:
       name: Hips

@@ -5,6 +5,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 238641
   packageName: FPS Animation Framework
-  packageVersion: 4.5.0
-  assetPath: Assets/KINEMATION/FPSAnimationFramework/Runtime/Core/FPSAnimatorLayerSettings.cs
-  uploadId: 673989
+  packageVersion: 4.5.2
+  assetPath: Assets/Packages/KINEMATION/FPSAnimationFramework/Runtime/Core/FPSAnimatorLayerSettings.cs
+  uploadId: 675695

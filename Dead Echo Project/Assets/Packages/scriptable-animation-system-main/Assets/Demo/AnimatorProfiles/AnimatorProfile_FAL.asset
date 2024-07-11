@@ -850,7 +850,7 @@ MonoBehaviour:
   smoothingSpeed: 12
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4093640768
   rayStartOffset: 0.5
   barrelLength: 1.32
 --- !u!114 &7385555169955641035

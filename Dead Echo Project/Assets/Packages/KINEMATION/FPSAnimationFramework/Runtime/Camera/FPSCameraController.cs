@@ -5,11 +5,14 @@ using KINEMATION.KAnimationCore.Runtime.Attributes;
 using KINEMATION.KAnimationCore.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Input;
 using UnityEngine;
+using UnityEngine.Animations;
+using UnityEngine.Playables;
 
 namespace KINEMATION.FPSAnimationFramework.Runtime.Camera
 {
     public class FPSCameraController : MonoBehaviour
     {
+        [SerializeField] private Transform cameraBone;
         [SerializeField, InputProperty] protected string mouseInputProperty = FPSANames.MouseInput;
         [SerializeField] protected EaseMode fovEaseMode;
         [SerializeField] [Min(0f)] protected float fovSpeed;
@@ -30,6 +33,11 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Camera
         protected float _fovPlayback;
         protected float _cachedFov;
         protected float _targetFov;
+
+        protected Animator _animator;
+        protected AnimationClipPlayable _cameraAnimation;
+        protected AnimationPlayableOutput _cameraOutput;
+        protected PlayableGraph _cameraGraph;
 
         protected int _mouseInputPropertyIndex;
         
@@ -58,6 +66,12 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Camera
 
         protected virtual void UpdateCameraAnimation()
         {
+            if (_animator != null && cameraBone != null)
+            {
+                // Resharper Disable All
+                transform.localRotation *= cameraBone.localRotation;
+            }
+            
             if (_cameraAnimationAsset == null) return;
 
             Transform currentT = transform;
@@ -95,6 +109,20 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Camera
             _inputController = transform.root.gameObject.GetComponentInChildren<UserInputController>();
             _cachedFov = _targetFov = _camera.fieldOfView;
 
+            if (cameraBone != null)
+            {
+                _animator = cameraBone.parent.gameObject.GetComponent<Animator>();
+                if (_animator != null)
+                {
+                    _cameraGraph = PlayableGraph.Create("CameraGraph");
+                    _cameraOutput = AnimationPlayableOutput.Create(_cameraGraph, "CameraAnimator", _animator);
+                    _cameraOutput.SetSourcePlayable(_cameraAnimation);
+
+                    _cameraGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+                    _cameraGraph.Play();
+                }
+            }
+            
             if (_inputController == null) return;
             _mouseInputPropertyIndex = _inputController.GetPropertyIndex(mouseInputProperty);
         }
@@ -136,11 +164,32 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Camera
                 newAnimation.rotation.GetCurveLength());
         }
 
+        public virtual void PlayCameraAnimation(AnimationClip newAnimation)
+        {
+            if (_animator == null)
+            {
+                return;
+            }
+            
+            _cameraAnimation = AnimationClipPlayable.Create(_cameraGraph, newAnimation);
+            _cameraAnimation.SetDuration(newAnimation.length);
+            _cameraOutput.SetSourcePlayable(_cameraAnimation);
+        }
+
         public virtual void UpdateTargetFOV(float newFov)
         {
             _cachedFov = _camera.fieldOfView;
             _targetFov = newFov;
             _fovPlayback = 0f;
+        }
+
+        private void OnDestroy()
+        {
+            if (_cameraGraph.IsValid())
+            {
+                _cameraGraph.Stop();
+                _cameraGraph.Destroy();
+            }
         }
     }
 }

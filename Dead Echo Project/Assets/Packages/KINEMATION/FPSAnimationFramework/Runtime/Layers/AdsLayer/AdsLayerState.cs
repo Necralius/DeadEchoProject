@@ -71,7 +71,7 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Layers.AdsLayer
             
             _settings = (AdsLayerSettings) newSettings;
             _aimTargetBone = _rigComponent.GetRigTransform(_settings.aimTargetBone);
-
+            
             _additivePose = GetAdsPose();
             _isAimingPropertyIndex = _inputController.GetPropertyIndex(_settings.isAimingProperty);
             _targetDefaultPose = _aimTargetBone.localPosition;
