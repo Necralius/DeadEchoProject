@@ -60,10 +60,18 @@ namespace NekraByte
                         int damage = (int)Random.Range(gunData.gunBulletSettings._shootDamageRange.x, gunData.gunBulletSettings._shootDamageRange.y);
 
                         // The method tries to get an valid AI Instance acessing the GameSceneManager and execute an hit action
-                        AiStateMachine stateMachine = GameSceneManager.Instance.GetAIStateMachine(hit.rigidbody.GetInstanceID());
+                        AiStateMachine  stateMachine        = GameSceneManager.Instance.GetAIStateMachine(hit.rigidbody.GetInstanceID());
+                        Vector3         force               = -hit.normal * gunData.gunBulletSettings.ImpactForce();
+                        Transform       attackerCharacter   = originTransform.GetComponent<BodyController>().transform;
+
                         if (stateMachine)
-                            stateMachine.TakeDamage(hit.point, -hit.normal * gunData.gunBulletSettings._bulletImpactForce, damage, hit.rigidbody,
-                                originTransform.GetComponent<BodyController>().transform, 0);
+                            stateMachine.TakeDamage(
+                                hit.point,
+                                force, 
+                                damage, 
+                                hit.rigidbody,
+                                attackerCharacter, 
+                                0);
                     }
                     return hit;
                 }
@@ -362,9 +370,11 @@ namespace NekraByte
                     [Range(0.001f, 10)] public  float                _bulletSpread          = 0.1f;
                     [Range(1f, 15f)]    public  float                _bulletLifeTime        = 5f;
                     [Range(1, 10)]      public  int                  _bulletsPerShoot       = 1;
-                    [Range(1f, 30f)]    public  float                _bulletImpactForce     = 10f;
+                                        public  Vector2              _bulletImpactForce     = new(15f, 30f);
                                         public  LayerMask            _collisionMask;
                     [SerializeField]    public  AudioCollectionTag   _collection;
+
+                    public float ImpactForce() => Random.Range(_bulletImpactForce.x, _bulletImpactForce.y);
                 }
                 #endregion
 

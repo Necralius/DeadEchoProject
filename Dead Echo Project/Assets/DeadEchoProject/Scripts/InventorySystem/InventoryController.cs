@@ -37,8 +37,8 @@ public class InventoryController : MonoBehaviour
     {
         if (Instance != null) 
             Destroy(Instance.gameObject);
-        Instance = this;
-        _highlighter = GetComponent<InventoryHighlight>();
+        Instance        = this;
+        _highlighter    = GetComponent<InventoryHighlight>();
     }
 
     private void Start() => _inputManager = GameSceneManager.Instance?.inputManager;

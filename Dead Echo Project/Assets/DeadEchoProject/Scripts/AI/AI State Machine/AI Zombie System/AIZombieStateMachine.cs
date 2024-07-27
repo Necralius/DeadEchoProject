@@ -114,7 +114,7 @@ public class AIZombieStateMachine : AiStateMachine
     public bool     feeding         { get => _feeding;          set => _feeding         =  value; }
     public int      seeking         { get => _seeking;          set => _seeking         =  value; }
     public float    speed           { get => _speed;            set => _speed           =  value; }
-    public bool     isCrawling      { get => _lowerBodyDamage >= _crawlThreshold; }
+    public bool     isCrawling      { get => _lowerBodyDamage > _crawlThreshold; }
     public bool     isScreaming     { get => _isScreaming > 0.1f; }
     public float    screamChance    { get => _screamChance; }
     public bool IsDead
@@ -294,7 +294,8 @@ public class AIZombieStateMachine : AiStateMachine
     // ----------------------------------------------------------------------
     public override void TakeDamage(Vector3 position, Vector3 force, int damage, Rigidbody bodyPart, Transform character, int hitDirection)
     {
-        if (IsDead) return;
+        if (IsDead) 
+            return;
 
         if (GameSceneManager.Instance != null && GameSceneManager.Instance.bloodParticles != null)
         {
@@ -307,76 +308,64 @@ public class AIZombieStateMachine : AiStateMachine
             blood.Emit(60);
         }
 
-        float hitStrenght = force.magnitude;
+        float   hitStrenght     = force.magnitude;
+        bool    shouldRagdoll   = false;
 
-        //Debug.Log($"AI_ZSM Hit Strenght: {hitStrenght}, Force: {force}");
-
-        if (_boneControllType == AIBoneControlType.Ragdoll)
+        if (_boneControllType == AIBoneControlType.Animated)
         {
             if (bodyPart != null)
             {
-                if (hitStrenght > 20f) bodyPart.AddForce(force, ForceMode.Impulse);
+                if (hitStrenght > 20f)
+                {
+                    bodyPart.AddForce(force, ForceMode.Impulse);
+                    shouldRagdoll = true;
+                }
 
                 switch (bodyPart.tag)
                 {
                     case "Head":
-                        //_health -= damage * 10;
                         HitMarkerManager.Instance.OnHit(new HitInfo((HitInfo.HitType)1, position));
+                        _health -= damage * 8;
+                        if (_health <= 0) 
+                            shouldRagdoll = true;
                         break;
                     case "Upper Body":
-                        //_upperBodyDamage += damage * 10;
+                        _upperBodyDamage += damage * 5;
+
+                        if (_upperBodyDamage >= _upperBodyThreshold) 
+                            shouldRagdoll = true;
+
                         HitMarkerManager.Instance.OnHit(new HitInfo(0, position));
+
                         break;
                     case "Lower Body":
-                        //_lowerBodyDamage += damage * 10;
+                        _lowerBodyDamage += damage * 4;
+                        shouldRagdoll = true;
+
+                        if (_lowerBodyDamage >= _limpThreshold) 
+                            shouldRagdoll = true;
+
                         HitMarkerManager.Instance.OnHit(new HitInfo(0, position));
+
                         break;
                 }
-
-                if (bodyPart.CompareTag("Head")) _health -= damage * 8;
-                else if (bodyPart.CompareTag("Upper Body")) _upperBodyDamage += damage * 5;
-                else if (bodyPart.CompareTag("Lower Body")) _lowerBodyDamage += damage * 5;
-
                 UpdateAnimatorDamage();
 
                 if (_health > 0)
                 {
-                    if (_reanimationCoroutine != null) StopCoroutine(_reanimationCoroutine);
+                    if (_reanimationCoroutine != null) 
+                        StopCoroutine(_reanimationCoroutine);
 
                     _reanimationCoroutine = Reanimate();
                     StartCoroutine(Reanimate());
                 }
             }
-            return;
         }
 
         //Get local space position of attacker
-        Vector3 attackerLocPos = transform.InverseTransformPoint(character.position);
-
+        Vector3 attackerLocPos  = transform.InverseTransformPoint(character.position);
+        Vector3 hitLocPos       = transform.InverseTransformPoint(position);
         //Local space position of hit
-        Vector3 hitLocPos = transform.InverseTransformPoint(position);
-       
-        bool shouldRagdoll = (hitStrenght > 20f);
-
-        if (bodyPart != null)
-        {
-            if (bodyPart.CompareTag("Head"))
-            {
-                _health -= damage * 5;
-                if (_health <= 0) shouldRagdoll = true;
-            }
-            else if (bodyPart.CompareTag("Upper Body"))
-            {
-                _upperBodyDamage += damage * 5;
-                UpdateAnimatorDamage();
-            }
-            else if (bodyPart.CompareTag("Lower Body"))
-            {
-                _lowerBodyDamage += damage * 5;
-                UpdateAnimatorDamage();
-                shouldRagdoll = true;
-            }
-        }
 
         if (_boneControllType != AIBoneControlType.Animated || isCrawling || IsLayerActive("Cinematic") || attackerLocPos.z < 0) shouldRagdoll = true;
 
@@ -428,9 +417,12 @@ public class AIZombieStateMachine : AiStateMachine
 
             inMeleeRange = false;
 
-            foreach (Rigidbody body in _bodyParts) if (body) body.isKinematic = false;
+            foreach (Rigidbody body in _bodyParts) 
+                if (body) body.isKinematic = false;
 
-            if (hitStrenght > 15f) if (bodyPart != null) bodyPart.AddForce(force, ForceMode.Impulse);
+            if (hitStrenght > 15f) 
+                if (bodyPart != null) 
+                    bodyPart.AddForce(force, ForceMode.Impulse);
 
             _boneControllType = AIBoneControlType.Ragdoll;
 

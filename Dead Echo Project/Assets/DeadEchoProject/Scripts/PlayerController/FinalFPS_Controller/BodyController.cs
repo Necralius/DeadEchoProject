@@ -127,6 +127,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
         if (_playerManager.InputManager     == null)        return;
         if (GameSceneManager.Instance._gameIsPaused)        return;
         if (GameSceneManager.Instance._isInspectingItem)    return;
+        if (GameSceneManager.Instance.inventoryIsOpen)      return;
 
         UpdateCalls();
         MovementController();
