@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public enum AIBoneControlType   { Animated, Ragdoll, RagdollToAnim }
 public enum AIScreamPosition    { Entity, Player}
@@ -177,17 +178,6 @@ public class AIZombieStateMachine : AiStateMachine
         if (GameSceneManager.Instance._gameIsPaused || IsDead) return;
         base.Update();
 
-        if (_animator != null)
-        {
-            _animator.SetFloat(_speedHash, _speed);
-            _animator.SetBool(_feedingHash, _feeding);
-            _animator.SetInteger(_seekingHash, _seeking);
-            _animator.SetInteger(_attackHash, _attackType);
-            _animator.SetInteger(_stateHash, (int)_currentStateType);
-
-            _isScreaming = IsLayerActive("Cinematic") ? 0f : _animator.GetFloat(_screamingHash);
-        }
-
         _satisfaction = Mathf.Max(0, _satisfaction - ((_depletionRate * Time.deltaTime)/ 100f) * Mathf.Pow(_speed, 3f));
     }
 
@@ -273,18 +263,35 @@ public class AIZombieStateMachine : AiStateMachine
         if (IsDead) return;
         if (_animator != null)
         {
-            if (_lowerBodyLayer != -1) 
-                _animator.SetLayerWeight(_lowerBodyLayer, (_lowerBodyDamage > _limpThreshold && _lowerBodyDamage < _crawlThreshold) ? 1f : 0f);
-            if (_upperBodyLayer != -1) 
-                _animator.SetLayerWeight(_upperBodyLayer, (_upperBodyDamage > _upperBodyThreshold && _lowerBodyDamage < _crawlThreshold) ? 1f : 0f);
+            if (_lowerBodyLayer != -1)
+            {
+                bool lowerBodyDamaged = (_lowerBodyDamage > _limpThreshold 
+                    && _lowerBodyDamage < _crawlThreshold);
 
-            _animator.SetBool(_crawlingHash, isCrawling);
+                _animator.SetLayerWeight(_lowerBodyLayer, lowerBodyDamaged ? 1f : 0f);
+            }
+            if (_upperBodyLayer != -1)
+            {
+                bool upperBodyDamaged = (_upperBodyDamage > _upperBodyThreshold 
+                    && _lowerBodyDamage < _crawlThreshold);
+
+                _animator.SetLayerWeight(_upperBodyLayer, upperBodyDamaged ? 1f : 0f);
+            }
+
+            _animator.SetBool   (_crawlingHash,         isCrawling);
             _animator.SetInteger(_lowerBodyDamageHash, _lowerBodyDamage);
             _animator.SetInteger(_upperBodyDamageHash, _upperBodyDamage);
 
             SetLayerActive("Lower Body", _lowerBodyDamage > _limpThreshold && _lowerBodyDamage < _crawlThreshold);
             SetLayerActive("Upper Body", _upperBodyDamage > _upperBodyThreshold && _lowerBodyDamage < _crawlThreshold);
 
+            _animator.SetFloat  (_speedHash,    _speed);
+            _animator.SetBool   (_feedingHash,  _feeding);
+            _animator.SetInteger(_seekingHash,  _seeking);
+            _animator.SetInteger(_attackHash,   _attackType);
+            _animator.SetInteger(_stateHash,    (int)_currentStateType);
+
+            _isScreaming = IsLayerActive("Cinematic") ? 0f : _animator.GetFloat(_screamingHash);
         }
     }
     // ----------------------------------------------------------------------
@@ -313,52 +320,34 @@ public class AIZombieStateMachine : AiStateMachine
 
         if (_boneControllType == AIBoneControlType.Animated)
         {
-            if (bodyPart != null)
+            if (bodyPart != null && !IsDead)
             {
                 if (hitStrenght > 20f)
-                {
                     bodyPart.AddForce(force, ForceMode.Impulse);
-                    shouldRagdoll = true;
-                }
 
                 switch (bodyPart.tag)
                 {
-                    case "Head":
-                        HitMarkerManager.Instance.OnHit(new HitInfo((HitInfo.HitType)1, position));
-                        _health -= damage * 8;
-                        if (_health <= 0) 
-                            shouldRagdoll = true;
-                        break;
-                    case "Upper Body":
-                        _upperBodyDamage += damage * 5;
-
-                        if (_upperBodyDamage >= _upperBodyThreshold) 
-                            shouldRagdoll = true;
-
-                        HitMarkerManager.Instance.OnHit(new HitInfo(0, position));
-
-                        break;
-                    case "Lower Body":
-                        _lowerBodyDamage += damage * 4;
-                        shouldRagdoll = true;
-
-                        if (_lowerBodyDamage >= _limpThreshold) 
-                            shouldRagdoll = true;
-
-                        HitMarkerManager.Instance.OnHit(new HitInfo(0, position));
-
-                        break;
+                    case "Head":       _health          -= damage * 8; HitMarkerAction(HitInfo.HitType.Headshot, position); break;
+                    case "Upper Body": _upperBodyDamage += damage * 5; HitMarkerAction(HitInfo.HitType.Default, position);  break;
+                    case "Lower Body": _lowerBodyDamage += damage * 4; HitMarkerAction(HitInfo.HitType.Default, position);  break;
                 }
+
+                shouldRagdoll = hitStrenght > 20f 
+                    || _health <= 0 
+                    || _lowerBodyDamage >= _limpThreshold 
+                    || _upperBodyDamage >= _upperBodyThreshold;
+
                 UpdateAnimatorDamage();
 
-                if (_health > 0)
-                {
-                    if (_reanimationCoroutine != null) 
-                        StopCoroutine(_reanimationCoroutine);
+            }
 
-                    _reanimationCoroutine = Reanimate();
-                    StartCoroutine(Reanimate());
-                }
+            if (_health > 0)
+            {
+                if (_reanimationCoroutine != null) 
+                    StopCoroutine(_reanimationCoroutine);
+
+                _reanimationCoroutine = Reanimate();
+                StartCoroutine(Reanimate());
             }
         }
 
@@ -400,6 +389,8 @@ public class AIZombieStateMachine : AiStateMachine
         }
         else
         {
+            _boneControllType = AIBoneControlType.Ragdoll;
+
             if (_currentState)
             {
                 _currentState.OnExitState();
@@ -411,7 +402,6 @@ public class AIZombieStateMachine : AiStateMachine
             if (_animator) _animator.enabled = false;
             if (_collider) _collider.enabled = false;
 
-            //Mute the layered audio while ragdoll
             if (_layeredAudioSource != null) 
                 _layeredAudioSource.Mute(true);
 
@@ -424,11 +414,10 @@ public class AIZombieStateMachine : AiStateMachine
                 if (bodyPart != null) 
                     bodyPart.AddForce(force, ForceMode.Impulse);
 
-            _boneControllType = AIBoneControlType.Ragdoll;
-
             if (_health > 0)
             {
-                if (_reanimationCoroutine != null) StopCoroutine(_reanimationCoroutine);
+                if (_reanimationCoroutine != null) 
+                    StopCoroutine(_reanimationCoroutine);
 
                 _reanimationCoroutine = Reanimate();
                 StartCoroutine(Reanimate());
@@ -438,6 +427,8 @@ public class AIZombieStateMachine : AiStateMachine
         }
     }
     #endregion
+
+    private void HitMarkerAction(HitInfo.HitType hitType, Vector3 point) => HitMarkerManager.Instance.OnHit(new HitInfo(hitType, point));
 
     #region - Zombie Behavior -
     // ----------------------------------------------------------------------
@@ -469,36 +460,32 @@ public class AIZombieStateMachine : AiStateMachine
     // ----------------------------------------------------------------------
     protected IEnumerator Reanimate()
     {
-        if (_health == 0) yield break;
+        if (_health == 0) 
+            yield break;
+        if (_boneControllType != AIBoneControlType.Ragdoll || _animator == null) 
+            yield break;
 
-        //Reanimate only if the zombie is in a ragdoll state
-        if (_boneControllType != AIBoneControlType.Ragdoll || _animator == null) yield break;
-
-        //Wait for the desired number of seconds before initiating the reanimation process
         yield return new WaitForSeconds(_reanimationWaitTime);
 
-        //Record time at start of reanimation procedure
         _ragdollEndTime = Time.time;
 
-        //Set rigidibodies back to begin kinematic
-        foreach(Rigidbody body in _bodyParts) body.isKinematic = true;
+        foreach(Rigidbody body in _bodyParts) 
+            body.isKinematic = true;
 
-        //Seting the zombie back in the reanimation mode
         _boneControllType = AIBoneControlType.RagdollToAnim;
 
-        //Save positions and rotations of all bones prios to reanimation
         foreach(BodyPartSnapshot snapshot in _bodyPartSnapshots)
         {
             snapshot.position       = snapshot.transform.position;
             snapshot.rotation       = snapshot.transform.rotation;
         }
 
-        //Record the ragdolls head and feet position
         _ragdoolHeadPosition = animator.GetBoneTransform(HumanBodyBones.Head).position;
-        _ragdollFeetPosition = (animator.GetBoneTransform(HumanBodyBones.LeftFoot).position + _animator.GetBoneTransform(HumanBodyBones.RightFoot).position) * 0.2f;
+        _ragdollFeetPosition = (animator.GetBoneTransform(HumanBodyBones.LeftFoot).position 
+            + _animator.GetBoneTransform(HumanBodyBones.RightFoot).position) * 0.2f;
+
         _ragdollHipPosition  = _rootBone.position;
 
-        //Re-enables the animator
         _animator.enabled = true;
 
         if (_rootBone != null)

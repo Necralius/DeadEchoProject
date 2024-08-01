@@ -218,7 +218,7 @@ Material:
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
-    - _RemovedSegments: 2.8649752
+    - _RemovedSegments: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
     - _Rotate: 3.14

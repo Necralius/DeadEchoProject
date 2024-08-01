@@ -9,10 +9,7 @@ public class AIZombieState_Patrol1 : AIZombieState
 
     [SerializeField, Range(0, 3)] float _speed = 1f;
 
-    public override AIStateType GetStateType()
-    {
-        return AIStateType.Patrol;
-    }
+    public override AIStateType GetStateType() => AIStateType.Patrol;
 
     public override void OnEnterState()
     {
@@ -28,6 +25,7 @@ public class AIZombieState_Patrol1 : AIZombieState
       
         _zombieStateMachine.navAgent.isStopped = false;
     }
+
     public override AIStateType OnUpdate()
     {
         if (_zombieStateMachine.VisualThreat.type == AITargetType.Visual_Player)
@@ -64,13 +62,11 @@ public class AIZombieState_Patrol1 : AIZombieState
         }
         else _zombieStateMachine.speed = _speed;
 
-        float angle = Vector3.Angle(_zombieStateMachine.transform.forward, _zombieStateMachine.navAgent.steeringTarget - _zombieStateMachine.transform.position);
+        float angle = Vector3.Angle(_zombieStateMachine.transform.forward, 
+            _zombieStateMachine.navAgent.steeringTarget - _zombieStateMachine.transform.position);
         
-        if (Mathf.Abs(angle) > _turnOnSpotThershold)
-        {
-
+        if (Mathf.Abs(angle) > _turnOnSpotThershold) 
             return AIStateType.Alerted;
-        }
         
         if (!_zombieStateMachine.useRootRotation)
         {
@@ -81,15 +77,15 @@ public class AIZombieState_Patrol1 : AIZombieState
             }
         }
 
-        if (_zombieStateMachine.navAgent.isPathStale || 
-            !_zombieStateMachine.navAgent.hasPath|| 
-            _zombieStateMachine.navAgent.pathStatus != UnityEngine.AI.NavMeshPathStatus.PathComplete)
-        {
+        if (_zombieStateMachine.navAgent.isPathStale 
+            || !_zombieStateMachine.navAgent.hasPath
+            || _zombieStateMachine.navAgent.pathStatus 
+            != UnityEngine.AI.NavMeshPathStatus.PathComplete) 
             _zombieStateMachine.GetWaypointPosition(true);
-        }
 
         return AIStateType.Patrol;
     }
+
     public override void OnDestinationReached(bool isReached)
     {
         if (_zombieStateMachine == null || !isReached) return;

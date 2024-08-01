@@ -469,7 +469,7 @@ MonoBehaviour:
   interCascadeBorders: 1
   maxShadowDistance:
     m_OverrideState: 1
-    m_Value: 600
+    m_Value: 300
   directionalTransmissionMultiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -1035,19 +1035,19 @@ MonoBehaviour:
   active: 1
   quality:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 3
   enable:
     m_OverrideState: 1
     m_Value: 1
   length:
     m_OverrideState: 1
-    m_Value: 0.186
+    m_Value: 1
   opacity:
     m_OverrideState: 0
     m_Value: 1
   distanceScaleFactor:
     m_OverrideState: 1
-    m_Value: 0.425
+    m_Value: 0.388
   maxDistance:
     m_OverrideState: 0
     m_Value: 50
@@ -1068,7 +1068,7 @@ MonoBehaviour:
     m_Value: 1
   m_SampleCount:
     m_OverrideState: 1
-    m_Value: 12
+    m_Value: 16
 --- !u!114 &6206860693133130770
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1382,7 +1382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b6af8f7ad32324cb6941c3290e5895, type: 3}
   m_Name: MicroShadowing
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enable:
     m_OverrideState: 1
     m_Value: 1

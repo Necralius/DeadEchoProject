@@ -18,8 +18,39 @@ MonoBehaviour:
   _priority: 128
   _audioClipBanks:
   - Clips:
-    - {fileID: 8300000, guid: 24c6d8da910e0214dbee43278d3f2aed, type: 3}
-    - {fileID: 8300000, guid: ceb77b235018ea14097ea77c4fe3c7fb, type: 3}
-    - {fileID: 8300000, guid: d0e00651aca35244480f8d90154ebe6c, type: 3}
-    - {fileID: 8300000, guid: 17b3ebb8058767d4fa63fd32653328c9, type: 3}
+    - {fileID: 8300000, guid: 28d1f12029dae374ba5b396ca04decca, type: 3}
+    - {fileID: 8300000, guid: 1ab985ac216be9e4dad2fa2c4f610c81, type: 3}
+    - {fileID: 8300000, guid: 307f0901bc0d5424e843e05dad7feeea, type: 3}
+    - {fileID: 8300000, guid: 2ebeb30f0e4497c48b9722c252776cb2, type: 3}
+    - {fileID: 8300000, guid: 3b8b72b3437249443a3fe197fbf9af27, type: 3}
+    - {fileID: 8300000, guid: 25e9b263e417ff5459d360b1dea6e79e, type: 3}
+    - {fileID: 8300000, guid: de831ec75a867544ca557f6416fcc4c8, type: 3}
+    - {fileID: 8300000, guid: aab1a3ef9f843ee4da778f8eba319bbb, type: 3}
+    - {fileID: 8300000, guid: fcfbe572ca7378944b4c4831d8e1a8e7, type: 3}
+    - {fileID: 8300000, guid: b063510d741379e48874d1b839989774, type: 3}
+    - {fileID: 8300000, guid: 8fc116d3add05314b8e2eeb2beeb09d2, type: 3}
+    - {fileID: 8300000, guid: b315cee5583808648bad1bafcf2ed25e, type: 3}
+    - {fileID: 8300000, guid: cf2e586eb9ce51c49b39bafde3d004d3, type: 3}
+    - {fileID: 8300000, guid: 039656dd8103be34bbd16218b32718ee, type: 3}
+    - {fileID: 8300000, guid: f80351565a9fb2041990733d84c0e950, type: 3}
+    - {fileID: 8300000, guid: 138aec7b1a0af5140890c39b6594d73a, type: 3}
+    - {fileID: 8300000, guid: 27b3c7f141ed0e74da5c60e4ec8e702c, type: 3}
+    - {fileID: 8300000, guid: 1c5a94a6ad04773498a1314dca4446e4, type: 3}
+    - {fileID: 8300000, guid: 478b80801f99b60489e98d510b51fcef, type: 3}
+    - {fileID: 8300000, guid: 11fc3896602a56c469fa79eaa5df6a56, type: 3}
+    - {fileID: 8300000, guid: 5e21bcadab4f1f7429e7d2ec57b3151d, type: 3}
+    - {fileID: 8300000, guid: 7b6564b285c67d642a3cb21210369f01, type: 3}
+    - {fileID: 8300000, guid: 22384f5b905f5214793788000ecb667c, type: 3}
+    - {fileID: 8300000, guid: 30bb5bbb405d8d94f9c4a7e408841339, type: 3}
+    - {fileID: 8300000, guid: 185f729e78b67164da537021d49780ec, type: 3}
+    - {fileID: 8300000, guid: 17ef735660cf75f4fa75eba04c560b0d, type: 3}
+    - {fileID: 8300000, guid: 60035ccd335d529459cdb37c7b72f7ee, type: 3}
+    - {fileID: 8300000, guid: 028c0341764f8c74c8dc67bbddb53f9a, type: 3}
+    - {fileID: 8300000, guid: 73905be68da6bb242a3013346bbcf86e, type: 3}
+    - {fileID: 8300000, guid: 6a5d165f63a84284e8a629c99f6de29f, type: 3}
+    - {fileID: 8300000, guid: 5fb12b7717d49ff40af7d5b0bcc5ec6e, type: 3}
+    - {fileID: 8300000, guid: d9ed161beb01fdc47bc3ef367fe69e28, type: 3}
+    - {fileID: 8300000, guid: 84b677952c6652240ae2cfaaf089f9dc, type: 3}
+    - {fileID: 8300000, guid: 94fd18657aef5b845adabacb6cab1662, type: 3}
+    - {fileID: 8300000, guid: 1ef845acbf9c5e744a6e13a85d4aee64, type: 3}
   floorTag: 
