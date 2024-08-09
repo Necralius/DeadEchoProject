@@ -17,6 +17,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value:
     - {fileID: 11400000, guid: b8d88dcc20e01b646b41fec00e92adb5, type: 2}
+    - {fileID: 11400000, guid: 78322c7f82657514ebe48203160e3f39, type: 2}
 --- !u!114 &-8079874493491758830
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -94,6 +95,9 @@ MonoBehaviour:
   skyOcclusionIntensityMultiplier:
     m_OverrideState: 1
     m_Value: 1
+  worldOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
 --- !u!114 &-7615597538651536801
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1424,6 +1428,11 @@ MonoBehaviour:
   rayMiss:
     m_OverrideState: 1
     m_Value: 3
+  adaptiveProbeVolumesLayerMask:
+    m_OverrideState: 0
+    m_Value:
+      serializedVersion: 0
+      m_Bits: 1
   depthBufferThickness:
     m_OverrideState: 1
     m_Value: 0.1
