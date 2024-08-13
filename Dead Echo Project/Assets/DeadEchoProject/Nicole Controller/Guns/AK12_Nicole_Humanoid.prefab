@@ -96,8 +96,9 @@ MonoBehaviour:
   equipMotion: {fileID: 11400000, guid: b11b46638e8719941a429aa33657277d, type: 2}
   unEquipMotion: {fileID: 11400000, guid: 6e3ba419dec1a754b9c447a8fc1f9b1f, type: 2}
   fieldOfView: 90
-  reloadClip: {fileID: 0}
-  cameraReloadAnimation: {fileID: 0}
+  reloadClip: {fileID: 11400000, guid: 8fb03aa7f39e420489e3cb92affb48ee, type: 2}
+  cameraReloadAnimation: {fileID: 11400000, guid: d0e6b89193ed03948a4786754f2dc107,
+    type: 2}
   grenadeClip: {fileID: 0}
   cameraGrenadeAnimation: {fileID: 0}
   fireClip: {fileID: 0}
@@ -195,8 +196,40 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 581710809230335302, guid: 629bf3b752904bc4992ac168cd0a7bb8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5501455460259247973}
   m_SourcePrefab: {fileID: 100100000, guid: 629bf3b752904bc4992ac168cd0a7bb8, type: 3}
+--- !u!1 &8497327066872897162 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 581710809230335302, guid: 629bf3b752904bc4992ac168cd0a7bb8,
+    type: 3}
+  m_PrefabInstance: {fileID: 9078754459800601548}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5501455460259247973
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497327066872897162}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: a53290fbbaa0ab2428e7bb6cd9b3ee41, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &9126335045294162992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 241354118338021372, guid: 629bf3b752904bc4992ac168cd0a7bb8,

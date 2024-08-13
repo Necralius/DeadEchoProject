@@ -209,7 +209,7 @@ MonoBehaviour:
   isStandalone: 0
   poseToSample: {fileID: 11400000, guid: 272be1598e349d24a9cd654f76096411, type: 2}
   defaultWeaponPose:
-    position: {x: 0.164, y: 1.326, z: 0.399}
+    position: {x: 0.155, y: 1.341, z: 0.394}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
   weaponBoneOffset:
@@ -468,8 +468,8 @@ MonoBehaviour:
     isVirtual: 0
   elementChainName: LeftHandChain
   handPoseOffset:
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0.02157488, y: 0.32332385, z: -0.2422511, w: -0.9145001}
+    position: {x: 0, y: 0, z: -0.08}
+    rotation: {x: 0.0020983703, y: 0.24902233, z: -0.24320108, w: -0.9374629}
     scale: {x: 1, y: 1, z: 1}
   overridePoseWeight: 0
 --- !u!114 &616189657334415051
@@ -875,7 +875,7 @@ MonoBehaviour:
       index: 26
       isVirtual: 0
     pose:
-      position: {x: 0, y: -0.02, z: 0.06}
+      position: {x: -0.01, y: -0.02, z: 0.06}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     space: 2
