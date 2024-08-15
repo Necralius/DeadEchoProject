@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using static MenuManager;
 
@@ -16,6 +17,7 @@ public class MenuObject : MonoBehaviour
         isActive = true; 
         gameObject.SetActive(true);
     }
+
     public void CloseMenu()
     {
         isActive = false; 

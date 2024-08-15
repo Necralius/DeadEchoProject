@@ -209,7 +209,7 @@ MonoBehaviour:
   isStandalone: 0
   poseToSample: {fileID: 11400000, guid: 272be1598e349d24a9cd654f76096411, type: 2}
   defaultWeaponPose:
-    position: {x: 0.155, y: 1.341, z: 0.394}
+    position: {x: 0.131, y: 1.323, z: 0.404}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
   weaponBoneOffset:

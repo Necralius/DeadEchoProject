@@ -14,22 +14,19 @@ public class SaveView : MonoBehaviour
 
     private UnityEvent _loadSave = new UnityEvent();
 
-    private Button _onClickBtn;
-
-    private SaveConteiner _conteiner = null;
+    private Button _btn;
 
     private void Start()
     {
         _loadSave   = new UnityEvent();
-        _onClickBtn = GetComponent<Button>();
-        _conteiner  = GetComponentInParent<SaveConteiner>();
+        _btn = GetComponent<Button>();
 
-        _onClickBtn.onClick.AddListener(delegate { SelectSave(); });
+        _btn.onClick.AddListener(delegate { SelectSave(); });
 
         SetUp(_gameData);
     }
 
-    private void SelectSave() => _conteiner.SelectSave(_gameData);
+    private void SelectSave() => SaveScreen.Instance?.SelectSave(_gameData);
 
     private void ButtonAction()
     {

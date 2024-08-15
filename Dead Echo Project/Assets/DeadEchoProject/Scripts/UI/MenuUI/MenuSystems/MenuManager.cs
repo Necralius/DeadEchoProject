@@ -24,11 +24,8 @@ public class MenuManager : MonoBehaviour
         if (menuObjects.Find(e => e.menuName == menuName))
         {
             bool Overridable = menuObjects.Find(e => e.menuName == menuName).type == MenuType.Override;
-            foreach (var obj in menuObjects)
-            {
-                if (obj.menuName == menuName) obj.OpenMenu();
-                else if (Overridable) obj.CloseMenu();
-            }
+
+            menuObjects.ForEach(e => { if (e.menuName == menuName) e.OpenMenu(); else if (Overridable) e.CloseMenu(); });
         }
         else Debug.LogWarning("This object is not in the object list");
     }
