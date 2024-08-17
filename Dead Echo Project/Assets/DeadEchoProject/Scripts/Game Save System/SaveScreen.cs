@@ -3,14 +3,7 @@ using UnityEngine;
 
 public class SaveScreen : MonoBehaviour
 {
-    public static SaveScreen Instance;
-    private void Awake()
-    {
-        if (Instance == null)
-            Instance = this;
-    }
-
-        [SerializeField] private List<SaveData> _saves = new List<SaveData>();
+    [SerializeField] private List<SaveData> _saves = new List<SaveData>();
 
     public GameObject _savePrefab = null;
 

@@ -21,12 +21,12 @@ public class SaveView : MonoBehaviour
         _loadSave   = new UnityEvent();
         _btn = GetComponent<Button>();
 
-        _btn.onClick.AddListener(delegate { SelectSave(); });
+        //_btn.onClick.AddListener(delegate { SelectSave(); });
 
         SetUp(_gameData);
     }
 
-    private void SelectSave() => SaveScreen.Instance?.SelectSave(_gameData);
+    //private void SelectSave() => SaveScreen.Instance?.SelectSave(_gameData);
 
     private void ButtonAction()
     {

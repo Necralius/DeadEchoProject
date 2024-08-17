@@ -1,7 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+using UnityEngine.Analytics;
 
 public class LoadScreen : MonoBehaviour
 {
@@ -18,6 +22,11 @@ public class LoadScreen : MonoBehaviour
     [SerializeField] private float loadingProgress;
     [SerializeField] private GameObject loadingScreen;
 
+    private void Start()
+    {
+        
+    }
+
     public void UpdateState(float loadingProgress)
     {
         float progress      = Mathf.Clamp01(loadingProgress / 0.9f);
@@ -25,7 +34,7 @@ public class LoadScreen : MonoBehaviour
     }
 
     public void LoadScene(string sceneName) => StartCoroutine(LoadSceneProcess(sceneName));
-    public void LoadScene(int sceneIndex)   => StartCoroutine(LoadSceneProcess(sceneIndex));
+    public void LoadScene(int sceneIndex) =>   StartCoroutine(LoadSceneProcess(sceneIndex));
 
     private IEnumerator LoadSceneProcess(string sceneName)
     {

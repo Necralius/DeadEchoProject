@@ -39,8 +39,13 @@ public class GameStateManager : MonoBehaviour
     #region - Built In Methods -
     private void Awake()
     {
-        if (Instance != null) Destroy(Instance.gameObject);
-        Instance = this;
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+            Instance = this;
 
         DontDestroyOnLoad(gameObject);
 
