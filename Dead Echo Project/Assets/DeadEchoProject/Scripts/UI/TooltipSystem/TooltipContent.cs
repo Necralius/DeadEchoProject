@@ -10,6 +10,7 @@ public class TooltipContent : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField, TextArea]       private string _tooltipContent = "";
     [SerializeField, Range(0f, 10f)] private float  _timeToTooltip = 1f;
     private float _timer = 0f;
+    [SerializeField] private string _localizationKey = "";
 
     [SerializeField] private bool onTooltipArea = false;
 
@@ -21,7 +22,7 @@ public class TooltipContent : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             if (_timer >= _timeToTooltip)
             {
-                TooltipManager.Instance.ShowTooltip(_tooltipContent);
+                TooltipManager.Instance.ShowTooltip(_tooltipContent, _localizationKey);
                 _timer = _timeToTooltip;
             }
             else _timer += Time.deltaTime;

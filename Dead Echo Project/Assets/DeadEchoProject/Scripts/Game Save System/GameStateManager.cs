@@ -211,7 +211,7 @@ public class GameStateManager : MonoBehaviour
         _allSaves.Clear();
         dynamicDataHandler      = new FileDataHandler();
 
-        if (currentApplicationData == null) 
+        if (currentApplicationData == null)
             currentApplicationData = staticDataHandler.LoadApplicationData(); 
 
         if (currentApplicationData.savesDatas == null || currentApplicationData.savesDatas.Count <= 0)

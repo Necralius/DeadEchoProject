@@ -1,0 +1,10 @@
+Key,English,German,Portuguese,Italian,French,Russian,Spanish
+Settings.InvertedX,Inverted X,Umgekehrtes X,Inverter eixo X,Invertire l'asse X,Inverser l'axe X,Инвертировать ось X,Invertir eje X
+Settings.InvertedY,Inverted Y,Umgekehrtes Y,Inverter eixo Y,Invertire l'asse Y,Inverser l'axe Y,Инвертировать ось Y,Invertir eje Y
+Settings.SensitivityY,Sensitivity Y,Empfindlichkeit Y,Sensibilidade no eixo Y,Sensibilità dell'asse Y,Sensibilité de l'axe Y,Чувствительность по оси Y,Sensibilidad Y
+Settings.SensitivityX,Sensitivity X,Empfindlichkeit X,Sensibilidade no eixo X,Sensibilità dell'asse X,Sensibilité de l'axe X,Чувствительность по оси X,Sensibilidad X
+Settings.Subtitle,Subtitle,Untertitel,Legendas,Sottotitoli,Sous-titres,Субтитры,Subtitular
+Settings.SubLang,Subtitle Language,Untertitelsprache,Linguagem de legendas,Lingua dei sottotitoli,Langue des sous-titres,Язык субтитров,Idioma de subtítulos
+Settings.AudioLang,Audio Language,AudioSprache,Linguagem do áudio,Lingua dell'audio,Langue audio,Язык аудио,Idioma de audio
+Settings.AimType,Aim Type,Zieltyp,Tipo de mira,Tipo di vista,Type de vue,Тип прицела,Tipo de objetivo
+Settings.CrouchType,Crouch Type,Hocktyp,Tipo de agachar,Tipo di squat,Type de squat,Тип приседаний,Tipo agachado

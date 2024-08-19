@@ -12,15 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63817d93022759543b57e795c78efe11, type: 3}
   m_Name: LocalizationSettings
   m_EditorClassIdentifier: 
-  TableId: 1RvKY3VE_y5FPhEECCa5dv4F7REJ7rBtGzQg9Z_B_DE4
+  TableId: 16suI4N85NjyucoITt8OgmO6SpaPyl2pH8QBFnDwY1mU
   Sheets:
-  - Name: Menu
+  - Name: MainMenu
     Id: 0
-    TextAsset: {fileID: 4900000, guid: cf55c05861a4d264a855e6349bef560e, type: 3}
-  - Name: Settings
-    Id: 331980525
-    TextAsset: {fileID: 4900000, guid: 9e915f09744b99e4eb2d3ded7f443ddc, type: 3}
-  - Name: Tests
-    Id: 1674352817
-    TextAsset: {fileID: 4900000, guid: 78955087f9a816a49851f5f94193f224, type: 3}
+    TextAsset: {fileID: 4900000, guid: a680d9ee6fcbf5c4dae9b53a1dc0b5c1, type: 3}
+  - Name: Settings.Gameplay
+    Id: 2051921511
+    TextAsset: {fileID: 4900000, guid: 72e582010b2b3bc4ab8beb3ea0c26119, type: 3}
+  - Name: General
+    Id: 973860059
+    TextAsset: {fileID: 4900000, guid: 6e46b74a754fb6840848263ed28f8510, type: 3}
+  - Name: LoadScreen
+    Id: 2131085697
+    TextAsset: {fileID: 4900000, guid: 1b2e7e04286fd5b4f81515a4b5dafa02, type: 3}
+  - Name: Tooltip
+    Id: 959125044
+    TextAsset: {fileID: 4900000, guid: 5466c1cdfdac5a04c8ff456a6d7f8459, type: 3}
+  - Name: Settings.Audio
+    Id: 1722109965
+    TextAsset: {fileID: 4900000, guid: 63c220c7df0e626479c8daad5a9bb5db, type: 3}
+  - Name: Settings.Graphics
+    Id: 993198171
+    TextAsset: {fileID: 4900000, guid: ab5becf076cb79a408978f864d0e156d, type: 3}
   SaveFolder: {fileID: 102900000, guid: c392831e85f928548b8494fefd912562, type: 3}

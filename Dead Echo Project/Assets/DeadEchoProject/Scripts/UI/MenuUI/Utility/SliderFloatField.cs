@@ -2,30 +2,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static NekraByte.Core.DataTypes;
+using Assets.SimpleLocalization.Scripts;
 
 [RequireComponent(typeof(Slider))]
 public class SliderFloatField : MonoBehaviour
 {
-    Slider                  _sld        = null;
+    Slider                  _sld        => GetComponent<Slider>();
     public string           _fieldName  = string.Empty;
     public TextMeshProUGUI  _label      = null;
     public TextMeshProUGUI  _valueLabel = null;
 
+    public float Value { get => _sld.value; }
+
     private void OnEnable()
     {
-        _sld    = GetComponent<Slider>();
-
         _sld.onValueChanged.AddListener     (delegate { OnSliderChange(); });
 
         OnSliderChange();
     }
-    public float GetValue() => _sld.value;
 
     public void SetUp(AudioTrackVolume trackData)
     {
         _label.text = trackData.Name;
         _fieldName  = trackData.Name;
 
+        _label.GetComponent<LocalizedText>().LocalizationKey = "Settings." + trackData.Name;
         OverrideValue(trackData.Volume);
 
         _valueLabel.text = _sld.value.ToString("F1");

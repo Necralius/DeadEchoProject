@@ -1,3 +1,4 @@
+using Assets.SimpleLocalization.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -35,7 +36,8 @@ public class TooltipManager : MonoBehaviour
         transform.position = _canvas.transform.TransformPoint(mousePos);
     }
 
-    public void ShowTooltip(string tooltipContent)
+    public void ShowTooltip(string content) => ShowTooltip(content, "");
+    public void ShowTooltip(string tooltipContent, string localizationKey)
     {
         if (tooltipContent == null || tooltipContent == string.Empty) 
             return;
@@ -44,6 +46,7 @@ public class TooltipManager : MonoBehaviour
         Vector2 backgroundSize          = new Vector2(_contentText.preferredWidth + textPaddingSize * 2f, 
                                                       _contentText.preferredHeight + textPaddingSize * 2f);
 
+        _contentText.GetComponent<LocalizedText>().LocalizationKey = localizationKey;
         _backgroundTransform.sizeDelta  = backgroundSize;
         gameObject.SetActive(true);
     }

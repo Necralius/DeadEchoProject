@@ -15,15 +15,15 @@ public class DropsideOption : MonoBehaviour
 
     public int Value
     {
-        get => _value = _snapController.SelectedPanel;
+        get => _value = _snapController.CenteredPanel;
         set
         {
-            if (value >= _snapController.NumberOfPanels)
-                _snapController.GoToPanel(_snapController.NumberOfPanels - 1);
-            else if (value < 0)
-                _snapController.GoToPanel(0);
+            _value = value;
+            _snapController.GoToPanel(value);
         }
     }
+
+    public string ContentValue { get => options[Value]; }
 
     public void AddCostumOptions(List<string> panels)
     {

@@ -1,3 +1,4 @@
+using Assets.SimpleLocalization.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -49,6 +50,8 @@ public class MenuSystem : MonoBehaviour
     [SerializeField] private SliderFloatField _sensitivityX          = null;
     [SerializeField] private SliderFloatField _sensitivityY          = null;
     #endregion
+
+    [SerializeField] private bool _debug;
 
     GameStateManager _gameStateManager;
 
@@ -121,7 +124,7 @@ public class MenuSystem : MonoBehaviour
     public void SetVolumeData()
     {
         for (int i = 0; i < _volumesSliders.Count; i++) 
-            AudioManager.Instance.SetTrackVolume(_volumesSliders[i]._fieldName, ConvertToDecibels(_volumesSliders[i].GetValue()));
+            AudioManager.Instance.SetTrackVolume(_volumesSliders[i]._fieldName, ConvertToDecibels(_volumesSliders[i].Value));
     }
 
     public void LoadVolumeDataFromFile()
@@ -132,6 +135,11 @@ public class MenuSystem : MonoBehaviour
 
         for (int i = 0; i < currentAppData._volumes.Count; i++) 
             AudioManager.Instance.SetTrackVolume(currentAppData._volumes[i].Name, ConvertToDecibels(currentAppData._volumes[i].Volume));
+
+        if (_debug)
+            Debug.Log("Loading volume settings!");
+
+        SetVolumeData();
     }
 
     // ----------------------------------------------------------------------
@@ -142,7 +150,7 @@ public class MenuSystem : MonoBehaviour
     public void SaveVolume()
     {
         for (int i = 0; i < _volumesSliders.Count; i++) 
-            _gameStateManager.currentApplicationData._volumes[i].Volume = _volumesSliders[i].GetValue();
+            _gameStateManager.currentApplicationData._volumes[i].Volume = _volumesSliders[i].Value;
        
         _gameStateManager.SaveApplicationData();
 
@@ -263,6 +271,7 @@ public class MenuSystem : MonoBehaviour
         LoadSettings();
         #endregion
     }
+
     public void ResetGraphicsSettings()
     {
         _gameStateManager.currentApplicationData.ResetGraphicsSettings();
@@ -270,6 +279,26 @@ public class MenuSystem : MonoBehaviour
 
         UpdateGraphicsUI();
     }
+
+    private void LoadGraphicsSettings()
+    {
+        // Settings Load and Set
+        Screen.SetResolution(_gameStateManager.currentApplicationData.currentResolution.width,
+            _gameStateManager.currentApplicationData.currentResolution.height, _gameStateManager.currentApplicationData.isFullscreen);
+
+        QualitySettings.SetQualityLevel(_gameStateManager.currentApplicationData.qualityLevelIndex);
+
+        QualitySettings.shadows = (ShadowQuality)_gameStateManager.currentApplicationData.shadowQuality;
+        QualitySettings.shadowResolution = (ShadowResolution)_gameStateManager.currentApplicationData.shadowResolution;
+        QualitySettings.anisotropicFiltering = (AnisotropicFiltering)_gameStateManager.currentApplicationData.anisotropicFiltering;
+        QualitySettings.antiAliasing = _gameStateManager.currentApplicationData.antialiasing;
+
+        QualitySettings.vSyncCount = _gameStateManager.currentApplicationData.vSyncCount;
+
+        if (_debug) 
+            Debug.Log("Loading graphics settings!");
+    }
+
     public void UpdateGraphicsUI()
     {
         UpdateResolutionDrpd();
@@ -302,22 +331,12 @@ public class MenuSystem : MonoBehaviour
     // ----------------------------------------------------------------------
     public void LoadSettings()
     {
-        if (_gameStateManager != null)
+        if (_gameStateManager is not null && _gameStateManager.currentApplicationData is not null)
         {
-            // Settings Load and Set
-            Screen.SetResolution(_gameStateManager.currentApplicationData.currentResolution.width,
-                _gameStateManager.currentApplicationData.currentResolution.height, _gameStateManager.currentApplicationData.isFullscreen);
-
-            QualitySettings.SetQualityLevel(_gameStateManager.currentApplicationData.qualityLevelIndex);
-
-            QualitySettings.shadows                 = (ShadowQuality)_gameStateManager.currentApplicationData.shadowQuality;
-            QualitySettings.shadowResolution        = (ShadowResolution)_gameStateManager.currentApplicationData.shadowResolution;
-            QualitySettings.anisotropicFiltering    = (AnisotropicFiltering)_gameStateManager.currentApplicationData.anisotropicFiltering;
-            QualitySettings.antiAliasing            = _gameStateManager.currentApplicationData.antialiasing;
-
-            QualitySettings.vSyncCount              = _gameStateManager.currentApplicationData.vSyncCount;
-
+            LoadGraphicsSettings();
+            LoadVolumeDataFromFile();
             SetVolumeData();
+            UpdateGameplaySettings();
         }
     }
     #endregion
@@ -336,17 +355,21 @@ public class MenuSystem : MonoBehaviour
         _gameStateManager.currentApplicationData.invertX        = _tgl_InvertedX.State;
         _gameStateManager.currentApplicationData.invertY        = _tgl_InvertedY.State;
 
-        _gameStateManager.currentApplicationData.xSensitivity   = _sensitivityX.GetValue();
-        _gameStateManager.currentApplicationData.ySensitivity   = _sensitivityY.GetValue();
+        _gameStateManager.currentApplicationData.xSensitivity   = _sensitivityX.Value;
+        _gameStateManager.currentApplicationData.ySensitivity   = _sensitivityY.Value;
 
         _gameStateManager.currentApplicationData.aimType        = _aimDropside.Value;
         _gameStateManager.currentApplicationData.crouchType     = _crouchDropside.Value;
 
         _gameStateManager.currentApplicationData.subtitlesLanguage  = _subtitleLanguage.Value;
-        _gameStateManager.currentApplicationData.audioLanguage      = _subtitleLanguage.Value;
+        _gameStateManager.currentApplicationData.audioLanguage      = _audioLanguage.Value;
         _gameStateManager.currentApplicationData.subtitles          = _subtitleState.State;
 
+        LocalizationManager.Language = _subtitleLanguage.ContentValue;
+
         _gameStateManager.SaveApplicationData();
+
+        UpdateGameplaySettings();
     } 
 
     // ----------------------------------------------------------------------
@@ -367,6 +390,8 @@ public class MenuSystem : MonoBehaviour
         _crouchDropside.Value       = _gameStateManager.currentApplicationData.crouchType;
         _subtitleLanguage.Value     = _gameStateManager.currentApplicationData.subtitlesLanguage;
         _audioLanguage.Value        = _gameStateManager.currentApplicationData.audioLanguage;
+
+        LocalizationManager.Language = _subtitleLanguage.ContentValue;
     }
 
     // ----------------------------------------------------------------------

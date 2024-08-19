@@ -269,19 +269,20 @@ namespace NekraByte
 
                 public void ResetGraphicsSettings()
                 {
-                    resolutionIndex = 0;
+                    resolutionIndex         = 0;
 
-                    isFullscreen    = true;
+                    isFullscreen            = true;
 
-                    vSyncCount      = 0;
-                    vSyncActive     = false;
+                    vSyncCount              = 0;
+                    vSyncActive             = false;
 
-                    shadowQuality       = 1;
-                    shadowResolution    = 1;
+                    shadowQuality           = 1;
+                    shadowResolution        = 1;
 
                     anisotropicFiltering    = 1;
                     antialiasing            = 1;
                 }
+
                 public void ResetGameplaySettings()
                 {
                     xSensitivity    = 7f;
@@ -292,6 +293,10 @@ namespace NekraByte
 
                     aimType         = 0;
                     crouchType      = 0;
+
+                    subtitlesLanguage   = 0;
+                    subtitles           = true;
+                    audioLanguage       = 0;
                 }
             }
 
