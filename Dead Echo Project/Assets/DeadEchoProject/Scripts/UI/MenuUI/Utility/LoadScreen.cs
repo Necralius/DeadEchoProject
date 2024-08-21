@@ -33,8 +33,8 @@ public class LoadScreen : MonoBehaviour
         loadingSlider.value = (progress * 100);
     }
 
-    public void LoadScene(string sceneName) => StartCoroutine(LoadSceneProcess(sceneName));
-    public void LoadScene(int sceneIndex) =>   StartCoroutine(LoadSceneProcess(sceneIndex));
+    public void LoadScene(string sceneName) => SceneLoader.Instance.FinishSceneLoad(sceneName);
+    public void LoadScene(int sceneIndex) =>   SceneLoader.Instance.FinishSceneLoad(sceneIndex);
 
     private IEnumerator LoadSceneProcess(string sceneName)
     {

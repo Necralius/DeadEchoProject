@@ -24,12 +24,18 @@ public class SceneLoader : MonoBehaviour
             Instance = this;
 
         DontDestroyOnLoad(gameObject);
+    }
 
-        //_scenesToLoad.ForEach(e => { PreLoadScene(e); });
+    private void Start()
+    {
+        _scenesToLoad.ForEach(e => { PreLoadScene(e); });
     }
 
     public void FinishSceneLoad(string sceneName)
        => _scenesLoaded.Find(e => (e.Data.name == sceneName)).LoadData.allowSceneActivation = true;
+
+    public void FinishSceneLoad(int sceneIndex)
+        => _scenesLoaded.Find(e => (e.Data.buildIndex == sceneIndex)).LoadData.allowSceneActivation = true;
 
     public void PreLoadScene(string sceneName) => StartCoroutine(C_PreLoadScene(sceneName));
     private IEnumerator C_PreLoadScene(string sceneName)

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
+    "com.unity.addressables": "2.2.2",
     "com.unity.ads": "4.4.2",
     "com.unity.ai.navigation": "2.0.3",
     "com.unity.analytics": "3.8.1",

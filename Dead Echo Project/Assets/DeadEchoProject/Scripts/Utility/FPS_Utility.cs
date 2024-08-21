@@ -856,6 +856,10 @@ namespace NekraByte
                 French      = 5
             }
             #endregion
+
+            #region - Dubbing Type -
+            public enum DubType { Combat, Fear, Pain, Anger, Event }
+            #endregion
         }
     }
 }
