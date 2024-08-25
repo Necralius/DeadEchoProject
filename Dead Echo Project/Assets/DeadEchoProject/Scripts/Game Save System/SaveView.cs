@@ -3,34 +3,56 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Button))]
 public class SaveView : MonoBehaviour
 {
+    private Button _btn => GetComponent<Button>();  
+
     [SerializeField] private Image               _lastScreenshot = null;
     [SerializeField] private TextMeshProUGUI     _saveName       = null;
     [SerializeField] private TextMeshProUGUI     _lastQuest      = null;
     [SerializeField] private TextMeshProUGUI     _saveHour       = null;
 
     [SerializeField] private SaveData _gameData = null;
+    SaveScreen _saveScreen = null;
 
     private UnityEvent _loadSave = new UnityEvent();
 
-    private Button _btn;
+    public SaveScreen SaveScreen
+    {
+        get
+        {
+            if (_saveScreen is null)
+            {
+                Debug.LogWarning("Parent save screen has not been finded!");
+                return null;
+            }
+            else return _saveScreen;
+        }
+    }
 
     private void Start()
     {
         _loadSave   = new UnityEvent();
-        _btn = GetComponent<Button>();
 
-        //_btn.onClick.AddListener(delegate { SelectSave(); });
+        if (GetComponentInParent<SaveScreen>()) 
+            _saveScreen = GetComponentInParent<SaveScreen>();
+
+        _btn.onClick.AddListener(delegate { SelectSave(); });
 
         SetUp(_gameData);
     }
 
-    //private void SelectSave() => SaveScreen.Instance?.SelectSave(_gameData);
+    private void SelectSave()
+    {
+         Debug.Log("Selecting save!");
+         SaveScreen.SelectSave(_gameData);
+    }
 
     private void ButtonAction()
     {
-        if (_gameData == null) return;
+        if (_gameData == null) 
+            return;
 
         FadeSystemManager.Instance.CallFadeAction(_loadSave);
     }
