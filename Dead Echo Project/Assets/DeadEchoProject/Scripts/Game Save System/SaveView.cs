@@ -3,10 +3,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
+[RequireComponent(typeof(ActionButton))]
 public class SaveView : MonoBehaviour
 {
-    private Button _btn => GetComponent<Button>();  
+    private ActionButton _btn => GetComponent<ActionButton>();  
 
     [SerializeField] private Image               _lastScreenshot = null;
     [SerializeField] private TextMeshProUGUI     _saveName       = null;

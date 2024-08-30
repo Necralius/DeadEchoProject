@@ -11,5 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/DeadEchoProject/Scenes/Level1/Scene_Level1.unity
     guid: b89ef2b21d16e4043a8d1cc360a9e3dd
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: b95d7db812f1a2647b237cab0237108f,
+      type: 2}
   m_UseUCBPForAssetBundles: 0
