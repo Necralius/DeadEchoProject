@@ -51,14 +51,15 @@ public class SceneLoader : MonoBehaviour
                 Data = SceneManager.GetSceneByName(sceneName),
                 LoadData = opr
             });
-        sceneAsset.OnSceneStartLoad.Invoke();
+        sceneAsset.OnSceneStartLoad?.Invoke();
 
         while (!opr.isDone)
         {
             if (opr.progress >= 0.9f)
             {
-                sceneAsset.OnSceneFinishLoad.Invoke();
+                sceneAsset.OnSceneFinishLoad?.Invoke();
                 Debug.Log($"Scene {sceneName} has been loaded!");
+                yield break;
             }
             yield return null;
         }

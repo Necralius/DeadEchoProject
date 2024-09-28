@@ -513,15 +513,6 @@ namespace NekraByte
             }
             #endregion
 
-            #region - Character UI State -
-            [Serializable]
-            public struct CharacterState
-            {
-                public StateType type;
-                public Sprite stateSprite;
-            }
-            #endregion
-
             #region - Audio Data -
 
             #region - Audio Pool Data -
@@ -670,9 +661,6 @@ namespace NekraByte
 
                 [Tooltip("Camera Y Offset")]
                 public float        CameraY_Offset  = 1.30f;
-
-                [Tooltip("State Sprite")]
-                public Sprite       Sprite          = null;
 
                 [Tooltip("Movement State Type")]
                 public MovementState MovementState  = MovementState.Walking;

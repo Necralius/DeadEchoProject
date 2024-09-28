@@ -19,7 +19,7 @@ public class RagdollPositionLoader : MonoBehaviour
     {
         public List<TransformData> transforms;
     }
-
+#if UNITY_EDITOR
     [MenuItem("Ragdoll/Load Transforms")]
     public static void LoadRagdollTransforms()
     {
@@ -50,6 +50,7 @@ public class RagdollPositionLoader : MonoBehaviour
 
         Debug.Log("Transforms loaded and applied.");
     }
+#endif
 
     private static Transform FindTransformInScene(string name)
     {
