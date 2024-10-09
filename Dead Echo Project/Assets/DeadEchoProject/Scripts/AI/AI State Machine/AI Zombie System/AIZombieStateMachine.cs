@@ -177,7 +177,7 @@ public class AIZombieStateMachine : AiStateMachine
     {
         if (GameSceneManager.Instance._gameIsPaused || IsDead) return;
         base.Update();
-
+        UpdateAnimatorDamage();
         _satisfaction = Mathf.Max(0, _satisfaction - ((_depletionRate * Time.deltaTime)/ 100f) * Mathf.Pow(_speed, 3f));
     }
 
