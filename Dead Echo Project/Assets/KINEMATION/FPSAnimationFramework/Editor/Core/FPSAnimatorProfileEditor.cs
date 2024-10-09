@@ -37,7 +37,6 @@ namespace KINEMATION.FPSAnimationFramework.Editor.Core
 
             // Update the Rig Asset for all layers.
             _listWidget.onComponentAdded = () => _animatorProfile.OnRigUpdated();
-            _listWidget.onComponentPasted = () => _animatorProfile.OnRigUpdated();
             MarkLayersStandalone();
         }
 

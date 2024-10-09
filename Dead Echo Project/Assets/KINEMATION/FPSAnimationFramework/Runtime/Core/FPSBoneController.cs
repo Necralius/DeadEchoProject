@@ -305,8 +305,6 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Core
         
         private void OnDrawGizmos()
         {
-            if (_layerStates == null) return;
-            foreach (var state in _layerStates) state.OnDrawGizmos();
         }
 #endif
     }

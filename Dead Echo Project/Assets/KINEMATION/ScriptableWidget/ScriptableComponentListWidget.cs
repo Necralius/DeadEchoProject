@@ -22,7 +22,6 @@ namespace KINEMATION.ScriptableWidget
         public delegate void SelectionAction(int selectedIndex);
 
         public ComponentAction onComponentAdded;
-        public ComponentAction onComponentPasted;
         public ComponentAction onComponentRemoved;
         public DrawElementHeader onDrawComponentHeader;
         public SelectionAction onComponentSelected;
@@ -156,7 +155,6 @@ namespace KINEMATION.ScriptableWidget
             if (!CanPaste(component)) return;
             
             PasteComponent(component);
-            onComponentPasted?.Invoke();
         }
 
         private void SetupReorderableList(string targetSerializedPropertyName)
