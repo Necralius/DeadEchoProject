@@ -8,8 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HealthSlider
-  m_Shader: {fileID: -6465566751694194690, guid: e55c317996c348c4d974c04a796d5fac,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: e55c317996c348c4d974c04a796d5fac, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -218,7 +217,7 @@ Material:
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
-    - _RemovedSegments: 3.996
+    - _RemovedSegments: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
     - _Rotate: 6.3
