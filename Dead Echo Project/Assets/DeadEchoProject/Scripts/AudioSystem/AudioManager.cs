@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using static NekraByte.Core.DataTypes;
-using SteamAudio;
 using Vector3   = UnityEngine.Vector3;
 using Scene     = UnityEngine.SceneManagement.Scene;
 
@@ -74,10 +73,10 @@ public class AudioManager : MonoBehaviour
         {
             GameObject          go                  = new GameObject("Pool Item");
             AudioSource         audioSource         = go.AddComponent<AudioSource>();
-            SteamAudioSource    steamAudioSource    = go.AddComponent<SteamAudioSource>();
+            //AudioSource         steamAudioSource    = go.AddComponent<AudioSource>();
 
-            steamAudioSource.occlusion      = true;
-            steamAudioSource.airAbsorption  = true;
+            //steamAudioSource.occlusion      = true;
+            //steamAudioSource.airAbsorption  = true;
 
             audioSource.maxDistance = 50;
 

@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
 using static NekraByte.Core.DataTypes;
 
@@ -35,7 +32,6 @@ public class FileDataHandler
     public SaveDirectory EncapsulateData(SaveData data)
     {
         Debug.Log("Encapsulating");
-        Debug.Log(data == null);
 
         if (data == null) return null;
         SaveDirectory directoryData = data.saveDirectory;

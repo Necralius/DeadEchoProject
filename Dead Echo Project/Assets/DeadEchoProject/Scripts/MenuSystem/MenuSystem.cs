@@ -1,13 +1,10 @@
 using Assets.SimpleLocalization.Scripts;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static NekraByte.Core.DataTypes;
-using static UnityEngine.Rendering.DebugUI;
 
 public class MenuSystem : MonoBehaviour
 {
