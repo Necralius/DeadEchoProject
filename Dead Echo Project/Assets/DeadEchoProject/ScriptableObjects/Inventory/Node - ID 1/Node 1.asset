@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d09c2ce0c0a48448c3dcf7881f117b, type: 3}
+  m_Name: Node 1
+  m_EditorClassIdentifier: 
+  Name: Node 15/22
+  Type: 
+  Description: A piece of node finded on a dead body.
+  Icon: {fileID: 21300000, guid: 3095ff85d4d6760418022ab694ee9fb4, type: 3}
+  Prefab: {fileID: 8847410894454424919, guid: 24f54e023a259e142b3532a9b14eed6c, type: 3}
+  Width: 1
+  Height: 1
+  NodeSprite: {fileID: 21300000, guid: 01f9554cc9152994d804c3155d6091db, type: 3}
+  Font: {fileID: 0}
+  TextColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
+  Content:
+    Title:
+      Content: "Relat\xF3rio Confidencial #1452"
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      Font: {fileID: 11400000, guid: 34969edce1799e146ab6c56671ab30f8, type: 2}
+    Subtitle:
+      Content: Ronda Noturna - 15/04/2034
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      Font: {fileID: 11400000, guid: 4aae28f6463ab904fad8fad7afdf617a, type: 2}
+    Content:
+      Content: "\tDurante a ronda, avistei um suspeito na \xE1rea. Ap\xF3s devitamente
+        identificado, o mesmo foi descoberto como um antigo fugitivo da na\xE7\xE3o,
+        o mesmo foi encarcerado e encaminhado para julgamento em bridgeport."
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      Font: {fileID: 11400000, guid: aa6e2d461a888d947b073a4baa087829, type: 2}
+    Signature:
+      Content: Michel Nickelo
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      Font: {fileID: 11400000, guid: 4aae28f6463ab904fad8fad7afdf617a, type: 2}
+    Footer:
+      Content: "Gl\xF3ria aos Juizes"
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      Font: {fileID: 11400000, guid: 34969edce1799e146ab6c56671ab30f8, type: 2}

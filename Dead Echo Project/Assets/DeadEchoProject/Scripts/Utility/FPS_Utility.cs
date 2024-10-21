@@ -566,22 +566,19 @@ namespace NekraByte
             [Serializable]
             public class FloorData
             {
-                //Data Types
-                public enum FloorType { Grass, Dirt, Stone, Metal, Wood, Mud, Water }
+                public enum FloorType   { Grass, Dirt, Stone, Metal, Wood, Mud, Water }
                 public enum FloorHolder { Terrain, GameObject }
 
-                //Private Data
-                private FloorHolder _holder = FloorHolder.GameObject;
-                private GameObject _objectToFindFloor = null;
-                private Collider _objectCollider = null;
-                private GameObject _findedFloor = null;
+                private FloorHolder _holder             = FloorHolder.GameObject;
+                private FloorType   _previousType       = FloorType.Grass;
+                private GameObject  _objectToFindFloor  = null;
+                private Collider    _objectCollider     = null;
+                private GameObject  _findedFloor        = null;
 
-                [SerializeField] private FloorType _type = FloorType.Grass;
-                private FloorType _previousType = FloorType.Grass;
+                [SerializeField] private FloorType              _type                   = FloorType.Grass;
                 [SerializeField] private TerrainTextureDetector _terrainTextureDetector = null;
-                [SerializeField] private float _footDistance = 0.5f;
+                [SerializeField] private float                  _footDistance           = 0.5f;
 
-                //Public Data
                 public FloorType Type
                 {
                     get
@@ -609,12 +606,10 @@ namespace NekraByte
                         _holder = hit.transform.CompareTag("Terrain") ? FloorHolder.Terrain : FloorHolder.GameObject;
 
                         floorFinded = hit.transform.gameObject;
-                        //Debug.Log($"FD -> Finded the object: {floorFinded.gameObject.name}");
                     }
                     else
                     {
                         _findedFloor = null;
-                        //Debug.Log("FD -> Floor object not finded! Setting the previous type: " + _previousType.ToString());
                         return _previousType;
                     }
 
@@ -623,7 +618,6 @@ namespace NekraByte
                     if (floorFinded == null) return _previousType;
                     else if (_holder == FloorHolder.GameObject)
                     {
-                        //Debug.Log($"Floor Finded: {floorFinded.gameObject.name}, Tag: {floorFinded.tag}");
                         switch (floorFinded.tag)
                         {
                             case "Dirt":        return FloorType.Dirt;
@@ -636,7 +630,6 @@ namespace NekraByte
                     }
                     else if (_holder == FloorHolder.Terrain)
                     {
-                        //Debug.Log($"FD -> Terrain Texture Finded: {_terrainTextureDetector.GetCurrentTexture()}");
                         switch (_terrainTextureDetector.GetCurrentTexture())
                         {
                             case "TerrainDirt": return FloorType.Dirt;

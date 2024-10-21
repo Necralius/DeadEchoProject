@@ -44,36 +44,21 @@ public class StateMachineAudioManager : MonoBehaviour
     {
         if (!_humanoid)     return;
         if (!_stepBehavior) return;
+        if (_audioManager   == null) 
+            return;
 
         AudioClip           clipToPlay          = null;
         AudioCollection     selectedCollection  = null;
 
-        string currentFloor = _floorData.Type.ToString();
-
-        //Try to find the correct audio collection, using as base the current action passed as argument.
-        foreach (var collection in _collectionBases)
-        {
-            if (currentFloor == collection.floorTag)
-            {
-                selectedCollection = collection;
-                break;
-            }
-        }
+        selectedCollection  = _collectionBases.Find(e => e.floorTag == _floorData.Type.ToString());
              
         if (selectedCollection == null) 
             return;
-        //{
-        //    Debug.Log("Null Collection! -> Failed Footstep");
-        //    return;
-        //}
 
-        clipToPlay = selectedCollection?.audioClip;
+        clipToPlay = selectedCollection.audioClip;
 
-        //Returns the method if the collection or the audio manager are invalid objects.
-        if (_audioManager   == null) return;
         if (clipToPlay      == null) return;
 
-        //Play the clip
         _audioManager.PlayOneShotSound(clipToPlay, feetPos, selectedCollection);
     }
 }

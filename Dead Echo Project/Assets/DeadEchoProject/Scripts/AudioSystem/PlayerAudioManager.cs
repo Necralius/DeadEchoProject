@@ -59,20 +59,18 @@ public class PlayerAudioManager : MonoBehaviour
         {
             if (_animator.GetFloat(_stepHash) >= 0.1)
             {
-                AudioBehavior(_floorData.Type, ActionType.Footstep);
+                FootstepAudioBehavior(_floorData.Type, ActionType.Footstep);
                 StepTimer = 0f;
             }
         }
         else StepTimer += Time.deltaTime;
 
-        //Detects if the player is in the air.
+        
         if (_playerInstance.BodyController._inAir) _airTime += Time.deltaTime;
         else if (_airTime >= 0.01f && _playerInstance.BodyController._isGrounded)
         {
-            //If the player touch the ground and have an air time greater than 0.10 seconds, the land sound is played.
             _airTime = 0f;
-            AudioBehavior(_floorData.Type, ActionType.Land);
-            //Debug.Log("PAM: Landed 1."); -> Debug Line
+            FootstepAudioBehavior(_floorData.Type, ActionType.Land);
         }
     }
     #endregion
@@ -85,35 +83,31 @@ public class PlayerAudioManager : MonoBehaviour
     //       player is stepping, and the action type, represents the action
     //       that will be shoted (Exp: Jump, Land, Footstep).
     // ----------------------------------------------------------------------
-    private void AudioBehavior(FloorData.FloorType groundType, ActionType actionType)
+    private void FootstepAudioBehavior(FloorData.FloorType groundType, ActionType actionType)
     {        
         AudioClip       clipToPlay          = null;
         AudioCollection selectedCollection  = null;
 
-        //Try to find the correct audio collection, using as base the current action passed as argument.
-        foreach (var collection in _footstepCollection)
+        selectedCollection = _footstepCollection.Find(e => e.floorTag == groundType.ToString());
+
+        if (selectedCollection == null)
+            return;
+
+        switch (actionType)
         {
-            //Debug.Log($"PAM -> Floor Finded: {groundType}, Collection Verified: {collection.floorTag}"); -> Debug Line
-            if (groundType.ToString() ==  collection.floorTag)
-            {
-                selectedCollection = collection;
-                //Debug.Log("PAM -> Finded the correct floor collection!"); -> Debug Line
-                switch (actionType)
-                {
-                    case ActionType.Footstep    : clipToPlay = collection[0];   break;
-                    case ActionType.Jump        : clipToPlay = collection[1];   break;
-                    case ActionType.Land        : clipToPlay = collection[2];   break;
-                    default: break;
-                }
-            }
+            case ActionType.Footstep:   clipToPlay = selectedCollection[0]; break;
+            case ActionType.Jump:       clipToPlay = selectedCollection[1]; break;
+            case ActionType.Land:       clipToPlay = selectedCollection[2]; break;
+            default: break;
         }
 
-        //Returns the method if the collection or the audio manager are invalid objects.
-        if (_audioManager       == null) return;
-        if (clipToPlay          == null) return;
+        if (_audioManager == null || clipToPlay == null) 
+            return;
 
-        // Plays the clip
-        _audioManager?.PlayOneShotSound(selectedCollection.audioGroup, clipToPlay, _footstepArea.position, _playerInstance.BodyController._isCrouching ? 0.2f : 0.6f, 0);
+        _audioManager?.PlayOneShotSound(selectedCollection.audioGroup, 
+            clipToPlay, 
+            _footstepArea.position, 
+            _playerInstance.BodyController._isCrouching ? 0.2f : 0.6f, 0);
     }
 
     // ----------------------------------------------------------------------
@@ -124,9 +118,10 @@ public class PlayerAudioManager : MonoBehaviour
     public void JumpAudioAction()
     {
         //Debug.Log("PAM: Started Jump."); -> Debug Line
-        AudioBehavior(_floorData.Type, ActionType.Jump);
+        FootstepAudioBehavior(_floorData.Type, ActionType.Jump);
     }
     #endregion
 }
+
 //Enumeration that is used to identify an audio action.
 public enum ActionType { Footstep, Land, Jump }

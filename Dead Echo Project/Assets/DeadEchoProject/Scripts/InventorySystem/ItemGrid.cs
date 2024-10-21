@@ -15,6 +15,7 @@ public class ItemGrid : MonoBehaviour
     [SerializeField] protected int sizeWidth  = 8;
     [SerializeField] protected int sizeHeight = 9;
 
+
     private void Start()
     {
         Init(sizeWidth, sizeHeight);

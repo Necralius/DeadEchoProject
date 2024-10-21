@@ -35,7 +35,6 @@ public class TerrainTextureDetector
     private void UpdateData()
     {
 
-        //Debug.Log("TTD -> Updating Data"); -> Debug Line
         if (Physics.Raycast(_interactorTransform.position, Vector3.down, out RaycastHit hit, _collider.bounds.extents.y + 0.5f))
         {
             if (hit.transform.CompareTag("Terrain"))
@@ -60,14 +59,11 @@ public class TerrainTextureDetector
     // ----------------------------------------------------------------------
     private void UpdatePosition()
     {
-        //Updates the needed data
         UpdateData();
 
-        //Verify if the player is standing in an valid terrain object.
         if (!isOnTerrain)           return;
         if (_terrainObject == null) return;
 
-        //Converts the player position in to the map position coordinates.
         Vector3 terrainPosition = _interactorTransform.position - _terrainObject.transform.position;
         Vector3 mapPosition     = new Vector3(terrainPosition.x / _terrainObject.terrainData.size.x, 0, terrainPosition.z / _terrainObject.terrainData.size.z);
 
@@ -77,17 +73,14 @@ public class TerrainTextureDetector
         posX = (int)xCoord;
         posZ = (int)zCoord;
 
-        //Find the player position in the terrain alpha map.
         float[,,] splatMap  = _terrainObject.terrainData.GetAlphamaps(posX, posZ, 1, 1);
 
-        //Find all the layers, and update they value and name in the list.
         for (int i = 0; i < _terrainObject.terrainData.terrainLayers.Length; i++)
         {
             string layerName = _terrainObject.terrainData.terrainLayers[i].name;
      
             _textureAreas[i] = new TextureArea(layerName, splatMap[0, 0, i]);
         }
-        //Debug.Log("TTD -> Updating Position"); -> Debug Line
     }
 
     // ----------------------------------------------------------------------
@@ -97,14 +90,11 @@ public class TerrainTextureDetector
     // ----------------------------------------------------------------------
     public string GetCurrentTexture()
     {
-        //Finds the player position on the terrain alpha map.
         UpdatePosition();
 
-        //Verify if the player is standing in an valid terrain object.
         if (!isOnTerrain)           return "None";
         if (_terrainObject == null) return "None";
 
-        //Finding the layer with the most influence that the player is stepping in.
         string  greaterLayer        = _textureAreas[0].textureLayerName;
         float   greaterLayerValue   = 0f;
 
@@ -113,9 +103,7 @@ public class TerrainTextureDetector
             if (_textureAreas[i].textureValue > greaterLayerValue) 
                 greaterLayer = _textureAreas[i].textureLayerName;
         }
-        //Debug.Log($"TTD -> Getting Texture: {greaterLayer}"); -> Debug Line
 
-        //Returns the layer with the greater influence.
         return greaterLayer;
     }
 
