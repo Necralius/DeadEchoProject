@@ -34,6 +34,7 @@ public class MusicManager
             }
         }    
     }
+
     public void SelectMusicEvent(MusicEvent eventType)
     {
         currentMusicEvent = eventType;
@@ -48,6 +49,8 @@ public class MusicManager
             }
         }
     }
+
+    //CHANGE TO COROUTINE (URGENT)
     public void OnUpdate()
     {
         if (_isPlayingMusic)
@@ -83,6 +86,7 @@ public class MusicManager
         _musicDuration      = clip.length;
         _isPlayingMusic     = true;
     }
+
     private void OnMusicEnd()
     {
         //TODO -> Trigger FadeOut

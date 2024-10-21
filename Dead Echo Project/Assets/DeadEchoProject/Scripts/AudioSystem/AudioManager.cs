@@ -7,10 +7,6 @@ using static NekraByte.Core.DataTypes;
 using Vector3   = UnityEngine.Vector3;
 using Scene     = UnityEngine.SceneManagement.Scene;
 
-// --------------------------------------------------------------------------
-// Name: AudioManager
-// Desc:
-// --------------------------------------------------------------------------
 public class AudioManager : MonoBehaviour
 {
     #region - Singleton Pattern -
@@ -73,10 +69,6 @@ public class AudioManager : MonoBehaviour
         {
             GameObject          go                  = new GameObject("Pool Item");
             AudioSource         audioSource         = go.AddComponent<AudioSource>();
-            //AudioSource         steamAudioSource    = go.AddComponent<AudioSource>();
-
-            //steamAudioSource.occlusion      = true;
-            //steamAudioSource.airAbsorption  = true;
 
             audioSource.maxDistance = 50;
 
@@ -343,10 +335,14 @@ public class AudioManager : MonoBehaviour
         return 0;
     }
 
-    public void PlayOneShotSound(AudioClip clip, Vector3 position, AudioCollection audioCollection)
-    {
-        PlayOneShotSound(audioCollection.audioGroup, clip, position, audioCollection.volume, audioCollection.spatialBlend, audioCollection.priority);
-    }
+    public void PlayOneShotSound(AudioClip clip, Vector3 position, AudioCollection audioCollection) 
+        => PlayOneShotSound(
+            audioCollection.audioGroup, 
+            clip, 
+            position, 
+            audioCollection.volume, 
+            audioCollection.spatialBlend, 
+            audioCollection.priority);
 
     // ----------------------------------------------------------------------
     // Name: PlayOneshotSound (Method)
