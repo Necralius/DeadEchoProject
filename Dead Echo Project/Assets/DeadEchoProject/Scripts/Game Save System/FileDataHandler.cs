@@ -12,6 +12,8 @@ public class FileDataHandler
 
     public SaveData data;
 
+    private bool _debug = true;
+
     public FileDataHandler(string dataDirPath, string dataFileName)
     {
         this.dataDirPath    = dataDirPath;
@@ -31,7 +33,8 @@ public class FileDataHandler
 
     public SaveDirectory EncapsulateData(SaveData data)
     {
-        Debug.Log("Encapsulating");
+        if (_debug)
+            Debug.Log("Encapsulating data.");
 
         if (data == null) return null;
         SaveDirectory directoryData = data.saveDirectory;
@@ -43,9 +46,15 @@ public class FileDataHandler
         else fullPath = this.fullPath;
 
         if (!Directory.Exists(fullPath))
+        {
+            if (_debug)
+                Debug.Log("Directory do not exists, creating file!");
             Directory.CreateDirectory(fullPath);
+        }
         directoryData.saveFolderPath = fullPath;
 
+        if (_debug)
+            Debug.Log("Saving screenshot file!");
         directoryData.screenshotPath = ScreenshotTaker.Instance.SaveScreenshot(fullPath, dataFileName);
 
         fullPath = Path.Combine(fullPath, dataFileName + ".NBSV");
@@ -92,7 +101,6 @@ public class FileDataHandler
     #region - Application Data Handler -
     public ApplicationData LoadApplicationData()
     {
-
         string fullPath = Path.Combine(dataDirPath, dataFileName);
         ApplicationData loadedData = null;
         if (File.Exists(fullPath))
@@ -118,6 +126,8 @@ public class FileDataHandler
 
     public void EncapsulateApplicationData(ApplicationData data)
     {
+        if (_debug)
+            Debug.Log("Encapsulating application data!");
         string fullPath = Path.Combine(dataDirPath, dataFileName);
         try
         {

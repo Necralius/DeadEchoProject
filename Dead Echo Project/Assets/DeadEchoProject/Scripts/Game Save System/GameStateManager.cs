@@ -161,6 +161,8 @@ public class GameStateManager : MonoBehaviour
         SaveDirectory saveDir   = dynamicDataHandler.EncapsulateData(currentGameData);
         saveDir.saveID          = generatedID;
 
+        Debug.Log(currentApplicationData == null);
+        Debug.Log(currentApplicationData.savesDatas == null);
         currentApplicationData.StartNewSave(saveDir);
 
         LoadScreen.Instance.LoadScene(currentGameData.saveSceneIndex);

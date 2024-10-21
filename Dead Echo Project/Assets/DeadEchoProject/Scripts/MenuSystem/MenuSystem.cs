@@ -50,8 +50,8 @@ public class MenuSystem : MonoBehaviour
 
     [SerializeField] private bool _debug;
 
-    GameStateManager _gameStateManager;
-
+    [SerializeField] GameStateManager _gameStateManager = null;
+    
     private void Awake()
     {
         _gameStateManager = GameStateManager.Instance;
@@ -376,6 +376,9 @@ public class MenuSystem : MonoBehaviour
     // ----------------------------------------------------------------------
     public void UpdateGameplaySettings()
     {
+        if (_gameStateManager == null)
+            return;
+
         _tgl_InvertedX.State = _gameStateManager.currentApplicationData.invertX;
         _tgl_InvertedY.State = _gameStateManager.currentApplicationData.invertY;
         _subtitleState.State = _gameStateManager.currentApplicationData.subtitles;

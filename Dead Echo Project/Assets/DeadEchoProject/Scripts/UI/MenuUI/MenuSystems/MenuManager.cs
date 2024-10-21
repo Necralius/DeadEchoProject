@@ -1,22 +1,30 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public enum MenuType { Additive, Override}
 public class MenuManager : MonoBehaviour
 {
-
     public List<MenuObject> menuObjects = new List<MenuObject>();
 
-    // ----------------------------------------------------------------------
-    // Name: Start
-    // Desc: Called on the scene start, mainly this method get the system
-    //       dependencies.
-    // ----------------------------------------------------------------------
-    void Start()
+    [SerializeField] private List<MenuItem> menuItems = new List<MenuItem>();
+
+    [SerializeField] private MenuItem _selectedMenu = null;
+    [SerializeField] private MenuItem _lastMenu     = null;
+
+    public void ActivateMenu(string menuName)
     {
-        //menuObjects = GetComponents<MenuObject>().ToList();
+        MenuItem menu = menuItems.Find(e => e.tag == menuName);
+
+        if (menu != null)
+        {
+            if (_lastMenu != null)
+                _lastMenu.Deactivate();
+
+            _selectedMenu = menu;
+
+            _selectedMenu.Activate();
+        }       
     }
 
     public void OpenMenu(string menuName)
@@ -41,5 +49,33 @@ public class MenuManager : MonoBehaviour
             }
         }
         else Debug.LogWarning("This object is not in the object list");
+    }
+}
+
+[Serializable]
+public class MenuItem
+{
+    public string       tag     = string.Empty;
+    public GameObject   panel   = null;
+    public CanvasGroup  cg      = null;
+
+    public void Activate()
+    {
+        if (cg == null)
+            cg = panel.AddComponent<CanvasGroup>();
+
+        cg.alpha            = 1.0f;
+        cg.interactable     = true;
+        cg.blocksRaycasts   = true;
+    }
+
+    public void Deactivate()
+    {
+        if (cg == null)
+            cg = panel.AddComponent<CanvasGroup>();
+
+        cg.alpha            = 0f;
+        cg.interactable     = false;
+        cg.blocksRaycasts   = false;
     }
 }

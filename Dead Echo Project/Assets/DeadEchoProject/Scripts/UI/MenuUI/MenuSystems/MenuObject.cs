@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Cinemachine;
 using UnityEngine;
-using static MenuManager;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class MenuObject : MonoBehaviour
 {
+    private CanvasGroup _cg => GetComponent<CanvasGroup>();
+
     public MenuType type;
 
     //Public Data
