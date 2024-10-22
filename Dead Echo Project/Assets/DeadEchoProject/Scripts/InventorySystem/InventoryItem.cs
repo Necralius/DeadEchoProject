@@ -13,6 +13,8 @@ public class InventoryItem : MonoBehaviour
 
     public bool rotated = false;
 
+    public ItemGrid originGrid = null;
+
     internal void Rotate()
     {
         rotated = !rotated;
@@ -21,9 +23,10 @@ public class InventoryItem : MonoBehaviour
         rect.rotation       = Quaternion.Euler(0,0, rotated ? 90f : 0f);
     }
 
-    internal void Set(ItemData itemData)
+    internal void Set(ItemData itemData, ItemGrid originGrid)
     {
-       this.data = itemData;
+        this.data       = itemData;
+        this.originGrid = originGrid;
 
         GetComponent<Image>().sprite = data.Icon;
 

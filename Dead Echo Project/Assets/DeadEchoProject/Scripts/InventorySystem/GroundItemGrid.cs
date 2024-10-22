@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GroundItemGrid : ItemGrid
 {
-    //[HideInInspector]
     public InventoryItemConteiner currentConteiner;
 
     [SerializeField] private GameObject _conteinerPrefab    = null;

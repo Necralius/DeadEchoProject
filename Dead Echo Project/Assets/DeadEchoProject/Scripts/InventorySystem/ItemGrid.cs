@@ -57,7 +57,7 @@ public class ItemGrid : MonoBehaviour
         return selected;
     }
 
-    private void CleanItem(InventoryItem selected)
+    public void CleanItem(InventoryItem selected)
     {
         for (int ix = 0; ix < selected.WIDTH; ix++)
             for (int iy = 0; iy < selected.HEIGHT; iy++)
@@ -115,10 +115,7 @@ public class ItemGrid : MonoBehaviour
         Vector2 position = GetPosOnGrid(item, posX, posY);
 
         rectTrans.localPosition = position;
-
-
     }
-
 
     public Vector2 GetPosOnGrid(InventoryItem item, int posX, int posY)
     {
@@ -160,6 +157,11 @@ public class ItemGrid : MonoBehaviour
 
     public bool BoundryCheck(int posX, int posY, InventoryItem item)
     {
+        if (item == null)
+        {
+            Debug.Log("Invalid item");
+            return false;
+        }
         if (!ValidPosition(posX, posY)) return false;
 
         posX += item.WIDTH - 1;
@@ -176,12 +178,22 @@ public class ItemGrid : MonoBehaviour
             return null;
         return _inventoryItemSlot[x, y];
     }
-
-    private bool FindAvaliableSpace(int posX, int poxY, InventoryItem itemToCheck)
+    private bool FindAvailableSpace(int posX, int posY, InventoryItem itemToCheck)
     {
-        for (int x = 0; x < itemToCheck.WIDTH; x++) 
-            for (int y = 0; y < itemToCheck.HEIGHT; y++) 
-                if (_inventoryItemSlot[posX + x, poxY + y] != null) return false;
+        // Verificar se as coordenadas iniciais estão dentro dos limites do inventário
+        if (posX < 0 || posY < 0 || posX + itemToCheck.WIDTH > _inventoryItemSlot.GetLength(0) || posY + itemToCheck.HEIGHT > _inventoryItemSlot.GetLength(1))
+            return false;
+
+        // Verificar o espaço para o item
+        for (int x = 0; x < itemToCheck.WIDTH; x++)
+        {
+            for (int y = 0; y < itemToCheck.HEIGHT; y++)
+            {
+                // Verificar se o slot está dentro dos limites do array e se está disponível
+                if (_inventoryItemSlot[posX + x, posY + y] != null)
+                    return false;
+            }
+        }
         return true;
     }
 
@@ -192,7 +204,7 @@ public class ItemGrid : MonoBehaviour
 
         for (int y = 0; y < height; y++) 
             for (int x = 0; x < width; x++) 
-                if (FindAvaliableSpace(x, y, itemToInsert)) return new Vector2Int(x, y);
+                if (FindAvailableSpace(x, y, itemToInsert)) return new Vector2Int(x, y);
         return null;
     }
 
@@ -205,7 +217,7 @@ public class ItemGrid : MonoBehaviour
         itemRect.SetParent(InventoryController.Instance.canvasTrans);
         itemRect.SetAsLastSibling();
 
-        inventoryItem.Set(item);
+        inventoryItem.Set(item, this);
         return inventoryItem;
     }
 }

@@ -18,6 +18,8 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
     [SerializeField] private    Camera                     _fpsCamera           = null;
     [SerializeField] private    InGame_UIManager           _inGameUI_Manager    = null;
 
+
+
     [Header("Health System")]
     private                 float      _currentHealth  = 100f;
     [Range(0f, 300)] public float      _maxHealth      = 100f;
@@ -28,10 +30,57 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
     private GameSceneManager        _gameSceneManager       = null;
 
     [SerializeField] private    float _cureValuePerSec  = 1f;
+    [SerializeField] private    float _timeToCure       = 4f;
     private                     float _cureTimer        = 0f;
-    private                     float _timeToCure       = 4f;
 
     public bool isDead = false;
+
+    [Header("Survival Data")]
+    [SerializeField] private SurvivalData _survivalData = null;
+
+    [SerializeField, Range(0f, 100f)] private float _hunger  = 0f;
+    [SerializeField, Range(0f, 100f)] private float _thirst  = 0f;
+    [SerializeField, Range(0f, 100f)] private float _stamina = 0f;
+
+    [SerializeField] private Image _hungerFill  = null;
+    [SerializeField] private Image _thirstFill  = null;
+    [SerializeField] private Image _staminaFill = null;
+
+    [SerializeField] private float _damageTimer  = 0f;
+    [SerializeField] private float _timeToDamage = 4f;
+
+    public float Hunger
+    {
+        get => _hunger;
+        set
+        {
+            if (value > 100f)
+                _hunger = 100f;
+            else _hunger = value;
+        }
+    }
+
+    public float Thirst
+    {
+        get => _thirst;
+        set
+        {
+            if (value > 100f)
+                _thirst = 100f;
+            else _thirst = value;
+        }
+    }
+
+    public float Stamina
+    {
+        get => _stamina;
+        set
+        {
+            if (value > 100f)
+                _stamina = 100f;
+            else _stamina = value;
+        }
+    }
 
     // ------------------------------------------ Methods ------------------------------------------ //
 
@@ -40,8 +89,10 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
         get => _currentHealth;
         set
         {
-            if (value > _maxHealth) _currentHealth = _maxHealth;
-            else if (value < 0) _currentHealth = 0;
+            if (value > _maxHealth) 
+                _currentHealth = _maxHealth;
+            else if (value < 0) 
+                _currentHealth = 0;
             else _currentHealth = value;
         }
     }
@@ -71,6 +122,9 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
+        if (isDead) 
+            return;
+
         if (CurrentHealth < _maxHealth)
         {
             if (_cureTimer >= _timeToCure)
@@ -79,6 +133,32 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
                 _inGameUI_Manager.UpdatePlayerState(_fpsController, this);
             }
             else _cureTimer += Time.deltaTime;
+        }
+
+        if (_survivalData != null)
+        {
+            Hunger += _survivalData.hungerFactor * Time.deltaTime;
+            Thirst += _survivalData.thirstFactor * Time.deltaTime;
+
+            if (_hungerFill != null)
+                _hungerFill.fillAmount   = Hunger / 100f;
+
+            if (_thirstFill != null)
+                _thirstFill.fillAmount   = Thirst / 100f;
+
+            if (_staminaFill != null)
+                _staminaFill.fillAmount = Stamina / 100f;
+
+            if (Hunger >= 99f || Thirst >= 99f)
+            {
+                if (_damageTimer >= _timeToDamage)
+                {
+                    TakeDamage(_survivalData.DamageOnMax);
+                    _damageTimer = 0f;
+                }
+                else _damageTimer += Time.deltaTime;
+            }
+            else _damageTimer = 0f;
         }
     }
     #endregion
