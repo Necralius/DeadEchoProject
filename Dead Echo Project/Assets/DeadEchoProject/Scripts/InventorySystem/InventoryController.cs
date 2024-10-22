@@ -170,7 +170,6 @@ public class InventoryController : MonoBehaviour
             if (item == null || inventoryGrid == null)
                 return;
 
-            Debug.Log("setting item!");
             Vector2Int? pos = groundGrid.FindSpaceForItem(item);
 
             if (pos == null) 
@@ -229,7 +228,6 @@ public class InventoryController : MonoBehaviour
         if (result)
         {
             selectedItem.originGrid = grid;
-            Debug.Log("setting item successfull!");
 
             selectedItem = null;
             if (overlapItem != null)

@@ -7,14 +7,14 @@ public class MenuManager : MonoBehaviour
 {
     public List<MenuObject> menuObjects = new List<MenuObject>();
 
-    [SerializeField] private List<MenuItem> menuItems = new List<MenuItem>();
+    [SerializeField] private List<MenuData> menuItems = new List<MenuData>();
 
-    [SerializeField] private MenuItem _selectedMenu = null;
-    [SerializeField] private MenuItem _lastMenu     = null;
+    [SerializeField] private MenuData _selectedMenu = null;
+    [SerializeField] private MenuData _lastMenu     = null;
 
     public void ActivateMenu(string menuName)
     {
-        MenuItem menu = menuItems.Find(e => e.tag == menuName);
+        MenuData menu = menuItems.Find(e => e.tag == menuName);
 
         if (menu != null)
         {
@@ -53,7 +53,7 @@ public class MenuManager : MonoBehaviour
 }
 
 [Serializable]
-public class MenuItem
+public class MenuData
 {
     public string       tag     = string.Empty;
     public GameObject   panel   = null;

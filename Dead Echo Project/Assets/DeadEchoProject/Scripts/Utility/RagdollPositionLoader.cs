@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.IO;
+using System;
 using UnityEditor;
 using UnityEngine;
 
 public class RagdollPositionLoader : MonoBehaviour
 {
-    [System.Serializable]
+    [Serializable]
     public class TransformData
     {
         public string name;
@@ -14,7 +15,7 @@ public class RagdollPositionLoader : MonoBehaviour
         public Vector3 scale;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class TransformList
     {
         public List<TransformData> transforms;
