@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum MenuType { Additive, Override}
 public class MenuManager : MonoBehaviour
@@ -16,29 +18,33 @@ public class MenuManager : MonoBehaviour
     {
         MenuData menu = menuItems.Find(e => e.tag == menuName);
 
-        if (menu != null)
-        {
-            if (_lastMenu != null)
-                _lastMenu.Deactivate();
+        if (menu == null)
+            return;
+        
+        if (_lastMenu != null)
+            _lastMenu.Deactivate();
 
-            _selectedMenu = menu;
+        _selectedMenu = menu;
 
-            _selectedMenu.Activate();
-        }       
+        _selectedMenu.Activate();
     }
 
     public void OpenMenu(string menuName)
     {
-        if (menuObjects.Find(e => e.menuName == menuName))
-        {
-            bool Overridable = menuObjects.Find(e => e.menuName == menuName).type == MenuType.Override;
+        MenuData menu = menuItems.Find(e => e.tag == menuName);
 
-            menuObjects.ForEach(e => { if (e.menuName == menuName) e.OpenMenu(); else if (Overridable) e.CloseMenu(); });
-        }
-        else Debug.LogWarning("This object is not in the object list");
+        if (menu == null)
+            return;
+        if (_lastMenu != null)
+            _lastMenu.Deactivate();
+
+        menu.Activate();
+
+        _lastMenu = menu;
     }
     public void OpenMenu(MenuObject menu)
     {
+ 
         if (menuObjects.Contains(menu))
         {
             bool Overridable = menu.type == MenuType.Override;
@@ -55,27 +61,36 @@ public class MenuManager : MonoBehaviour
 [Serializable]
 public class MenuData
 {
-    public string       tag     = string.Empty;
-    public GameObject   panel   = null;
-    public CanvasGroup  cg      = null;
+    public  string       tag         = string.Empty;
+    public  GameObject   panel       = null;
+    public  UnityEvent   OnActive    = null;
+    public  float        fadeTime    = 1f;
+    private CanvasGroup  _cg         = null;
+
+    private CanvasGroup CG
+    {
+        get
+        {
+            _cg = panel.GetComponent<CanvasGroup>();
+            if (_cg == null)
+                _cg = panel.AddComponent<CanvasGroup>();
+            return _cg;
+        }
+    }
 
     public void Activate()
     {
-        if (cg == null)
-            cg = panel.AddComponent<CanvasGroup>();
+        OnActive?.Invoke();
 
-        cg.alpha            = 1.0f;
-        cg.interactable     = true;
-        cg.blocksRaycasts   = true;
+        CG.DOFade(1f, fadeTime);
+        CG.interactable     = true;
+        CG.blocksRaycasts   = true;
     }
 
     public void Deactivate()
     {
-        if (cg == null)
-            cg = panel.AddComponent<CanvasGroup>();
-
-        cg.alpha            = 0f;
-        cg.interactable     = false;
-        cg.blocksRaycasts   = false;
+        CG.DOFade(0f, fadeTime);
+        CG.interactable     = false;
+        CG.blocksRaycasts   = false;
     }
 }
