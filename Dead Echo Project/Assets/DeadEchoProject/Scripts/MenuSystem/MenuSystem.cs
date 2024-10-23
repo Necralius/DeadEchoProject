@@ -50,7 +50,7 @@ public class MenuSystem : MonoBehaviour
 
     [SerializeField] private bool _debug;
 
-    [SerializeField] GameStateManager _gameStateManager = null;
+    GameStateManager _gameStateManager = null;
     
     private void Awake()
     {

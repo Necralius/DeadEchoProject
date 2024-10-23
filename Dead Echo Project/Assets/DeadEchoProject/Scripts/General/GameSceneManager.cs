@@ -46,6 +46,8 @@ public class GameSceneManager : MonoBehaviour
     public bool _gameIsPaused;
     public bool _isInspectingItem;
 
+    [SerializeField] private DeathController _deathController = null;
+
     public ParticleSystem bloodParticles { get => _bloodParticles; }
 
     private void Awake()
@@ -162,5 +164,7 @@ public class GameSceneManager : MonoBehaviour
     public void DeathScreen(bool state)
     {
         _deathScreenObj.SetActive(state);
+
+        _deathController.CallDeath();
     }
 }
