@@ -20,7 +20,9 @@ public class InventoryController : MonoBehaviour
 
     private InputManager _inputManager;
 
-    [SerializeField] InventoryItem selectedItem;
+    Vector2Int? prevSelectedItemPos;
+    [SerializeField] InventoryItem    selectedItem;
+    [SerializeField] private ItemGrid lastSelectedItemGrid = null;
     InventoryItem overlapItem;
 
     RectTransform selectedItemRect;
@@ -82,6 +84,20 @@ public class InventoryController : MonoBehaviour
             if (item.originGrid is GroundItemGrid || item == null)
                 return;
             else InspectionView.Instance?.InspectItem(item);
+        }
+    }
+
+    public void ChangeInventoryState(bool state)
+    {
+        if (!state)
+        {
+            if (selectedItem != null && prevSelectedItemPos != null)
+            {
+                ItemPlace((Vector2Int)prevSelectedItemPos);
+                selectedItem            = null;
+                prevSelectedItemPos     = null;
+                lastSelectedItemGrid    = null;
+            }
         }
     }
 
@@ -153,12 +169,12 @@ public class InventoryController : MonoBehaviour
 
     private void ItemGet()
     {
-        Vector2Int tileGridPos = GetTileGridPosition();
+        Vector2Int? tileGridPos = prevSelectedItemPos = GetTileGridPosition();
 
         if (selectedItem == null && tileGridPos != null)
-            PickUpItem(tileGridPos);
-        else
-            ItemPlace(tileGridPos);
+            PickUpItem((Vector2Int)tileGridPos);
+        else 
+            ItemPlace((Vector2Int)tileGridPos);
     }
 
     public void DropItem()
@@ -217,6 +233,8 @@ public class InventoryController : MonoBehaviour
                 selectedItemRect?.SetAsLastSibling();
             }
         }
+
+        lastSelectedItemGrid = null;
     }
 
     private bool ItemPlace(Vector2Int tileGridPos, ItemGrid grid, InventoryItem item)
@@ -247,6 +265,7 @@ public class InventoryController : MonoBehaviour
         selectedItem = selectedItemGrid?.PickUpItem(tileGridPosition.x, tileGridPosition.y);
         if (selectedItem != null)
             selectedItemRect = selectedItem?.GetComponent<RectTransform>();
+        lastSelectedItemGrid = selectedItemGrid;
     }
 
     private void ItemDrag()

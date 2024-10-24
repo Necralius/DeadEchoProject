@@ -51,14 +51,14 @@ public class MenuData
     {
         OnActive?.Invoke();
 
-        CG.DOFade(1f, fadeTime);
+        CG.DOFade(1f, fadeTime).SetUpdate(true);
         CG.interactable     = true;
         CG.blocksRaycasts   = true;
     }
 
     public void Deactivate()
     {
-        CG.DOFade(0f, fadeTime);
+        CG.DOFade(0f, fadeTime).SetUpdate(true);
         CG.interactable     = false;
         CG.blocksRaycasts   = false;
     }

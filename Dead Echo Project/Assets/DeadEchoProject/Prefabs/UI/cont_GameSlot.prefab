@@ -67,9 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Game+ (7 min 3 sec)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1e4856586af0c764b9d0097efe151f07, type: 2}
-  m_sharedMaterial: {fileID: 5049096742324024288, guid: 1e4856586af0c764b9d0097efe151f07,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c785a786708a1ae4dad17b92f54c9bb2, type: 2}
+  m_sharedMaterial: {fileID: 5610453029815769306, guid: c785a786708a1ae4dad17b92f54c9bb2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -279,9 +278,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 03/14/2021  09:13:11 PM
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1e4856586af0c764b9d0097efe151f07, type: 2}
-  m_sharedMaterial: {fileID: 5049096742324024288, guid: 1e4856586af0c764b9d0097efe151f07,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c785a786708a1ae4dad17b92f54c9bb2, type: 2}
+  m_sharedMaterial: {fileID: 5610453029815769306, guid: c785a786708a1ae4dad17b92f54c9bb2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -416,9 +414,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Seattle Day 1 - Channel 13
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1e4856586af0c764b9d0097efe151f07, type: 2}
-  m_sharedMaterial: {fileID: 5049096742324024288, guid: 1e4856586af0c764b9d0097efe151f07,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c785a786708a1ae4dad17b92f54c9bb2, type: 2}
+  m_sharedMaterial: {fileID: 5610453029815769306, guid: c785a786708a1ae4dad17b92f54c9bb2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -553,9 +550,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: CURRENT AUTOSAVE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1e4856586af0c764b9d0097efe151f07, type: 2}
-  m_sharedMaterial: {fileID: 5049096742324024288, guid: 1e4856586af0c764b9d0097efe151f07,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c785a786708a1ae4dad17b92f54c9bb2, type: 2}
+  m_sharedMaterial: {fileID: 5610453029815769306, guid: c785a786708a1ae4dad17b92f54c9bb2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -683,9 +679,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lastScreenshot: {fileID: 5277574878646431868}
-  _saveName: {fileID: 8864329162298638325}
-  _lastQuest: {fileID: 4241390640936584794}
-  _saveHour: {fileID: 7157041480874567325}
+  _saveName: {fileID: 7157041480874567325}
+  _lastQuest: {fileID: 8864329162298638325}
+  _saveHour: {fileID: 4241390640936584794}
   _gameData:
     saveName: 
     ID: 0
@@ -736,6 +732,12 @@ MonoBehaviour:
   childText: {fileID: 8864329162298638325}
   selected: 0
   pointer: {fileID: 7235661489580209378}
+  OnSelect:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeselect:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &392337733139918850
 MonoBehaviour:
   m_ObjectHideFlags: 0

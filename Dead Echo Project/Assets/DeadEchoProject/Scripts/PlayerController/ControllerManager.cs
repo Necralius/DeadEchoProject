@@ -222,6 +222,8 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
         if (_orientation == null) return;
         if (_inptManager == null) return;
         if (_rb          == null) return;
+        if (GameSceneManager.Instance._gameIsPaused)
+            return;
 
         CameraHandler();
         UpdateCalls();
@@ -238,6 +240,8 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
         if (_orientation == null) return;
         if (_inptManager == null) return;
         if (_rb          == null) return;
+        if (GameSceneManager.Instance._gameIsPaused)
+            return;
 
         MovementHandler();
 

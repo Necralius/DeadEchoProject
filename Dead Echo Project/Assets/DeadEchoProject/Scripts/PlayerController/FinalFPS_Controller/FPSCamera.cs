@@ -61,7 +61,8 @@ public class FPSCamera : MonoBehaviour, IDataPersistence
 
     void Update()
     {
-        if (GameSceneManager.Instance.inventoryIsOpen) return;
+        if (GameSceneManager.Instance._gameIsPaused)     return;
+        if (GameSceneManager.Instance.inventoryIsOpen)   return;
         if (GameSceneManager.Instance._isInspectingItem) return;
 
         //Input gethering

@@ -78,7 +78,7 @@ public class SaveView : MonoBehaviour
         _gameData = gameData;
 
         _saveName.text = _gameData.saveName;
-        _saveHour.text = $"Game Saved at: {_gameData.saveTime.Hour}:{_gameData.saveTime.Minute} - {_gameData.saveTime.Day}/{_gameData.saveTime.Month}/{_gameData.saveTime.Year}";
+        _saveHour.text = $"{_gameData.saveTime.Hour}:{_gameData.saveTime.Minute} - {_gameData.saveTime.Day}/{_gameData.saveTime.Month}/{_gameData.saveTime.Year}";
 
         Texture2D lastScreenshot = gameData.GetImage();
 

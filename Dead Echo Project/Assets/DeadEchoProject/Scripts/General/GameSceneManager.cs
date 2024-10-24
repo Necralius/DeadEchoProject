@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerInfo
@@ -33,8 +35,9 @@ public class GameSceneManager : MonoBehaviour
 
     [SerializeField] private ParticleSystem _bloodParticles = null;
 
-    [SerializeField] private GameObject _deathScreenObj = null;
-    [SerializeField] private GameObject _pauseMenuObj   = null;
+    [SerializeField] private GameObject _deathScreenObj  = null;
+    [SerializeField] private float      _animationsSpeed = 2f;
+    [SerializeField] private GameObject _pauseMenuObj    = null;
 
     [SerializeField]    private GameObject  _inventoryObj   = null;
     public bool         inventoryIsOpen                     = false;
@@ -54,16 +57,43 @@ public class GameSceneManager : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
-    
-    public void PauseMenuSystem()
+
+    private void OnEscapePerformed(InputAction.CallbackContext context)
+    {
+        if (inputManager != null && !CharacterManager.Instance.isDead)
+            PauseMenu();
+    }
+
+    private void OnEnable()
+    {
+        inputManager.Escape_Action.Action.performed += OnEscapePerformed;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.Escape_Action.Action.performed += OnEscapePerformed;
+    }
+
+    public void PauseMenu()
     {
         if (_pauseMenuObj == null) return;
 
         _gameIsPaused       = !_gameIsPaused;
 
+        CanvasGroup cg = _pauseMenuObj.GetComponent<CanvasGroup>();
+
+        if (cg != null)
+        {
+            cg.DOFade(_gameIsPaused ? 1f : 0f, _animationsSpeed).SetUpdate(true).onComplete += delegate { PauseActions(); };
+            cg.interactable     = _gameIsPaused;
+            cg.blocksRaycasts   = _gameIsPaused;
+        }
+    }
+
+    private void PauseActions()
+    {
         Cursor.lockState    = _gameIsPaused ? CursorLockMode.None : CursorLockMode.Locked;
         Time.timeScale      = _gameIsPaused ? 0f : 1f;
-        _pauseMenuObj.SetActive(!_pauseMenuObj.activeInHierarchy);
     }
 
     public void ChangeInventoryState()
@@ -75,10 +105,10 @@ public class GameSceneManager : MonoBehaviour
 
     public void ChangeInventoryState(bool state)
     {
+        _inventoryObj.SetActive(state);
         inventoryIsOpen     = state;
         Cursor.lockState    = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;
-
-        _inventoryObj.SetActive(inventoryIsOpen);
+        InventoryController.Instance.ChangeInventoryState(state);
     }
 
     public void OpenInspectionView()
@@ -141,9 +171,9 @@ public class GameSceneManager : MonoBehaviour
         if (inputManager != null && !CharacterManager.Instance.isDead)
         {
             if (inputManager.Escape_Action.Action.WasPressedThisFrame()) 
-                PauseMenuSystem();
+                PauseMenu();
 
-            if (inputManager.Tab_Action.Action.WasPressedThisFrame()) 
+            if (inputManager.Tab_Action.Action.WasPressedThisFrame() && !_gameIsPaused) 
                 ChangeInventoryState();
         }
     }
@@ -165,6 +195,7 @@ public class GameSceneManager : MonoBehaviour
     {
         _deathScreenObj.SetActive(state);
 
-        _deathController.CallDeath();
+        if (state)
+            _deathController.CallDeath();
     }
 }

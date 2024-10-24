@@ -122,7 +122,7 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        if (isDead) 
+        if (isDead || GameSceneManager.Instance._gameIsPaused) 
             return;
 
         if (CurrentHealth < _maxHealth)
@@ -166,6 +166,8 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
     #region - Damage System -
     public void TakeDamage(float value)
     {
+        DamageEffect.Instance.ScreenDamageEffect(0.3f, 5f, 0.3f);
+
         CurrentHealth = Mathf.Max(_currentHealth - value, 0f);
 
         if (_damageManager != null)
