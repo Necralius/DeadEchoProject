@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DynamicUI_Manager : MonoBehaviour
@@ -15,6 +16,20 @@ public class DynamicUI_Manager : MonoBehaviour
     #endregion
 
     [SerializeField] private List<FaderItem> _faders = new List<FaderItem>();
+
+    [SerializeField] private TextMeshProUGUI _ammo    = null;
+    [SerializeField] private TextMeshProUGUI _gunName = null;
+    [SerializeField] private TextMeshProUGUI _gunMode = null;
+
+    public void UpdateGunSats(GunBase gunData)
+    {
+        if (gunData == null)
+            return;
+
+        _ammo.text    = gunData.GunAmmo;
+        _gunName.text = gunData.GunData.gunData.gunName;
+        _gunMode.text = gunData.GunData.gunData.gunMode.ToString();
+    }
 
     public FaderItem this[int I]
     {
