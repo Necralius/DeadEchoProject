@@ -121,6 +121,9 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
+        if (CharacterManager.Instance.isDead)
+            return;
+
         //Nulables checks, if any crucial component is null, the system will return without any execution.
         if (_playerManager                  == null)        return;
         if (_playerManager._armsAnimator    == null)        return;

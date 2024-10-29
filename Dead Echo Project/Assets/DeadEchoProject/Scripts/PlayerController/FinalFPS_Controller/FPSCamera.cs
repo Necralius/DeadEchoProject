@@ -64,6 +64,7 @@ public class FPSCamera : MonoBehaviour, IDataPersistence
         if (GameSceneManager.Instance._gameIsPaused)     return;
         if (GameSceneManager.Instance.inventoryIsOpen)   return;
         if (GameSceneManager.Instance._isInspectingItem) return;
+        if (CharacterManager.Instance.isDead)            return;
 
         //Input gethering
         mouseX = _inputManager.LookAction.Vector.y;

@@ -25,16 +25,42 @@ public class MenuManager : MonoBehaviour
 
         _selectedMenu = menu;
     }
+
+    public void OpenMenu(string menuName, Action actionOnOpen)
+    {
+        MenuData menu = menuItems.Find(e => e.tag == menuName);
+
+        if (menu == null)
+            return;
+
+        _lastMenu = _selectedMenu;
+        _lastMenu.Deactivate();
+
+        menu.Activate(actionOnOpen);
+
+        _selectedMenu = menu;
+    }
+
+    public void CloseAllMenus(Action action)
+    {
+        if (_selectedMenu == null)
+            return;
+        else
+            _selectedMenu.Deactivate(action);
+    }
 }
 
 [Serializable]
 public class MenuData
 {
-    public  string       tag         = string.Empty;
-    public  GameObject   panel       = null;
-    public  UnityEvent   OnActive    = null;
-    public  float        fadeTime    = 1f;
-    private CanvasGroup  _cg         = null;
+    public  string       tag                = string.Empty;
+    public  GameObject   panel              = null;
+    public  UnityEvent   OnActive           = null;
+    public  UnityEvent   OnDeactive         = null;
+    public  UnityEvent   OnDeactiveFadeEnd  = null;
+    public  UnityEvent   OnActiveFadeEnd    = null;
+    public  float        fadeTime           = 1f;
+    private CanvasGroup  _cg                = null;
 
     private CanvasGroup CG
     {
@@ -51,14 +77,30 @@ public class MenuData
     {
         OnActive?.Invoke();
 
-        CG.DOFade(1f, fadeTime).SetUpdate(true);
+        CG.DOFade(1f, fadeTime).SetUpdate(true).onComplete += delegate { OnActiveFadeEnd.Invoke(); };
         CG.interactable     = true;
         CG.blocksRaycasts   = true;
     }
 
     public void Deactivate()
     {
-        CG.DOFade(0f, fadeTime).SetUpdate(true);
+        CG.DOFade(0f, fadeTime).SetUpdate(true).onComplete += delegate { OnDeactiveFadeEnd.Invoke(); };
+        CG.interactable     = false;
+        CG.blocksRaycasts   = false;
+    }
+
+    public void Activate(Action action)
+    {
+        OnActive?.Invoke();
+
+        CG.DOFade(1f, fadeTime).SetUpdate(true).onComplete += delegate { action.Invoke(); OnActiveFadeEnd.Invoke(); };
+        CG.interactable     = true;
+        CG.blocksRaycasts   = true;
+    }
+
+    public void Deactivate(Action action)
+    {
+        CG.DOFade(0f, fadeTime).SetUpdate(true).onComplete += delegate { action.Invoke(); OnDeactiveFadeEnd.Invoke(); };
         CG.interactable     = false;
         CG.blocksRaycasts   = false;
     }

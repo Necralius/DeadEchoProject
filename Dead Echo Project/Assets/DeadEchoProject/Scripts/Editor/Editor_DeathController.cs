@@ -15,6 +15,8 @@ public class Editor_DeathController : Editor
             controller.DeactiveRagdoll();
         if (GUILayout.Button("Setup RigidBodies Settings")) 
             controller.SetUpRigidBodyConfigs();
+        if (GUILayout.Button("Test Call Death"))
+            controller.CallDeath();
 
         base.OnInspectorGUI();
     }

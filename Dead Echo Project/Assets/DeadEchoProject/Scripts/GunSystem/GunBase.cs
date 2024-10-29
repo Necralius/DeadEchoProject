@@ -7,12 +7,12 @@ using static NekraByte.Core.Enumerators;
 using static NekraByte.Core.DataTypes;
 using TMPro;
 
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Animator), typeof(GunProceduralRecoil))]
 public abstract class GunBase : MonoBehaviour
 {
     #region - Dependencies -
     [HideInInspector] protected Animator                _animator           = null;
-    [SerializeField] protected PlayerManager           _playerInstance     = null;
+    [SerializeField]  protected PlayerManager           _playerInstance     = null;
     [HideInInspector] protected CharacterManager        _characterManager   = null;
     [SerializeField]  protected GunDataConteiner        _gunDataConteiner   = null;
     [SerializeField]  protected AudioAsset              _gunAudioAsset      = new AudioAsset();
@@ -149,6 +149,9 @@ public abstract class GunBase : MonoBehaviour
     // ----------------------------------------------------------------------
     protected virtual void Update()
     {
+        if (CharacterManager.Instance.isDead)
+            return;
+
         //First, the method verifies if all the class dependencies is valid, if its not the program behavior is returned, otherwise,
         //the program continue to his default behavior.
         if (!_isEquiped)                                    return;
@@ -357,12 +360,14 @@ public abstract class GunBase : MonoBehaviour
     {
         _isReloading = true;
 
-        int reloadIndex = _gunDataConteiner.ammoData._magMaxAmmo - _gunDataConteiner.ammoData._magAmmo == _gunDataConteiner.ammoData._magMaxAmmo ? 2 : Random.Range(0, 2);
+        int reloadIndex = 
+            _gunDataConteiner.ammoData._magMaxAmmo - _gunDataConteiner.ammoData._magAmmo == _gunDataConteiner.ammoData._magMaxAmmo 
+            ? 2 : 1;
 
         SS_Reload(reloadIndex);
 
         _animator.SetTrigger(_isReloadingHash);
-        _animator.SetFloat(_reloadFactorHash, reloadIndex);
+        _animator.SetInteger(_reloadFactorHash, reloadIndex);
     }
 
     // ----------------------------------------------------------------------

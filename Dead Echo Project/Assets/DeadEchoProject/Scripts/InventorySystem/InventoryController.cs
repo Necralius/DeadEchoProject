@@ -51,6 +51,8 @@ public class InventoryController : MonoBehaviour
 
     private void Update()
     {
+        if (CharacterManager.Instance.isDead) 
+            return;
         ItemDrag();
 
         if (_inputManager.F_Action.Action.WasPressedThisFrame()) 

@@ -23,11 +23,16 @@ public class DamageEffect : MonoBehaviour
         Instance = this;
     }
 
+
     private void Start()
     {
         ResetEffect();
     }
     private void OnEnable()
+    {
+        ResetEffect();
+    }
+    private void OnDisable()
     {
         ResetEffect();
     }

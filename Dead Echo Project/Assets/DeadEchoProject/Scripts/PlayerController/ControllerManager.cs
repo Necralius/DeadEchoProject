@@ -219,6 +219,9 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
     // ----------------------------------------------------------------------
     private void Update()
     {
+        if (CharacterManager.Instance.isDead)
+            return;
+
         if (_orientation == null) return;
         if (_inptManager == null) return;
         if (_rb          == null) return;

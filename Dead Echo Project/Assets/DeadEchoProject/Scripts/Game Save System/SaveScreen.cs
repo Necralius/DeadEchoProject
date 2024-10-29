@@ -1,5 +1,8 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SaveScreen : MonoBehaviour
 {
@@ -12,6 +15,11 @@ public class SaveScreen : MonoBehaviour
     [SerializeField] private SaveView _selectedSaveView = null;
 
     private SaveData _selectedSave;
+
+    [SerializeField] private MenuManager    _menuManager   = null;
+    [SerializeField] private CameraManager  _cameraManager = null;
+    [SerializeField] private GameObject     _loadingLogo = null;
+    [SerializeField] private Slider         _loadingSlider = null;
 
     public void SelectSave(SaveData save)
     {
@@ -32,9 +40,35 @@ public class SaveScreen : MonoBehaviour
 
     public void LoadSelectedSave()
     {
-        LoadScreen.Instance?.LoadScene(_selectedSave.saveSceneIndex);
+        _menuManager.OpenMenu("LoadingScreen", delegate { _loadingLogo.SetActive(true); });
+        _cameraManager.SetCameraPriority("LoadingCam");
 
+        StartCoroutine(FinishLoading(10f));
+    }
+
+    IEnumerator FinishLoading(float maxTime)
+    {
+        float duration = maxTime;
+
+        float elapsed = 0f;
+        _loadingSlider.maxValue = duration;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            _loadingSlider.value = elapsed;
+            yield return null;
+        }
+
+        //yield return new WaitForSeconds(maxTime);
+        FadeSystemManager.Instance.CallFadeAction(delegate { FinishSaveLoading(); });
+    }
+
+    private void FinishSaveLoading()
+    {
+        LoadScreen.Instance?.LoadScene(_selectedSave.saveSceneIndex);
         GameStateManager.Instance?.LoadGame(_selectedSave);
+
     }
 
     public void DeleteSelectedSave()

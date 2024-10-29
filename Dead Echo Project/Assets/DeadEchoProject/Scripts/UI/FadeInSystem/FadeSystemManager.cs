@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -53,6 +54,12 @@ public class FadeSystemManager : MonoBehaviour
     public void CallFadeAction(UnityEvent executeOnEnd)
     {
         _onTransitionEnd = executeOnEnd;
+        _anim.SetTrigger(_fadeInHash);
+    }
+
+    public void CallFadeAction(Action executeOnEnd)
+    {
+        _onTransitionEnd.AddListener(() => executeOnEnd.Invoke());
         _anim.SetTrigger(_fadeInHash);
     }
 

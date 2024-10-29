@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HDRP High Fidelity
   m_EditorClassIdentifier: 
   m_RenderPipelineSettings:
-    supportShadowMask: 0
+    supportShadowMask: 1
     supportSSR: 0
     supportSSRTransparent: 0
     supportSSAO: 1
@@ -115,8 +115,8 @@ MonoBehaviour:
       maxLocalVolumetricFogSize: 32
       maxLocalVolumetricFogOnScreen: 64
     hdShadowInitParams:
-      maxShadowRequests: 128
-      directionalShadowsDepthBits: 16
+      maxShadowRequests: 1024
+      directionalShadowsDepthBits: 32
       punctualShadowFilteringQuality: 2
       directionalShadowFilteringQuality: 2
       areaShadowFilteringQuality: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
         useDynamicViewportRescale: 0
       cachedPunctualLightShadowAtlas: 4096
       cachedAreaLightShadowAtlas: 4096
-      allowDirectionalMixedCachedShadows: 0
+      allowDirectionalMixedCachedShadows: 1
       shadowResolutionDirectional:
         m_Values: 00020000000400000008000000100000
         m_SchemaId:
@@ -146,7 +146,7 @@ MonoBehaviour:
       maxDirectionalShadowMapResolution: 4096
       maxPunctualShadowMapResolution: 4096
       maxAreaShadowMapResolution: 4096
-      supportScreenSpaceShadows: 0
+      supportScreenSpaceShadows: 1
       maxScreenSpaceShadowSlots: 4
       screenSpaceShadowBufferFormat: 48
     decalSettings:
@@ -163,12 +163,12 @@ MonoBehaviour:
       lutFormat: 48
       bufferFormat: 74
     dynamicResolutionSettings:
-      enabled: 0
+      enabled: 1
       useMipBias: 0
       advancedUpscalersByPriority: 
       DLSSPerfQualitySetting: 0
       DLSSInjectionPoint: 0
-      TAAUInjectionPoint: 0
+      TAAUInjectionPoint: 2
       STPInjectionPoint: 0
       defaultInjectionPoint: 2
       DLSSUseOptimalSettings: 0
@@ -178,12 +178,12 @@ MonoBehaviour:
       FSR2UseOptimalSettings: 0
       FSR2QualitySetting: 0
       FSR2InjectionPoint: 0
-      fsrOverrideSharpness: 0
-      fsrSharpness: 0.92
+      fsrOverrideSharpness: 1
+      fsrSharpness: 1
       maxPercentage: 100
       minPercentage: 100
-      dynResType: 1
-      upsampleFilter: 1
+      dynResType: 0
+      upsampleFilter: 4
       forceResolution: 0
       forcedPercentage: 100
       lowResTransparencyMinimumThreshold: 0
