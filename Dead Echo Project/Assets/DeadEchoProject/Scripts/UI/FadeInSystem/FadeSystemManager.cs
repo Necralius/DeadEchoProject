@@ -53,12 +53,14 @@ public class FadeSystemManager : MonoBehaviour
     /// <param name="executeOnEnd">Actions to be executed on the fade in event end.</param>
     public void CallFadeAction(UnityEvent executeOnEnd)
     {
+        _onTransitionEnd.RemoveAllListeners();
         _onTransitionEnd = executeOnEnd;
         _anim.SetTrigger(_fadeInHash);
     }
 
     public void CallFadeAction(Action executeOnEnd)
     {
+        _onTransitionEnd.RemoveAllListeners();
         _onTransitionEnd.AddListener(() => executeOnEnd.Invoke());
         _anim.SetTrigger(_fadeInHash);
     }

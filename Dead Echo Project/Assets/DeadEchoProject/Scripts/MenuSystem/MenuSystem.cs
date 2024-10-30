@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static NekraByte.Core.DataTypes;
 
@@ -428,13 +429,15 @@ public class MenuSystem : MonoBehaviour
         LoadScreen.Instance.LoadScene("Scene_MainMenu");
     }
 
-    public void LoadGameSave()
-    {
-        LoadScreen.Instance.LoadScene(1); //Load the scene
-    }
-
     public void RespawnFromLastSave()
     {
-        _gameStateManager.LoadGame();
+        FadeSystemManager.Instance.CallFadeAction(delegate { FinishSaveLoading(); });
+    }
+
+    private void FinishSaveLoading()
+    {
+        //SceneLoader.Instance.FinishSceneLoad("Scene_Level1");
+        SceneManager.LoadScene("Scene_Level1");
+        GameStateManager.Instance?.LoadFromLastSave();
     }
 }

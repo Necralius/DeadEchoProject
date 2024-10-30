@@ -18,8 +18,6 @@ public class CharacterManager : MonoBehaviour, IDataPersistence
     [SerializeField] private    Camera                     _fpsCamera           = null;
     [SerializeField] private    InGame_UIManager           _inGameUI_Manager    = null;
 
-
-
     [Header("Health System")]
     private                 float      _currentHealth  = 100f;
     [Range(0f, 300)] public float      _maxHealth      = 100f;

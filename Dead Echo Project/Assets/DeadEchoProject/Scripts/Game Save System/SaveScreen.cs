@@ -46,6 +46,11 @@ public class SaveScreen : MonoBehaviour
         StartCoroutine(FinishLoading(10f));
     }
 
+    public void LoadSelectedSaveInGame()
+    {
+        FadeSystemManager.Instance.CallFadeAction(delegate { FinishSaveLoading(); });
+    }
+
     IEnumerator FinishLoading(float maxTime)
     {
         float duration = maxTime;
@@ -68,7 +73,6 @@ public class SaveScreen : MonoBehaviour
     {
         LoadScreen.Instance?.LoadScene(_selectedSave.saveSceneIndex);
         GameStateManager.Instance?.LoadGame(_selectedSave);
-
     }
 
     public void DeleteSelectedSave()

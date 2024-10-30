@@ -196,6 +196,9 @@ public class GameSceneManager : MonoBehaviour
         _deathScreenObj.SetActive(state);
 
         if (state)
+        {
+            //SceneLoader.Instance.PreLoadScene("Scene_Level1");
             _deathController.CallDeath();
+        }
     }
 }

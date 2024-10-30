@@ -84,13 +84,11 @@ public class GameStateManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += LoadSaveOnSceneLoad;
-        //SceneManager.sceneLoaded += SaveGameOnSceneLoad;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= LoadSaveOnSceneLoad;
-        //SceneManager.sceneLoaded -= SaveGameOnSceneLoad;
     }
     #endregion
 
@@ -98,7 +96,6 @@ public class GameStateManager : MonoBehaviour
 
     private void LoadSaveOnSceneLoad(Scene scene, LoadSceneMode loadSceneMode)
     {
-        //if (saveIndexer <= -1) return;
         if (menuSystem == null) return;
 
         LoadGame();
@@ -107,6 +104,8 @@ public class GameStateManager : MonoBehaviour
     public void LoadGame()
     {
         if (dynamicDataHandler == null) return;
+        if (currentGameData    == null) return;
+
         Debug.Log("Loading Game!");
         StartCoroutine(LoadWithTime(0.5f));
     }
@@ -119,7 +118,27 @@ public class GameStateManager : MonoBehaviour
 
         StartCoroutine(LoadWithTime(0.5f));
     }
+
+    public void LoadFromLastSave()
+    {
+        if (dynamicDataHandler == null) return;
+        if (currentGameData == null) return;
+
+        Debug.Log("Loading Game!");
+        StartCoroutine(WaitForSceneLoad());
+    }
     #endregion
+
+    IEnumerator WaitForSceneLoad()
+    {
+        var task = SceneManager.LoadSceneAsync("Scene_Level1");
+        while(task.progress <= 0.9f)
+        {
+            yield return null;
+        }
+
+        StartCoroutine(LoadWithTime(0.5f));
+    }
 
     IEnumerator LoadWithTime(float time)
     {
@@ -161,8 +180,6 @@ public class GameStateManager : MonoBehaviour
         SaveDirectory saveDir   = dynamicDataHandler.EncapsulateData(currentGameData);
         saveDir.saveID          = generatedID;
 
-        Debug.Log(currentApplicationData == null);
-        Debug.Log(currentApplicationData.savesDatas == null);
         currentApplicationData.StartNewSave(saveDir);
 
         LoadScreen.Instance.LoadScene(currentGameData.saveSceneIndex);
