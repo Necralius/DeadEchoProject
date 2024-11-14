@@ -50,11 +50,11 @@ public class InspectionView : MonoBehaviour
 
     public void InspectItem(InventoryItem item)
     {
-        if (_itemImage      == null) return;
-        if (_itemName       == null) return;
-        if (_inpsectItem    == null) return;
-        if (_cg             == null) return;
-        if (item            == null) return;
+        if (_itemImage      == null 
+            || _itemName    == null 
+            || _inpsectItem == null 
+            || _cg          == null 
+            || item         == null) return;
 
         _dropItem.gameObject.SetActive(item.originGrid is not GroundItemGrid);
 
@@ -72,10 +72,7 @@ public class InspectionView : MonoBehaviour
             transform.position = position;
         }
 
-        if (item.data is NodeItem) 
-            _inpsectItem.gameObject.SetActive(true);
-        else _inpsectItem.gameObject.SetActive(false);
-
+        _inpsectItem.gameObject.SetActive(item.data is NodeItem);
 
         _itemImage.sprite   = _selectedItem.data.Icon;
         _itemName.text      = _selectedItem.data.Name;

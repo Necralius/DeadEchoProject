@@ -32,14 +32,29 @@ namespace NekraByte
 
                 AudioCollectionTag collection = gunData.gunBulletSettings._collection;
 
-                if (Physics.Raycast(cameraTransform.position, direction, out RaycastHit hit, gunData.gunBulletSettings._shootRange, gunData.gunBulletSettings._collisionMask))
+                if (Physics.Raycast(
+                    cameraTransform.position, 
+                    direction, 
+                    out RaycastHit hit, 
+                    gunData.gunBulletSettings._shootRange, 
+                    gunData.gunBulletSettings._collisionMask))
                 {
                     //Debug.Log($"Surface -> Name: {hit.transform.name}, Tag: {hit.transform.gameObject.tag}, ")
 
-                    ObjectPooler.Instance.SpawnFromPool(hit.collider.gameObject.tag + "Hit", hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
-                    ObjectPooler.Instance.SpawnFromPool(hit.collider.gameObject.tag + "Decal", hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+                    Vector3 impactPos = hit.point + hit.normal * 0.001f;
+
+                    ObjectPooler.Instance.SpawnFromPool(
+                        hit.collider.gameObject.tag + "Hit",
+                        impactPos, 
+                        Quaternion.LookRotation(hit.normal));
+
+                    ObjectPooler.Instance.SpawnFromPool(
+                        hit.collider.gameObject.tag + "Decal",
+                        impactPos, 
+                        Quaternion.LookRotation(hit.normal));
 
                     if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Water")) Debug.Log("True Water");
+
                     if (collection[hit.transform.tag] != null)
                         AudioManager.Instance.PlayOneShotSound(collection[hit.transform.tag], hit.point, collection);
 
@@ -57,11 +72,11 @@ namespace NekraByte
                     // In this code section the bullet verifies if the hit has finded an object of type AI Body Part and executes an aditional actions on the hit.
                     if (hit.transform.gameObject.layer == LayerMask.NameToLayer("AI Body Part"))
                     {
-                        int damage = (int)Random.Range(gunData.gunBulletSettings._shootDamageRange.x, gunData.gunBulletSettings._shootDamageRange.y);
+                        int damage = (int)gunData.gunBulletSettings.GetShootDamage();
 
                         // The method tries to get an valid AI Instance acessing the GameSceneManager and execute an hit action
                         AiStateMachine  stateMachine        = GameSceneManager.Instance.GetAIStateMachine(hit.rigidbody.GetInstanceID());
-                        Vector3         force               = -hit.normal * gunData.gunBulletSettings.ImpactForce();
+                        Vector3         force               = -hit.normal * gunData.gunBulletSettings._bulletImpactForce;
                         Transform       attackerCharacter   = originTransform.GetComponent<BodyController>().transform;
 
                         if (stateMachine)
@@ -379,6 +394,7 @@ namespace NekraByte
                                         public  LayerMask            _collisionMask;
                     [SerializeField]    public  AudioCollectionTag   _collection;
 
+                    public float GetShootDamage() => Random.Range(_shootDamageRange.x, _shootDamageRange.y); 
                     public float ImpactForce() => Random.Range(_bulletImpactForce.x, _bulletImpactForce.y);
                 }
                 #endregion

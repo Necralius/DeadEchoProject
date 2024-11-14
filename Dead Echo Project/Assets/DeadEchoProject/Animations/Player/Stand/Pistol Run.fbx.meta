@@ -77,15 +77,6 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.34663
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
             time: 0.35350755
             value: 1
             inSlope: 0
@@ -95,7 +86,16 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.35625857
+            time: 0.44029853
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.4477612
             value: 0
             inSlope: 0
             outSlope: 0
@@ -122,7 +122,7 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.8321871
+            time: 0.9626866
             value: 1
             inSlope: 0
             outSlope: 0
@@ -131,7 +131,7 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.83768916
+            time: 0.9701492
             value: 0
             inSlope: 0
             outSlope: 0
@@ -636,8 +636,7 @@ ModelImporter:
     - name: mixamorig:Hips
       parentName: Ch15_nonPBR(Clone)
       position: {x: 0.00000247641, y: 0.9534753, z: 0.0048324326}
-      rotation: {x: -0.000000025465264, y: 0.00000043771817, z: -0.0000097081365,
-        w: 1}
+      rotation: {x: -0.000000025465264, y: 0.00000043771817, z: -0.0000097081365, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Spine
       parentName: mixamorig:Hips
@@ -971,8 +970,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 4cbfa441a8b019a4fa9aac1c8e9068d5, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

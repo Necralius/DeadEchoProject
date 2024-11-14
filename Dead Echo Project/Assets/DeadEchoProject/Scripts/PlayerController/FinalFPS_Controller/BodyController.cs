@@ -140,12 +140,12 @@ public class BodyController : MonoBehaviour, IDataPersistence
     {
         _isGrounded         = Physics.CheckSphere(_feetChecker.position, _floorDistance, _groundMask);     
         _isWalking          = _inputManager.MoveAction.Vector != Vector2.zero;
-        _isSprinting        = _playerManager.InputManager.LeftShiftAction.State && _isWalking && !_isWalkingBackwards && !_isCrouching;
         _isWalkingBackwards = _inputManager.MoveAction.Vector.y < 0;
         _isWalkingSidewards = _inputManager.MoveAction.Vector.x != 0;
-
-        _playerManager._armsAnimator.SetBool(armWalkHash,       _isWalking);
-        _playerManager._armsAnimator.SetBool(armRunningHash,    _isSprinting);    
+        _isSprinting        = _playerManager.InputManager.LeftShiftAction.State 
+            && _isWalking 
+            && !_isWalkingBackwards 
+            && !_isCrouching;
 
         StateHandler();
         InputHandler();
@@ -164,10 +164,15 @@ public class BodyController : MonoBehaviour, IDataPersistence
         _velocity.y += _gravity * Time.deltaTime;// Gravity calculation.
 
         _controller?.Move(_velocity * Time.deltaTime); //Gravity movement apply.
+
+        _dragMultiplier = Mathf.Min(_dragMultiplier + Time.deltaTime, _dragMultiplierLimit);
     }
 
     private void AnimationController()
     {
+        _playerManager._armsAnimator.SetBool(armWalkHash, _isWalking);
+        _playerManager._armsAnimator.SetBool(armRunningHash, _isSprinting);
+
         _targetX = Mathf.Lerp(_targetX, _inputManager.MoveAction.Vector.x, _animBlendSpeed * Time.deltaTime);
         _targetY = Mathf.Lerp(_targetY, _isSprinting ? _inputManager.MoveAction.Vector.y * 2 : _inputManager.MoveAction.Vector.y, _animBlendSpeed * Time.deltaTime);
 
@@ -178,8 +183,10 @@ public class BodyController : MonoBehaviour, IDataPersistence
         _shadowBodyAnimator.SetFloat(yHash, _targetY);
 
         _animator.SetBool(isRunningHash, _isSprinting);
+        _animator.SetBool(isCrouchingHash, _isCrouching);
 
         _shadowBodyAnimator.SetBool(isRunningHash, _isSprinting);
+        _shadowBodyAnimator.SetBool(isCrouchingHash, _isCrouching);
         _shadowBodyAnimator.speed = _speedSettings.AnimationSpeed(this);
 
         _animator.speed                     = _speedSettings.AnimationSpeed(this);
@@ -188,8 +195,6 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
     private void InputHandler()
     {
-        if (GameSceneManager.Instance.inventoryIsOpen) return;
-
         if (_inputManager.SpaceAction.Action.WasPressedThisFrame() && _canJump && _isGrounded)
         {
             _playerManager.PlayerAudioManager.JumpAudioAction();
@@ -207,7 +212,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
         if (GameStateManager.Instance != null)
         {
-            if (GameStateManager.Instance.currentApplicationData.crouchType == 0)//Crouch Type -> Hold
+            if (GameStateManager.Instance.currentApplicationData.crouchType == 0) //Crouch Type -> Hold
             {
                 if (_inputManager.CtrlAction.Action.WasPerformedThisFrame() && _isGrounded && !_isSprinting) 
                     _isCrouching = true;
@@ -246,31 +251,35 @@ public class BodyController : MonoBehaviour, IDataPersistence
             }
         }
 
-        if (_equippedGun != null)
+        if (_inputManager.T_Action.Action.WasPressedThisFrame() && !_isSprinting)
         {
-            if (!_equippedGun._isReloading && !_isSprinting)
-            {
-                if (_inputManager.T_Action.Action.WasPressedThisFrame()) 
-                    StartThrowing();
-                if (_isThrowingObject) 
-                    if (_inputManager.T_Action.Action.WasReleasedThisFrame()) 
-                        EndRockThrow();
-            }
+            if (_equippedGun != null && _equippedGun._isReloading)
+                return;
+            else 
+                StartThrowing();
         }
 
-        _animator.SetBool(isCrouchingHash, _isCrouching);
-        _shadowBodyAnimator.SetBool(isCrouchingHash, _isCrouching);
+        if (_isThrowingObject)
+            if (_inputManager.T_Action.Action.WasReleasedThisFrame())
+                EndRockThrow();
+
+        //if (_equippedGun != null)
+        //{
+        //    if (!_equippedGun._isReloading && !_isSprinting)
+        //    {
+        //        if (_inputManager.T_Action.Action.WasPressedThisFrame()) 
+        //            StartThrowing();
+        //        if (_isThrowingObject) 
+        //            if (_inputManager.T_Action.Action.WasReleasedThisFrame()) 
+        //                EndRockThrow();
+        //    }
+        //}
 
         if (_flashlight != null)
-            if (_inputManager.F_Action.Action.WasPressedThisFrame()) ChangeFlashlightState();
-
-        _dragMultiplier = Mathf.Min(_dragMultiplier + Time.deltaTime, _dragMultiplierLimit);
+            if (_inputManager.F_Action.Action.WasPressedThisFrame()) ChangeFlashlightState();       
     }
 
-    private void JumpAction() // Executes an calculation of an jump height value, and set is to the new Y direction vector considering the gravity.
-    {
-        _velocity.y = Mathf.Sqrt(jumpHeight * -2f * _gravity);
-    }
+    private void JumpAction() => _velocity.y = Mathf.Sqrt(jumpHeight * -2f * _gravity);
 
     private void ResetJump()        => _canJump = true;
 
@@ -409,11 +418,13 @@ public class BodyController : MonoBehaviour, IDataPersistence
         _isThrowingObject = true;
         _rockThrower.ThrowRock();
     }
+
     private void CancelThrowRock()
     {
         _rockThrower.CancelThrowing();
         _isThrowingObject = false;
     }
+
     private void EndRockThrow() => _rockThrower.FinishThrow();
     #endregion
 
@@ -456,7 +467,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
 [Serializable]
 public class SpeedSettings
 {
-    [Header("Speed")]
+    [Header("Base Speeds")]
     [Range(0.1f, 10f)] public float BaseSpeed    = 4f;
     [Range(0.1f, 10f)] public float SprintSpeed  = 6f;
     [Range(0.1f, 10f)] public float CrouchSpeed  = 2f;

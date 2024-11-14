@@ -158,18 +158,14 @@ public abstract class GunBase : MonoBehaviour
         if (_recoilAsset                        == null)    return;
         if (GameSceneManager.Instance.inventoryIsOpen  )    return;
 
-        _forcedClip             = _gunDataConteiner.gunData.gunMode == GunMode.Locked;
-
-        _recoilAsset?.InitializeData(_gunDataConteiner.recoilData);
+        _forcedClip = _gunDataConteiner.gunData.gunMode == GunMode.Locked;
 
         if (!_playerInstance.BodyController._isSprinting)
         {
             if (!_aimOverride)
             { 
-                _isAiming = 
-                    _isClipped ? false : _playerInstance.BodyController._isSprinting ? 
+                _isAiming = _isClipped ? false : _playerInstance.BodyController._isSprinting ? 
                     false : _inputManager.mouseRightAction.State;
-
                 if (GameStateManager.Instance != null)
                 {
                     if (GameStateManager.Instance.currentApplicationData.aimType == 0)
@@ -178,8 +174,7 @@ public abstract class GunBase : MonoBehaviour
                     {
                         if (_inputManager.mouseRightAction.Action.WasPerformedThisFrame()) 
                             _isAiming = true;
-                        else if 
-                            (_inputManager.mouseRightAction.Action.WasPerformedThisFrame() && _isAiming) 
+                        else if (_inputManager.mouseRightAction.Action.WasPerformedThisFrame() && _isAiming) 
                             _isAiming = false;
                     }
                 }

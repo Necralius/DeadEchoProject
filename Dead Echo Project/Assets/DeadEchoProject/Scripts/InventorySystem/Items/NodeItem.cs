@@ -9,8 +9,6 @@ public class NodeItem : ItemData
 {
     [Header("Node Settings")]
     public Sprite           NodeSprite;
-    public TMP_FontAsset    Font;
-    public Color            TextColor;
 
     [Header("Content")]
     public NodeContent Content;
