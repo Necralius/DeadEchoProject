@@ -40,7 +40,9 @@ public class ItemGrid : MonoBehaviour
         float tileSizeWidthNormalized   = tileSizeWidth * normalizedWidth;
         float tileSizeHeightNormalized  = tileSizeHeight * normalizedHeight;
 
-        Vector2Int tileGridPosition     = new Vector2Int((int)(localPositionOnGrid.x / tileSizeWidthNormalized), (int)(localPositionOnGrid.y / tileSizeHeightNormalized));
+        Vector2Int tileGridPosition = new Vector2Int(
+            (int)(localPositionOnGrid.x / tileSizeWidthNormalized), 
+            (int)(localPositionOnGrid.y / tileSizeHeightNormalized));
 
         return tileGridPosition;
     }
@@ -172,28 +174,24 @@ public class ItemGrid : MonoBehaviour
         return true;
     }
 
-    public InventoryItem GetItem(int x, int y)
-    {
-        if (x < 0 || y < 0 || x > sizeWidth - 1 || y > sizeHeight - 1) 
-            return null;
-        return _inventoryItemSlot[x, y];
-    }
+    public InventoryItem GetItem(int x, int y) => 
+        x < 0 
+        || y < 0 
+        || x > sizeWidth - 1 
+        || y > sizeHeight - 1 ? null : _inventoryItemSlot[x, y];
+
     private bool FindAvailableSpace(int posX, int posY, InventoryItem itemToCheck)
     {
-        // Verificar se as coordenadas iniciais estão dentro dos limites do inventário
-        if (posX < 0 || posY < 0 || posX + itemToCheck.WIDTH > _inventoryItemSlot.GetLength(0) || posY + itemToCheck.HEIGHT > _inventoryItemSlot.GetLength(1))
+        if (posX < 0 
+            || posY < 0 
+            || posX + itemToCheck.WIDTH > _inventoryItemSlot.GetLength(0) 
+            || posY + itemToCheck.HEIGHT > _inventoryItemSlot.GetLength(1))
             return false;
 
-        // Verificar o espaço para o item
         for (int x = 0; x < itemToCheck.WIDTH; x++)
-        {
-            for (int y = 0; y < itemToCheck.HEIGHT; y++)
-            {
-                // Verificar se o slot está dentro dos limites do array e se está disponível
-                if (_inventoryItemSlot[posX + x, posY + y] != null)
+            for (int y = 0; y < itemToCheck.HEIGHT; y++) if (_inventoryItemSlot[posX + x, posY + y] != null)
                     return false;
-            }
-        }
+
         return true;
     }
 

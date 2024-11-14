@@ -74,9 +74,9 @@ public class GunProceduralRecoil : MonoBehaviour
     // ----------------------------------------------------------------------
     private void RecoilCalculation()
     {       
-        if (recoilObject is null) return;
+        if (recoilObject is null) 
+            return;
 
-        //This method use the Vector3.Lerp to interpolate between two vectors to apply the recoil, one vector represents the weapon position with the recoil values, the other vector literally applis the recoil to the current position and rotation
         if (_isAiming) Z_Current_KickBack = _zKickBack;
         else Z_Current_KickBack = _zKickBack;
 

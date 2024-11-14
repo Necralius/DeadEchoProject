@@ -32,10 +32,12 @@ public class SurvivalAspects : MonoBehaviour
 [Serializable]
 public class SurvivalAspect
 {
-    [Range(0, 400)] public float Value              = 0;
-    [Range(0, 400)] public float MaxValue           = 0;
-    [Range(0, 20)]  public float HealthLossByTime   = 1;
-    [Range(0, 20)]  public float AspectLossByTime   = 1;
+    [Range(0, 400)] public float Value              = 0f;
+    [Range(0, 400)] public float MaxValue           = 0f;
+    [Range(0, 20)]  public float HealthLossByTime   = 1f;
+    [Range(0, 20)]  public float AspectLossByTime   = 1f;
+    [Range(1f, 5f)] public float SprintMultiplier   = 1f;
+    [Range(1f, 5f)] public float WalkMultiplier     = 1f;
 
     [Range(0, 40)]  public float LossLimit = 0;
 
@@ -46,9 +48,9 @@ public class SurvivalAspect
     /// </summary>
     /// <param name="currentHealth"></param>
     /// <param name="effectors"></param>
-    public void Update(ref float currentHealth)
+    public void Update(ref float currentHealth, bool isRunning = false, bool isWalking = false)
     {
-        Value -= AspectLossByTime / 1000;
+        Value -= (AspectLossByTime / 1000) * (isRunning ? SprintMultiplier : WalkMultiplier);
         if (HealthLossActive) 
             currentHealth -= HealthLossByTime / 1000;
     }

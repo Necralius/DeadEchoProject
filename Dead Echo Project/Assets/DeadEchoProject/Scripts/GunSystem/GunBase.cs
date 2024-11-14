@@ -2,10 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
-using static NekraByte.Core.Enumerators;
 using static NekraByte.Core.DataTypes;
-using TMPro;
+using static NekraByte.Core.Enumerators;
 
 [RequireComponent(typeof(Animator), typeof(GunProceduralRecoil))]
 public abstract class GunBase : MonoBehaviour
@@ -152,8 +150,6 @@ public abstract class GunBase : MonoBehaviour
         if (CharacterManager.Instance.isDead)
             return;
 
-        //First, the method verifies if all the class dependencies is valid, if its not the program behavior is returned, otherwise,
-        //the program continue to his default behavior.
         if (!_isEquiped)                                    return;
         if (_playerInstance                     == null)    return;
         if (_inputManager                       == null)    return;
@@ -166,20 +162,25 @@ public abstract class GunBase : MonoBehaviour
 
         _recoilAsset?.InitializeData(_gunDataConteiner.recoilData);
 
-        //The class focus on limiting the actions, using ifs to limit the actions based in expressions.
         if (!_playerInstance.BodyController._isSprinting)
         {
             if (!_aimOverride)
             { 
-                _isAiming = _isClipped ? false : _playerInstance.BodyController._isSprinting ? false : _inputManager.mouseRightAction.State;
+                _isAiming = 
+                    _isClipped ? false : _playerInstance.BodyController._isSprinting ? 
+                    false : _inputManager.mouseRightAction.State;
+
                 if (GameStateManager.Instance != null)
                 {
                     if (GameStateManager.Instance.currentApplicationData.aimType == 0)
                         _isAiming = _inputManager.mouseRightAction.State;
                     else if (GameStateManager.Instance.currentApplicationData.aimType == 1)
                     {
-                        if (_inputManager.mouseRightAction.Action.WasPerformedThisFrame()) _isAiming = true;
-                        else if (_inputManager.mouseRightAction.Action.WasPerformedThisFrame() && _isAiming) _isAiming = false;
+                        if (_inputManager.mouseRightAction.Action.WasPerformedThisFrame()) 
+                            _isAiming = true;
+                        else if 
+                            (_inputManager.mouseRightAction.Action.WasPerformedThisFrame() && _isAiming) 
+                            _isAiming = false;
                     }
                 }
             }
@@ -193,7 +194,12 @@ public abstract class GunBase : MonoBehaviour
              * and if is not reloading, if the current mag ammo is different  from its
              * maximum and if has any ammo in the inventory.
              */
-            if (_inputManager.R_Action.Action.WasPressedThisFrame() && !_isReloading && !(_gunDataConteiner.ammoData._magAmmo == _gunDataConteiner.ammoData._magMaxAmmo) && _gunDataConteiner.ammoData._bagAmmo > 0) Reload();
+
+            if (_inputManager.R_Action.Action.WasPressedThisFrame() 
+                && !_isReloading 
+                && !(_gunDataConteiner.ammoData._magAmmo == _gunDataConteiner.ammoData._magMaxAmmo) 
+                && _gunDataConteiner.ammoData._bagAmmo > 0) 
+                Reload();
 
             /* The  below  statements execute  the  main gun  behavior  action,  first
              * verifing  if  the  isn't  reloading  and if  can shoot,  later  also is 
@@ -204,6 +210,7 @@ public abstract class GunBase : MonoBehaviour
 
             if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame() && _gunDataConteiner.ammoData._magAmmo <= 0) 
                 AudioManager.Instance.PlayOneShotSound("Effects", _playerInstance.gunShootJam, transform.position, 1f, 0f, 128);
+            
             if (!_isReloading && _canShoot && !_isClipped)
             {
                 if (_gunDataConteiner.ammoData._magAmmo > 0)
@@ -211,28 +218,38 @@ public abstract class GunBase : MonoBehaviour
                     switch (_gunDataConteiner.gunData.gunMode)
                     {
                         case GunMode.Auto:
-                            if (_inputManager.mouseLeftAction.Action.IsPressed()) StartCoroutine(Shoot());
+                            if (_inputManager.mouseLeftAction.Action.IsPressed()) 
+                                StartCoroutine(Shoot());
                             break;
                         case GunMode.Semi:
-                            if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame()) StartCoroutine(Shoot());
+                            if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame()) 
+                                StartCoroutine(Shoot());
                             break;
                         case GunMode.Locked:
                             if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame()) 
-                                AudioManager.Instance.PlayOneShotSound("Effects", _playerInstance.gunShootJam, transform.position, 1f, 0f, 128);
+                                AudioManager.Instance.PlayOneShotSound("Effects", 
+                                    _playerInstance.gunShootJam,
+                                    transform.position, 
+                                    1f, 0f, 128);
                             break;
                     }
                 }
 
-                if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame()) UI_Update();
+                if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame()) 
+                    UI_Update();
                 /* The below statement verifies if the user pressed the change gun mode
                  * buttons, if it is, the gun mode is changed.
                  */
             }
-            if (_inputManager.B_Action.Action.WasPressedThisFrame()) ChangeGunMode();
+            if (_inputManager.B_Action.Action.WasPressedThisFrame()) 
+                ChangeGunMode();
         }
+
         if (_inputManager.mouseRightAction.Action.WasPressedThisFrame()) 
             AudioManager.Instance.PlayOneShotSound("Effects", _gunAudioAsset.AimClip, transform.position, 1f, 0f, 128);
-        Aim(); //-> This statement calls the aim position calculation method.
+        Aim(); 
+        
+        //-> This statement calls the aim position calculation method.
 
         //The below statements set the animations on the main arms animator controler.
         _playerInstance._armsAnimator.SetBool(_isWalkingHash, _playerInstance.BodyController._isWalking);
@@ -424,7 +441,8 @@ public abstract class GunBase : MonoBehaviour
     private void ChangeGunMode()
     {
         _gunModeIndex++;
-        if (_gunModeIndex > gunModes.Count - 1) _gunModeIndex = 0;
+        if (_gunModeIndex > gunModes.Count - 1) 
+            _gunModeIndex = 0;
 
         _gunModeIndex = Mathf.Clamp(_gunModeIndex, 0, gunModes.Count);
 
@@ -451,10 +469,7 @@ public abstract class GunBase : MonoBehaviour
     }
 
     #region - Inventory Guns Change -
-    // ----------------------------------------------------------------------
-    // Name: DrawGun (Method)
-    // Desc: This method draw the current weapon and playing the draw sound.
-    // ----------------------------------------------------------------------
+
     public void DrawGun()
     {
         gameObject.SetActive(true);
@@ -462,11 +477,6 @@ public abstract class GunBase : MonoBehaviour
         AudioManager.Instance.PlayOneShotSound("Effects", _gunAudioAsset.DrawClip, transform.position, 1f, 0f, 128);
     }
 
-    // ----------------------------------------------------------------------
-    // Name: EndDraw (Animation Event)
-    // Desc: This method end the draw action on the gun, activating it
-    //       completly and updating the gun UI.
-    // ----------------------------------------------------------------------
     public void EndDraw()
     {
         _isEquiped  = true;

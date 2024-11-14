@@ -10,20 +10,18 @@ public class GroundItemGrid : ItemGrid
     [SerializeField] private GameObject _conteinersContent  = null;
     [SerializeField] private GameObject _playerObject       = null;
 
-    public void SetItems(List<ItemSave> items) //Apenas preenche o inventário de chão com o inventário passado pelo conteiner.
+    public void SetItems(List<ItemSave> items)
     {
         ResetGrid();
         foreach (var item in items)
         {
             InventoryItem itemView = CreateNewItem(item.Data);
-
             PlaceItem(itemView, item.Position.Value.x, item.Position.Value.y, false);
         }
     }
 
     public void ResetGrid()
     {
-        Debug.LogWarning("Reseting ground grid!");
         Init(sizeWidth, sizeHeight);
         foreach (Transform trans in transform)
         {
@@ -50,7 +48,11 @@ public class GroundItemGrid : ItemGrid
     {
         if (currentConteiner == null)
         {
-            GameObject spawnedConteiner = Instantiate(_conteinerPrefab, _playerObject.transform.position, Quaternion.identity, _conteinersContent.transform);
+            GameObject spawnedConteiner = Instantiate(
+                _conteinerPrefab, 
+                _playerObject.transform.position, 
+                Quaternion.identity, 
+                _conteinersContent.transform);
             currentConteiner = spawnedConteiner.GetComponent<InventoryItemConteiner>();
         }
 

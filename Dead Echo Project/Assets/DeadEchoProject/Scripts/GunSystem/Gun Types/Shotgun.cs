@@ -57,13 +57,15 @@ public class Shotgun : Mode_Semi
 
     public void TriggerBullet()
     {
-        if (_gunDataConteiner.ammoData._magAmmo < (_gunDataConteiner.ammoData._magMaxAmmo - 1)) _gunDataConteiner.ammoData._magAmmo++;
+        if (_gunDataConteiner.ammoData._magAmmo < (_gunDataConteiner.ammoData._magMaxAmmo - 1)) 
+            _gunDataConteiner.ammoData._magAmmo++;
         UI_Update();
     }
 
     public void VerifyNeed()
     {
-        if (!(_gunDataConteiner.ammoData._magAmmo < (_gunDataConteiner.ammoData._magMaxAmmo - 1))) _animator.SetTrigger(endReloadHash);
+        if (!(_gunDataConteiner.ammoData._magAmmo < (_gunDataConteiner.ammoData._magMaxAmmo - 1))) 
+            _animator.SetTrigger(endReloadHash);
     }
 
     public void TriggerLastBullet()

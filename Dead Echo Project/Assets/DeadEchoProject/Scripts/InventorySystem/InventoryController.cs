@@ -51,26 +51,17 @@ public class InventoryController : MonoBehaviour
 
     private void Update()
     {
-        if (CharacterManager.Instance.isDead) 
-            return;
-        ItemDrag();
-
-        if (_inputManager.F_Action.Action.WasPressedThisFrame()) 
-            CreateRandomItem();
-
-        if (_inputManager.R_Action.Action.WasPressedThisFrame()) 
-            RotateItem();
-
-        if (_inputManager.Z_Action.Action.WasPressedThisFrame()) 
-            InsertRandomItem();
-
-        if (selectedItemGrid == null || !GameSceneManager.Instance.inventoryIsOpen)
+        if (CharacterManager.Instance.isDead || !GameSceneManager.Instance.inventoryIsOpen)
         {
-            _highlighter?.SetState(false);
+            _highlighter?.SetState(!(selectedItemGrid == null));
             return;
         }
 
+        ItemDrag();
         HandleHighlight();
+
+        if (_inputManager.R_Action.Action.WasPressedThisFrame()) 
+            RotateItem();
 
         if (_inputManager.mouseLeftAction.Action.WasPressedThisFrame())
         {
@@ -105,18 +96,6 @@ public class InventoryController : MonoBehaviour
 
     private void RotateItem() => selectedItem?.Rotate();
 
-    private void InsertRandomItem()
-    {
-        if (selectedItemGrid == null) 
-            return;
-
-        CreateRandomItem();
-
-        InventoryItem itemToInsert = selectedItem;
-        selectedItem = null;
-        InsertItem(itemToInsert);
-    }
-
     private void InsertItem(InventoryItem itemToInsert)
     {
         Vector2Int? posOnGrid = selectedItemGrid?.FindSpaceForItem(itemToInsert);
@@ -125,19 +104,6 @@ public class InventoryController : MonoBehaviour
             return;
 
         selectedItemGrid?.PlaceItem(itemToInsert, posOnGrid.Value.x, posOnGrid.Value.y);
-    }
-
-    private void CreateRandomItem()
-    {
-        InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
-        selectedItem = inventoryItem;
-
-        selectedItemRect = inventoryItem?.GetComponent<RectTransform>();
-        selectedItemRect?.SetParent(canvasTrans);
-        selectedItemRect?.SetAsLastSibling();
-
-        int selectedItemID = Random.Range(0, items.Count);
-        inventoryItem?.Set(items[selectedItemID], SelectedItemGrid);
     }
 
     private void HandleHighlight()

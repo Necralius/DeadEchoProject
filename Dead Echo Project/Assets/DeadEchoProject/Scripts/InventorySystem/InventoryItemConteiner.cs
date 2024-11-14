@@ -12,23 +12,19 @@ public class InventoryItemConteiner : MonoBehaviour
 
     private GroundItemGrid _groundGrid;
 
+
     private void Start()
     {
         _groundGrid = FindFirstObjectByType(typeof(GroundItemGrid), FindObjectsInactive.Include) as GroundItemGrid;
 
-        interactor.OnEnter. AddListener( delegate { OnAreaEnter();    });
+        interactor.OnEnter. AddListener( delegate { OnAreaEnter();      });
         interactor.OnStart. AddListener( delegate { FillConteiner();    });
         interactor.OnExit.  AddListener( delegate { ResetGroundGrid();  });
     }
 
-    public int ItemsQuantity() => _items.Count;
-
     public void FillConteiner()
     {
-        if (_groundGrid == null)
-            return;
-
-        if (_items.Count <= 0) 
+        if (_groundGrid == null || _items.Count <= 0)
             return;
 
         _groundGrid.SetItems(_items);
@@ -69,7 +65,7 @@ public class ItemSave
 
     public ItemSave(ItemData data, int posX, int posY)
     {
-        Data = data;
+        Data     = data;
         Position = new Vector2Int(posX, posY);
     }
 }
