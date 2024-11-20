@@ -66,6 +66,19 @@ public class ItemGrid : MonoBehaviour
                 _inventoryItemSlot[selected.onGridPosX + ix, selected.onGridPosY + iy] = null;
     }
 
+    public bool PlaceItem(InventoryItem item)
+    {
+        Vector2Int? pos = FindSpaceForItem(item);
+
+        if (pos == null) 
+            return false;
+        else
+        {
+            PlaceItem(item, pos.Value.x, pos.Value.y);
+            return true;
+        }
+    }
+
     public bool PlaceItem(InventoryItem item, int posX, int posY, ref InventoryItem overlapItem)
     {
         if (!BoundryCheck(posX, posY, item))
@@ -81,29 +94,13 @@ public class ItemGrid : MonoBehaviour
             CleanItem(overlapItem);
 
         PlaceItem(item, posX, posY);
-
         return true;
     }
 
     public virtual void PlaceItem(InventoryItem item, int posX, int posY)
     {
-        RectTransform rectTrans = item.GetComponent<RectTransform>();
-        rectTrans.SetParent(this.rect);
+        Debug.Log("Placing item!");
 
-        for (int x = 0; x < item.WIDTH; x++)
-            for (int y = 0; y < item.HEIGHT; y++)
-                _inventoryItemSlot[posX + x, posY + y] = item;
-
-        item.onGridPosX = posX;
-        item.onGridPosY = posY;
-
-        Vector2 position = GetPosOnGrid(item, posX, posY);
-
-        rectTrans.localPosition = position;
-    }
-
-    public virtual void PlaceItem(InventoryItem item, int posX, int posY, bool ready)
-    {
         RectTransform rectTrans = item.GetComponent<RectTransform>();
         rectTrans.SetParent(this.rect);
 

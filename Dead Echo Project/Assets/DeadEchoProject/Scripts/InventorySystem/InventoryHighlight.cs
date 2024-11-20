@@ -11,6 +11,8 @@ public class InventoryHighlight : MonoBehaviour
 
     public void SetSize(InventoryItem item)
     {
+        if (item == null)
+            return;
         Vector2 size = new Vector2();
 
         size.x = item.WIDTH     * ItemGrid.tileSizeWidth;
@@ -21,6 +23,8 @@ public class InventoryHighlight : MonoBehaviour
 
     public void SetPosition(ItemGrid targetGrid, InventoryItem item)
     {
+        if (targetGrid == null || item == null)
+            return;
         Vector2 pos = targetGrid.GetPosOnGrid(item, item.onGridPosX, item.onGridPosY);
         highlighter.localPosition = pos;
     }
@@ -34,6 +38,8 @@ public class InventoryHighlight : MonoBehaviour
 
     public void SetPosition(ItemGrid targetGrid, InventoryItem item, int posX, int posY)
     {
+        if (targetGrid == null || item == null)
+            return;
         Vector2 pos = targetGrid.GetPosOnGrid(item, posX, posY);
 
         highlighter.localPosition = pos;

@@ -8,36 +8,40 @@ public class InventoryItemConteiner : MonoBehaviour
 {
     private Interactor interactor => GetComponent<Interactor>();
 
-    [SerializeField] private List<ItemSave> _items      = new List<ItemSave>();
+    [SerializeField] private List<ItemSave> _itemsSaves      = new List<ItemSave>();
 
     private GroundItemGrid _groundGrid;
 
+    public bool onPlayerArea = false;
 
     private void Start()
     {
         _groundGrid = FindFirstObjectByType(typeof(GroundItemGrid), FindObjectsInactive.Include) as GroundItemGrid;
 
-        interactor.OnEnter. AddListener( delegate { OnAreaEnter();      });
-        interactor.OnStart. AddListener( delegate { FillConteiner();    });
-        interactor.OnExit.  AddListener( delegate { ResetGroundGrid();  });
+        interactor.OnEnter. AddListener( delegate { OnAreaEnter();  });
+        interactor.OnExit.  AddListener( delegate { OnAreaExit();   });
     }
 
-    public void FillConteiner()
-    {
-        if (_groundGrid == null || _items.Count <= 0)
-            return;
-
-        _groundGrid.SetItems(_items);
-    }
-
-    public void OnAreaEnter()
+    private void OnAreaEnter()
     {
         if (_groundGrid == null) 
             return; 
         _groundGrid.currentConteiner = this;
+
+        if (_itemsSaves.Count > 0)
+            _groundGrid.SetItems(_itemsSaves);
+
+        onPlayerArea = true;
     }
 
-    public void ResetGroundGrid()
+    private void OnAreaExit()
+    {
+        Debug.Log("Exiting Area!");
+        onPlayerArea = false;
+        ResetGroundGrid();
+    }
+
+    private void ResetGroundGrid()
     {
         if (_groundGrid == null) 
             return;
@@ -46,15 +50,18 @@ public class InventoryItemConteiner : MonoBehaviour
         _groundGrid.currentConteiner = null;
     }
 
-    public void RemoveItem(int instanceID)
+    public void RemoveItem(InventoryItem itemToRemove)
     {
-        _items.Remove(_items.Find(e => e.Data.GetInstanceID() == instanceID));
+        Vector2Int pos          = new Vector2Int(itemToRemove.onGridPosX, itemToRemove.onGridPosY);
+        ItemSave   findedItem   = _itemsSaves.Find(e => e.Position.Value.x == pos.x && e.Position.Value.y == pos.y);
 
-        if (_items.Count <= 0) 
+        _itemsSaves.Remove(findedItem);
+
+        if (_itemsSaves.Count <= 0) 
             Destroy(gameObject);
     }
 
-    public void AddItemInPosition(ItemSave item) => _items.Add(item);
+    public void AddItemInPosition(ItemSave item) => _itemsSaves.Add(item);
 }
 
 [Serializable]
@@ -62,10 +69,12 @@ public class ItemSave
 {
     public ItemData     Data;
     public Vector2Int?  Position;
+    public Guid identifier = Guid.NewGuid();
 
     public ItemSave(ItemData data, int posX, int posY)
     {
-        Data     = data;
-        Position = new Vector2Int(posX, posY);
+        Data        = data;
+        Position    = new Vector2Int(posX, posY);
+        identifier  = Guid.NewGuid();
     }
 }

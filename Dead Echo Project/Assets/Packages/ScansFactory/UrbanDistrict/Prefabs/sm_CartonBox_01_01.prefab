@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1030989492}
   - component: {fileID: 1030989493}
   - component: {fileID: 1030989494}
-  m_Layer: 30
+  m_Layer: 28
   m_Name: sm_CartonBox_01_01
-  m_TagString: Metal
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 1030989496}
   - component: {fileID: 1030989497}
   - component: {fileID: 1030989498}
-  m_Layer: 30
+  m_Layer: 28
   m_Name: sm_CartonBox_01_01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,6 +140,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -184,7 +187,7 @@ GameObject:
   - component: {fileID: 1030989500}
   - component: {fileID: 1030989501}
   - component: {fileID: 1030989502}
-  m_Layer: 30
+  m_Layer: 28
   m_Name: sm_CartonBox_01_01_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,6 +226,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -267,7 +273,7 @@ GameObject:
   - component: {fileID: 1030989504}
   - component: {fileID: 1030989505}
   - component: {fileID: 1030989506}
-  m_Layer: 30
+  m_Layer: 28
   m_Name: sm_CartonBox_01_01_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,6 +312,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -350,7 +359,7 @@ GameObject:
   - component: {fileID: 1030989508}
   - component: {fileID: 1030989509}
   - component: {fileID: 1030989510}
-  m_Layer: 30
+  m_Layer: 28
   m_Name: sm_CartonBox_01_01_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,6 +398,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

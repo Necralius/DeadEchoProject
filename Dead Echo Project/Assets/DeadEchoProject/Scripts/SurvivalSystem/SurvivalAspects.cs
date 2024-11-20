@@ -19,13 +19,13 @@ public class SurvivalAspects : MonoBehaviour
     private void Update()
     {
         if (_hunger is not null) 
-            _hunger.Update(ref _health);
+            _hunger.Update(ref _health, isRunning, isWalking);
 
         if (_thirst is not null) 
-            _thirst.Update(ref _health);
+            _thirst.Update(ref _health, isRunning, isWalking);
 
         if (_stamina is not null)
-            _stamina.Update(ref _health);
+            _stamina.Update(ref _health, isRunning, isWalking);
     }
 }
 

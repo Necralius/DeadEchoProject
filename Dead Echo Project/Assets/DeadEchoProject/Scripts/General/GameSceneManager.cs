@@ -105,9 +105,9 @@ public class GameSceneManager : MonoBehaviour
 
     public void ChangeInventoryState(bool state)
     {
-        _inventoryObj.SetActive(state);
         inventoryIsOpen     = state;
         Cursor.lockState    = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;
+
         InventoryController.Instance.ChangeInventoryState(state);
     }
 

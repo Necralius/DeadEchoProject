@@ -1,6 +1,8 @@
 using UnityEngine;
 using static NekraByte.Core.Enumerators;
 using UnityEngine.InputSystem;
+using System.Linq;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(InteractionView))]
 public class InteractionController : MonoBehaviour
@@ -16,7 +18,7 @@ public class InteractionController : MonoBehaviour
     [SerializeField] private bool       _interacting            = false;
 
     private void Update()
-    {
+    {      
         if (_interactionInArea)
         {
             _interactionView.SetUpInteraction(_interactionInArea);
@@ -34,7 +36,8 @@ public class InteractionController : MonoBehaviour
                 _interacting = true;
             }        
         }
-        else _interactionView.ResetInteractionUI();
+        else 
+            _interactionView.ResetInteractionUI();
     }
 
     private InputAction GetAction(InteractionButton buttton)
@@ -58,31 +61,31 @@ public class InteractionController : MonoBehaviour
         {
             if (!other.GetComponent<Interactor>()) return;
 
-            _interactionInArea      = other.GetComponent<Interactor>();
-            _hasInteractionAround   = true;
+            _interactionInArea = other.GetComponent<Interactor>();
+            _hasInteractionAround = true;
 
             _interactionInArea.InteractionEnter();
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Interaction"))
-        {
-            if (!other.GetComponent<Interactor>()) return;
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.CompareTag("Interaction"))
+    //    {
+    //        if (!other.GetComponent<Interactor>()) return;
 
-            _interactionInArea      = other.GetComponent<Interactor>();
-            _hasInteractionAround   = true;
-        }
-    }
+    //        _interactionInArea = other.GetComponent<Interactor>();
+    //        _hasInteractionAround = true;
+    //    }
+    //}
 
     private void OnTriggerExit(Collider other)
     {
         if (_interactionInArea != null)
             _interactionInArea.InteractionExit();
 
-        _interactionInArea      = null;
-        _hasInteractionAround   = false;
-        _interacting            = false;
+        _interactionInArea = null;
+        _hasInteractionAround = false;
+        _interacting = false;
     }
 }

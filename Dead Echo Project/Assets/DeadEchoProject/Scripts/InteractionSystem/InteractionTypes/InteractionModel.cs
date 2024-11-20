@@ -5,7 +5,8 @@ using static NekraByte.Core.Enumerators;
 public class InteractionModel : ScriptableObject
 {
     [SerializeField] private string Label       = "interact with";
-    public InteractionButton Button;
+    public InteractionButton        Button;
+    public float                    maxDistance = 3f;
 
     [SerializeField] private string ButtonTag   = string.Empty;
 

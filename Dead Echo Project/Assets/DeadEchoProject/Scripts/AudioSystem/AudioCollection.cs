@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 public class ClipBank
 {
     public List<AudioClip> Clips = new List<AudioClip>();
+
+    public AudioClip this[int i] { get => Clips[i]; }
 }
 
 [CreateAssetMenu(fileName = "New Audio Collection", menuName = "Dead Echo/Audio/Create New Audio Collection")]
@@ -27,6 +29,8 @@ public class AudioCollection : ScriptableObject
     public int      bankCount       { get => _audioClipBanks.Count; }
     public string   floorTag        = "Grass";
     
+    public AudioClip this[int y, int i] { get => _audioClipBanks[y].Clips[i]; }
+
     public AudioClip this[int i]
     {
         get

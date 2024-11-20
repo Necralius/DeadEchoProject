@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7484180448938836474}
   - component: {fileID: 1940395897174167501}
   - component: {fileID: 2364788868696579203}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +59,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
@@ -117,7 +120,7 @@ GameObject:
   - component: {fileID: 3755384453844032597}
   - component: {fileID: 6270618964373688386}
   - component: {fileID: 5721818367753458096}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: GroundItemConteiner
   m_TagString: Interaction
   m_Icon: {fileID: 0}
@@ -179,6 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _items: []
+  _itemsSaves: []
 --- !u!135 &5721818367753458096
 SphereCollider:
   m_ObjectHideFlags: 0

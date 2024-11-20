@@ -124,6 +124,8 @@ public class BodyController : MonoBehaviour, IDataPersistence
         if (CharacterManager.Instance.isDead)
             return;
 
+        AnimationController();
+
         //Nulables checks, if any crucial component is null, the system will return without any execution.
         if (_playerManager                  == null)        return;
         if (_playerManager._armsAnimator    == null)        return;
@@ -149,7 +151,6 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
         StateHandler();
         InputHandler();
-        AnimationController();
     }
 
     private void MovementController()
@@ -173,8 +174,13 @@ public class BodyController : MonoBehaviour, IDataPersistence
         _playerManager._armsAnimator.SetBool(armWalkHash, _isWalking);
         _playerManager._armsAnimator.SetBool(armRunningHash, _isSprinting);
 
-        _targetX = Mathf.Lerp(_targetX, _inputManager.MoveAction.Vector.x, _animBlendSpeed * Time.deltaTime);
-        _targetY = Mathf.Lerp(_targetY, _isSprinting ? _inputManager.MoveAction.Vector.y * 2 : _inputManager.MoveAction.Vector.y, _animBlendSpeed * Time.deltaTime);
+        _targetX = 
+            GameSceneManager.Instance.inventoryIsOpen ? 0 : 
+            Mathf.Lerp(_targetX, _inputManager.MoveAction.Vector.x, _animBlendSpeed * Time.deltaTime);
+
+        _targetY = 
+            GameSceneManager.Instance.inventoryIsOpen ? 0 : 
+            Mathf.Lerp(_targetY, _isSprinting ? _inputManager.MoveAction.Vector.y * 2 : _inputManager.MoveAction.Vector.y, _animBlendSpeed * Time.deltaTime);
 
         _animator.SetFloat(xHash, _targetX);
         _animator.SetFloat(yHash, _targetY);
@@ -262,18 +268,6 @@ public class BodyController : MonoBehaviour, IDataPersistence
         if (_isThrowingObject)
             if (_inputManager.T_Action.Action.WasReleasedThisFrame())
                 EndRockThrow();
-
-        //if (_equippedGun != null)
-        //{
-        //    if (!_equippedGun._isReloading && !_isSprinting)
-        //    {
-        //        if (_inputManager.T_Action.Action.WasPressedThisFrame()) 
-        //            StartThrowing();
-        //        if (_isThrowingObject) 
-        //            if (_inputManager.T_Action.Action.WasReleasedThisFrame()) 
-        //                EndRockThrow();
-        //    }
-        //}
 
         if (_flashlight != null)
             if (_inputManager.F_Action.Action.WasPressedThisFrame()) ChangeFlashlightState();       

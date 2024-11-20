@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: EmptyInteraction
   m_EditorClassIdentifier: 
   Label: 
-  Key: 
+  Button: 3
+  ButtonTag: 

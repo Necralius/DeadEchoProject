@@ -13,15 +13,14 @@ MonoBehaviour:
   m_Name: Node 1
   m_EditorClassIdentifier: 
   Name: Node 15/22
-  Type: 
+  Type: 2
+  Consumable: 0
   Description: A piece of node finded on a dead body.
   Icon: {fileID: 21300000, guid: 3095ff85d4d6760418022ab694ee9fb4, type: 3}
   Prefab: {fileID: 8847410894454424919, guid: 24f54e023a259e142b3532a9b14eed6c, type: 3}
   Width: 1
   Height: 1
   NodeSprite: {fileID: 21300000, guid: 01f9554cc9152994d804c3155d6091db, type: 3}
-  Font: {fileID: 0}
-  TextColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
   Content:
     Title:
       Content: "Relat\xF3rio Confidencial #1452"

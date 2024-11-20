@@ -22,19 +22,19 @@ public class InspectionView : MonoBehaviour
 
     [Header("Item Inspection")]
     [SerializeField] private TextMeshProUGUI    _itemName          = null;
+    [SerializeField] private TextMeshProUGUI    _itemType          = null;
     [SerializeField] private TextMeshProUGUI    _itemDescription   = null;
     [SerializeField] private Image              _itemImage         = null;
 
     [Header("Dependencies")]
-    [SerializeField] private Button             _inpsectItem        = null;
     [SerializeField] private Button             _dropItem           = null;
-    [SerializeField] private Button             _equipItem          = null;
+    [SerializeField] private Button             _itemInteract           = null;
     [SerializeField] private ObjectInspector    _objectInspector    = null;
 
     [Header("Item")]
-    //[SerializeField] private ItemData           _selectedItem       = null;
-    [SerializeField] private InventoryItem _selectedItem = null;
-    
+    [SerializeField] private InventoryItem  _selectedItem   = null;
+    [SerializeField] private Vector2        _posOffset      = new Vector2();
+
     InputManager inptManager = null;
 
     public Button   DropButton   { get => _dropItem;     }
@@ -44,22 +44,60 @@ public class InspectionView : MonoBehaviour
     {
         inptManager         = GetComponent<InputManager>();
         _cg.blocksRaycasts  = false;
-        _inpsectItem?.onClick.AddListener(delegate { _objectInspector?.Inspect(_selectedItem.data); });
-        _dropItem?.onClick.AddListener(delegate { InventoryController.Instance.DropItem(); });
     }
 
     public void InspectItem(InventoryItem item)
     {
-        if (_itemImage      == null 
-            || _itemName    == null 
-            || _inpsectItem == null 
-            || _cg          == null 
-            || item         == null) return;
+        if (_itemImage          == null 
+            || _itemName        == null  
+            || _cg              == null 
+            || item             == null
+            || item.originGrid  == null) return;
 
-        _dropItem.gameObject.SetActive(item.originGrid is not GroundItemGrid);
+        _selectedItem = item;
+        _itemInteract.gameObject.SetActive(true);
+
+        _dropItem?.     onClick.RemoveAllListeners();
+        _itemInteract?. onClick.RemoveAllListeners();
+
+        if (item.originGrid != null)
+        {
+            string dropLabel = item.originGrid is GroundItemGrid ? "Get" : "Drop";
+
+            _dropItem.GetComponent<TextMeshProUGUI>().text = dropLabel;
+
+            if (item.originGrid is GroundItemGrid)
+                _dropItem?.onClick.AddListener(() => InventoryController.Instance.SelectedItemGrid.PlaceItem(item));
+            else if (item.originGrid is not GroundItemGrid)
+                _dropItem?.onClick.AddListener(() => InventoryController.Instance.DropCurrentItem());
+
+            _dropItem.onClick.AddListener(() => ChangeState(false));
+        }
+
+        TextMeshProUGUI interactText = _itemInteract.GetComponent<TextMeshProUGUI>();
+
+        switch(item.data.Type)
+        {
+            case ItemType.Consumable:
+            {
+                interactText.text = "Use";
+                _itemInteract.onClick.AddListener(() => InventoryController.Instance.UseItem());
+            }  break;
+            case ItemType.Inspection:
+            {
+                interactText.text = "Inspect";
+                _itemInteract.onClick.AddListener(() => _objectInspector.Inspect(item.data));
+            } break;
+            default:
+            {
+                interactText.text = "Equip";
+                _itemInteract.onClick.AddListener(() => InventoryController.Instance.EquipItem());
+            } break;
+        }
+
+        _itemInteract.onClick.AddListener(() => ChangeState(false));
 
         ChangeState(true);
-        _selectedItem       = item;
 
         if (_cg.interactable)
         {
@@ -69,13 +107,14 @@ public class InspectionView : MonoBehaviour
             float pivotY = position.y / Screen.height;
 
             _rect.pivot = new Vector2(pivotX, pivotY);
-            transform.position = position;
+            transform.position = _posOffset + position;
         }
 
-        _inpsectItem.gameObject.SetActive(item.data is NodeItem);
 
-        _itemImage.sprite   = _selectedItem.data.Icon;
-        _itemName.text      = _selectedItem.data.Name;
+        _itemImage.sprite       = _selectedItem.data.Icon;
+        _itemName.text          = _selectedItem.data.Name;
+        _itemDescription.text   = _selectedItem.data.Description;
+        _itemType.text          = _selectedItem.data.Type.ToString();
     }
 
     public void ChangeState(bool state)
