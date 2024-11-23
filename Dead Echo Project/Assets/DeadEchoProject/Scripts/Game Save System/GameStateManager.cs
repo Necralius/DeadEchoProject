@@ -163,6 +163,11 @@ public class GameStateManager : MonoBehaviour
         Debug.Log("Saving Game!");
     }
 
+    public void CreateNewGameSave()
+    {
+        LoadingScreen.Instance.OpenMenuLoadingScreen(delegate { NewGameSave(); }, 10f);
+    }
+
     public void NewGameSave()
     {
         int     generatedID         = Random.Range(0, 10000);

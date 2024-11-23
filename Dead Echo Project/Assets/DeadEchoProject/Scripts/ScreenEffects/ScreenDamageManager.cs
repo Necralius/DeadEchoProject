@@ -35,7 +35,8 @@ public class ScreenDamageManager : MonoBehaviour
 
     public void SetCriticalHealth()
     {
-        if (AudioManager.Instance != null) return;
+        if (AudioManager.Instance != null) 
+            return;
         AudioManager.Instance.PlayOneShotSound(_heartBeat.audioClip, transform.position, _heartBeat);
     }
 }

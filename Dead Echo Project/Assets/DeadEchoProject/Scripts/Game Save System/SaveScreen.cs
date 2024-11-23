@@ -38,35 +38,14 @@ public class SaveScreen : MonoBehaviour
             _saves.ForEach(e => { Instantiate(_savePrefab, _saveListContent).GetComponent<SaveView>().SetUp(e); });
     }
 
-    public void LoadSelectedSave()
-    {
-        _menuManager.OpenMenu("LoadingScreen", delegate { _loadingLogo.SetActive(true); });
-        _cameraManager.SetCameraPriority("LoadingCam");
-
-        StartCoroutine(FinishLoading(10f));
-    }
-
     public void LoadSelectedSaveInGame()
     {
         FadeSystemManager.Instance.CallFadeAction(delegate { FinishSaveLoading(); });
     }
 
-    IEnumerator FinishLoading(float maxTime)
+    public void LoadSelectedSave()
     {
-        float duration = maxTime;
-
-        float elapsed = 0f;
-        _loadingSlider.maxValue = duration;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            _loadingSlider.value = elapsed;
-            yield return null;
-        }
-
-        //yield return new WaitForSeconds(maxTime);
-        FadeSystemManager.Instance.CallFadeAction(delegate { FinishSaveLoading(); });
+        LoadingScreen.Instance.OpenMenuLoadingScreen(() => FinishSaveLoading(), 10f);
     }
 
     private void FinishSaveLoading()

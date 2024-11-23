@@ -10,6 +10,13 @@ using static NekraByte.Core.Enumerators;
 [RequireComponent(typeof(Animator), typeof(InputManager), typeof(CharacterController))]
 public class BodyController : MonoBehaviour, IDataPersistence
 {
+    public static BodyController Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     //Main System Dependencies
     private InputManager                _inputManager       => GetComponent<InputManager>();
     private Animator                    _animator           => GetComponent<Animator>(); 
@@ -25,6 +32,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     [SerializeField, Range(-20f, 20f)]  private float _gravity          = -9.84f;
     [SerializeField, Range(0f, 10f)]    private float jumpHeight        = 3f;
     [SerializeField, Range(0f, 10f)]    private float jumpCooldown      = 3f;
+    [SerializeField, Range(0f, 10f)]    private float timeToUseSyringe  = 1f;
 
     //Private Data
     private float _targetSpeed          = 7f;
@@ -41,6 +49,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     public bool _canCrouch          = true;
     public bool _canJump            = true;
     public bool _inAir              = false;
+    public bool _curing             = false;
 
     [SerializeField] private MovementState _currentState = MovementState.Idle;
 
@@ -76,6 +85,8 @@ public class BodyController : MonoBehaviour, IDataPersistence
     [SerializeField] private bool   _footIK = true;
     [SerializeField] private float  _distanceToGround = 1f;
 
+    [SerializeField] private Syringe _syringe = null;
+
     //Encapsulated Data
     public float TargetSpeed            { get => _targetSpeed; }
     public float dragMultiplierLimit    { get => _dragMultiplierLimit;  set => _dragMultiplierLimit = Mathf.Clamp01(value);                 }
@@ -99,7 +110,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
     [Header("Gun System")]
     public GameObject       _shootPoint     = null;
     public GunBase          _equippedGun    = null;
-    public List<GunBase>    _gunsInHand     = new List<GunBase>();
+    public List<GunBase>    _allGuns        = new List<GunBase>();
 
     private int _gunIndex = 0;
 
@@ -117,6 +128,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
         _camController  = GameObject.FindGameObjectWithTag("CameraObject").GetComponent<FPSCamera>();
         _rockThrower    = AnimationLayer.GetAnimationLayer("RockThrowerLayer", _playerManager._animLayers).layerObject.GetComponent<RockThrower>();
+        DynamicUI_Manager.Instance.UpdateGunStats(null);
     }
 
     private void Update()
@@ -126,7 +138,6 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
         AnimationController();
 
-        //Nulables checks, if any crucial component is null, the system will return without any execution.
         if (_playerManager                  == null)        return;
         if (_playerManager._armsAnimator    == null)        return;
         if (_playerManager.InputManager     == null)        return;
@@ -213,7 +224,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
         _inAir = !_isGrounded;
 
-        if (_inputManager.C_Action.Action.WasPressedThisFrame())
+        if (_inputManager.C_Action.Action.WasPressedThisFrame() && !_curing)
             GunHolstingBehavior();
 
         if (GameStateManager.Instance != null)
@@ -242,22 +253,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
                 _isCrouching = false;
         }
 
-        if (_gunsInHand.Count > 0)
-        {
-            if (_inputManager.One_Action.Action.WasPressedThisFrame() && !_changingWeapon)
-            {
-                EquipGun(0);
-                CancelThrowRock();
-            }
-
-            if (_inputManager.Two_Action.Action.WasPressedThisFrame() && !_changingWeapon)
-            {
-                EquipGun(1);
-                CancelThrowRock();
-            }
-        }
-
-        if (_inputManager.T_Action.Action.WasPressedThisFrame() && !_isSprinting)
+        if (_inputManager.T_Action.Action.WasPressedThisFrame() && !_isSprinting && !_curing)
         {
             if (_equippedGun != null && _equippedGun._isReloading)
                 return;
@@ -266,7 +262,7 @@ public class BodyController : MonoBehaviour, IDataPersistence
         }
 
         if (_isThrowingObject)
-            if (_inputManager.T_Action.Action.WasReleasedThisFrame())
+            if (_inputManager.T_Action.Action.WasReleasedThisFrame() && !_curing)
                 EndRockThrow();
 
         if (_flashlight != null)
@@ -279,39 +275,6 @@ public class BodyController : MonoBehaviour, IDataPersistence
 
     #region - Game Player Saving - 
     public void RegisterDataSaver() => GameStateManager.Instance.RegisterSavableInstance(this);
-
-    public void Save(SaveData gameData)
-    {
-        Debug.Log("CM -> Saving Data"); //-> Debug Line
-
-        gameData.GetPlayerData().GunID = _gunIndex;
-
-        gameData.GetPlayerData()._guns.Clear();
-        foreach (var gun in _gunsInHand)
-            gameData.GetPlayerData()._guns.Add(gun.GunData.ammoData);
-    }
-
-    public void Load(SaveData gameData)
-    {
-        StartCoroutine(LoadWithTime(gameData));
-
-        _gunIndex = gameData.GetPlayerData().GunID;
-
-        //_controller?.Move(gameData.GetPlayerData().transformSave.Position);
-        //_controller.transform.rotation = transform.rotation = gameData.GetPlayerData().transformSave.Rotation;
-
-        EquipGun(_gunIndex);
-
-        for (int i = 0; i < gameData.GetPlayerData()._guns.Count; i++)
-        {
-            if (_gunsInHand[i].Equals(null))
-            {
-                Debug.Log("Gun is Null!");
-                continue;
-            }
-            _gunsInHand[i].GunData.LoadData(gameData.GetPlayerData()._guns[i]);
-        }
-    }
 
     public IEnumerator LoadWithTime(SaveData gameData)
     {
@@ -355,35 +318,89 @@ public class BodyController : MonoBehaviour, IDataPersistence
         _currentState                   = state;
     }
 
+    public void UseSyringe(CureItem data)
+    {
+        StartCoroutine(WaitForUse(data, timeToUseSyringe));
+    }
+
+    IEnumerator WaitForUse(CureItem data, float time)
+    {
+        GunHolstingBehavior();
+
+        yield return new WaitForSeconds(time);
+
+        _syringe.item = data;
+        _syringe?.gameObject.SetActive(true);
+        _curing = true;
+    }
+
+
     #region - Gun Managing -
+    public void EquipGunByName(string name)
+    {
+        if (_curing)
+            return;
+        GunBase gun = GetGunByName(name);
+
+        if (gun == null)
+            return;
+
+        int index = _allGuns.IndexOf(gun);
+
+        EquipGun(index);
+    }
+
+    public bool GunIsEquiped(string gunName)
+    {
+        GunBase gun = GetGunByName(gunName);
+
+        return gun == null ? false : gun._isEquiped;
+    }
+
+    public GunBase GetGunByName(string name) => _allGuns.Find(e => e.GunData.gunData.gunName == name);
+
     private void EquipGun(int gunToEquip)
     {
-        if (_gunsInHand.Count <= 0)         return;
-        if (_gunsInHand[0].Equals(null))    return;
+        if (_curing)
+            return;
+
+        if (_allGuns.Count <= 0)        return;
+        if (_allGuns[0].Equals(null))   return;
 
         _gunIndex = gunToEquip;
 
-        if (_gunsInHand[_gunIndex].gameObject.activeInHierarchy ||
+        if (_allGuns[_gunIndex].gameObject.activeInHierarchy ||
             _equippedGun._isReloading ||
-            _changingWeapon) return;
+            _changingWeapon) 
+            return;
 
         _changingWeapon = true;
 
-        if (_gunIndex == 0) _gunsInHand[1].GunHolst(false);//Selecting the gun and holsting it
-        else _gunsInHand[0].GunHolst(false);
+        _equippedGun = _allGuns[_gunIndex];
+        _equippedGun.DrawGun();
 
-        _equippedGun = _gunsInHand[_gunIndex];
+        CancelThrowRock();
     }
 
     private void GunHolstingBehavior()
     {
-        if (!_equippedGun._isEquiped) _equippedGun.DrawGun();
-        else _equippedGun.GunHolst(true);
+        if (!_equippedGun._isEquiped) 
+            _equippedGun?.DrawGun();
+        else 
+            _equippedGun?.GunHolst(true);
     }
 
-    public void GunPermanentHolst() => _equippedGun.GunHolst(true);
+    public void GunPermanentHolst()
+    {
+        if (!_curing)
+            _equippedGun?.GunHolst(true);
+    }
 
-    public void EquipCurrentGun()   => _equippedGun.DrawGun();
+    public void EquipCurrentGun()
+    {
+        if (!_curing)
+            _equippedGun?.DrawGun();
+    }
     #endregion
 
     public void DoStickiness()      => _dragMultiplier = 1f - _npcStickiness;
@@ -454,6 +471,32 @@ public class BodyController : MonoBehaviour, IDataPersistence
                 _animator.SetIKRotation(AvatarIKGoal.RightHand, Quaternion.LookRotation(transform.forward, hit.normal));
             }
         }
+    }
+    #endregion
+
+    #region - Data Saver -
+    public void Save(SaveData gameData)
+    {
+        Debug.Log("CM -> Saving Data"); //-> Debug Line
+
+        gameData.GetPlayerData().GunID = _gunIndex;
+        gameData.GetPlayerData()._guns.Clear();
+        gameData.GetPlayerData()._guns.Add(_equippedGun.GunData.ammoData);
+    }
+    public void Load(SaveData gameData)
+    {
+        StartCoroutine(LoadWithTime(gameData));
+
+        if (_gunIndex != 99)
+        {
+            _equippedGun.GunHolst(true);
+            return;
+        }
+
+        _gunIndex = gameData.GetPlayerData().GunID;
+        EquipGun(_gunIndex);
+
+        _equippedGun.GunData.LoadData(gameData.GetPlayerData()._guns[_gunIndex]);
     }
     #endregion
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 using static NekraByte.Core.Enumerators;
 using static NekraByte.Core.DataTypes;
 using static NekraByte.Core.DataTypes.IDataPersistence;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ControllerManager : MonoBehaviour, IDataPersistence
@@ -95,7 +96,7 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
 
     [Header("Gun System")]
     public GunBase _equippedGun;
-    public List<GunBase> _gunsInHand = new List<GunBase>();
+    public List<GunBase> _allGuns    = new List<GunBase>();
     #endregion
 
     #region - Animation Hashes -
@@ -351,11 +352,11 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
         if (_isSprinting && _inptManager.CtrlAction.Action.WasPerformedThisFrame() && _isGrounded) 
             StartSlide();
 
-        if (_gunsInHand.Count > 0)
-        {
-            if (_inptManager.One_Action.Action.WasPressedThisFrame()   && !_changingWeapon) EquipGun(0);
-            if (_inptManager.Two_Action.Action.WasPressedThisFrame() && !_changingWeapon) EquipGun(1);
-        }
+        //if (_gunsInHand.Count > 0)
+        //{
+        //    if (_inptManager.One_Action.Action.WasPressedThisFrame()   && !_changingWeapon) EquipGun(0);
+        //    if (_inptManager.Two_Action.Action.WasPressedThisFrame() && !_changingWeapon) EquipGun(1);
+        //}
 
         if (_equippedGun != null)
         {
@@ -633,27 +634,42 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
     #endregion
 
     #region - Gun Equip System -
-    // ----------------------------------------------------------------------
-    // Name: EquipGun
-    // Desc: This method equip an gun, considering the gun index.
-    // ----------------------------------------------------------------------
+    public void EquipGunByName(string name)
+    {
+        Debug.Log("Gun Name: " + name);
+        GunBase gun = GetGunByName(name);
+
+        if (gun == null)
+            return;
+
+        int index = _allGuns.IndexOf(gun);
+
+        EquipGun(index);
+    }
+
+    public bool GunIsEquiped(string gunName) => GetGunByName(gunName)._isEquiped;
+    public GunBase GetGunByName(string name) => _allGuns.Find(e => e.GunData.gunData.gunName == name);
+
     private void EquipGun(int gunToEquip)
     {
-        if (_gunsInHand.Count <= 0) return;
-        if (_gunsInHand[0].Equals(null)) return;
+        Debug.Log("Searching gun!");
+        if (_allGuns.Count <= 0) return;
+        if (_allGuns[0].Equals(null)) return;
 
         _gunIndex = gunToEquip;
 
-        if (_gunsInHand[_gunIndex].gameObject.activeInHierarchy ||
+        if (_allGuns[_gunIndex].gameObject.activeInHierarchy ||
             _equippedGun._isReloading ||
             _changingWeapon) return;
 
         _changingWeapon = true;
 
-        if (_gunIndex == 0) _gunsInHand[1].GunHolst(false);//Selecting the gun and holsting it
-        else _gunsInHand[0].GunHolst(false);
+        if (_gunIndex == 0) 
+            _allGuns[1].GunHolst(false);//Selecting the gun and holsting it
+        else 
+            _allGuns[0].GunHolst(false);
 
-        _equippedGun = _gunsInHand[_gunIndex];
+        _equippedGun = _allGuns[_gunIndex];
     }
 
     // ----------------------------------------------------------------------
@@ -710,18 +726,16 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
 
         StartCoroutine(LoadWithTime(gameData));
 
+        if (_gunIndex != 99)
+        {
+            _equippedGun.GunHolst(true);
+            return;
+        }
+
         _gunIndex = gameData.GetPlayerData().GunID;
         EquipGun(_gunIndex);
 
-        for (int i = 0; i < gameData.GetPlayerData()._guns.Count; i++)
-        {
-            if (_gunsInHand[i].Equals(null))
-            {
-                Debug.Log("Gun is Null!");
-                continue;
-            }
-            _gunsInHand[i].GunData.LoadData(gameData.GetPlayerData()._guns[i]);
-        }    
+        _equippedGun.GunData.LoadData(gameData.GetPlayerData()._guns[_gunIndex]);   
     }
 
     public void Save(SaveData gameData)
@@ -734,10 +748,8 @@ public class ControllerManager : MonoBehaviour, IDataPersistence
         //gameData.cameraRotation     = _cameraObject.transform.rotation;
 
         gameData.GetPlayerData().GunID = _gunIndex;
-
         gameData.GetPlayerData()._guns.Clear();
-        foreach(var gun in _gunsInHand) 
-            gameData.GetPlayerData()._guns.Add(gun.GunData.ammoData);
+        gameData.GetPlayerData()._guns.Add(_equippedGun.GunData.ammoData);
     }
     #endregion
 }

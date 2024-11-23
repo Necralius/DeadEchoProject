@@ -69,10 +69,10 @@ public class InventoryController : MonoBehaviour
         if (_inputManager.mouseRightAction.Action.WasPressedThisFrame())
             InspectionView.Instance?.InspectItem(GetItemReference());
 
-        if (_inputManager.F_Action.Action.WasPressedThisFrame())
-            CreateRandomItem();
-        if (_inputManager.Z_Action.Action.WasPressedThisFrame())
-            InsertRandomItem();
+        //if (_inputManager.F_Action.Action.WasPressedThisFrame())
+        //    CreateRandomItem();
+        //if (_inputManager.Z_Action.Action.WasPressedThisFrame())
+        //    InsertRandomItem();
     }
 
     private void InsertRandomItem()
@@ -120,10 +120,10 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    public void UseItem()
+    public void UseSelectedConsumableItem()
     {
-        Debug.Log("Using Item!");
-
+        InventoryItem item = InspectionView.Instance.SelectedItem;
+        SelectedItemGrid.CleanItem(item);
     }
 
     public void EquipItem()
@@ -248,13 +248,13 @@ public class InventoryController : MonoBehaviour
 
     private void PickUpItem(Vector2Int tileGridPosition)
     {
-        selectedItem = selectedItemGrid?.PickUpItem(tileGridPosition.x, tileGridPosition.y);
+        selectedItem = SelectedItemGrid?.PickUpItem(tileGridPosition.x, tileGridPosition.y);
         if (selectedItem != null)
         {
             selectedItemRect = selectedItem?.GetComponent<RectTransform>();
             InspectionView.Instance.ChangeState(false);
         }
-        lastSelectedItemGrid = selectedItemGrid;
+        lastSelectedItemGrid = SelectedItemGrid;
     }
 
     private void ItemDrag()

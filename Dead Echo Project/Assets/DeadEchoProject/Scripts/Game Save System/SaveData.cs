@@ -60,7 +60,7 @@ public class PlayerData
     public float playerHealth = 0f;
 
     [Header("Gun Data")]
-    public int GunID = 0;
+    public int GunID = 99;
 
     public List<GunDataConteiner.AmmoData> _guns = new List<GunDataConteiner.AmmoData>();
 }

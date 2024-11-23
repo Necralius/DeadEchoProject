@@ -8,7 +8,9 @@ using UnityEngine;
 public class NodeItem : ItemData
 {
     [Header("Node Settings")]
-    public Sprite           NodeSprite;
+    public Sprite       NodeSprite  = null;
+    public GameObject   Prefab      = null;
+
 
     [Header("Content")]
     public NodeContent Content;

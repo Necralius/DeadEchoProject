@@ -18,7 +18,6 @@ MonoBehaviour:
   _priority: 128
   _audioClipBanks:
   - Clips:
-    - {fileID: 8300000, guid: af4043cb7608a034997814e7dd8f1af2, type: 3}
-    - {fileID: 8300000, guid: 8ecce46054a7e5746bc857db5a16db8d, type: 3}
-    - {fileID: 8300000, guid: b16512ae04e590b46b040555c4e10ab3, type: 3}
+    - {fileID: 8300000, guid: e7726eab0ae76a44bbc7d461eeddf700, type: 3}
+    - {fileID: 8300000, guid: 530489be63af3d54690064ff5f4f7c8b, type: 3}
   floorTag: Grass

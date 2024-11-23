@@ -99,8 +99,6 @@ public class ItemGrid : MonoBehaviour
 
     public virtual void PlaceItem(InventoryItem item, int posX, int posY)
     {
-        Debug.Log("Placing item!");
-
         RectTransform rectTrans = item.GetComponent<RectTransform>();
         rectTrans.SetParent(this.rect);
 

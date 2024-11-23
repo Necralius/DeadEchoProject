@@ -18,7 +18,7 @@ MonoBehaviour:
   _priority: 256
   _audioClipBanks:
   - Clips:
+    - {fileID: 8300000, guid: d7ff17fe36bce4145bb3b7c80ef1ce31, type: 3}
     - {fileID: 8300000, guid: 13460747dc4fb8849a82aaa53c0f9f2e, type: 3}
-    - {fileID: 8300000, guid: 99e1036d5aecab24d86e14a9f88072e2, type: 3}
-    - {fileID: 8300000, guid: 12acb954b81d4dd43bc0e9962b3f9901, type: 3}
+    - {fileID: 8300000, guid: 79dca165385cda748981add1a9fa761b, type: 3}
   floorTag: 

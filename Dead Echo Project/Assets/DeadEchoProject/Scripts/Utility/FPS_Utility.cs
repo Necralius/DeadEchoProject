@@ -368,6 +368,7 @@ namespace NekraByte
                     public string       gunName = "GunName";
                     public ShootType    shootType;
                     public GunMode      gunMode;
+                    public Sprite       Icon;
 
                     [Range(0.01f, 2f)] public float rateOfFire = 0.1f;
 

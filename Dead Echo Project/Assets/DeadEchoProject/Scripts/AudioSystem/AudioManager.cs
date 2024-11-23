@@ -420,10 +420,12 @@ public class AudioManager : MonoBehaviour
     {
         musicManager.SelectMusicEvent(eventType);
     }
+
     public void CallMusicEvent(int eventType)
     {
         musicManager.SelectMusicEvent((MusicEvent)eventType);
     }
+
     public void CallMusicEvent(string eventType)
     {
         musicManager.SelectMusicEvent(eventType);

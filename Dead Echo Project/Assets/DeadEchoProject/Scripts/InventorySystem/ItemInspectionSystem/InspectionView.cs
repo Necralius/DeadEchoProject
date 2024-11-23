@@ -76,22 +76,30 @@ public class InspectionView : MonoBehaviour
 
         TextMeshProUGUI interactText = _itemInteract.GetComponent<TextMeshProUGUI>();
 
-        switch(item.data.Type)
+        switch(item.data)
         {
-            case ItemType.Consumable:
+            case EquipableItem:
             {
+                EquipableItem equipableItem = (EquipableItem)item.data;
+                bool itemIsEquiped = BodyController.Instance.GunIsEquiped(item.data.Name);
+
+                interactText.text = itemIsEquiped ? "Dequip" : "Equip";
+
+                if (itemIsEquiped)
+                    _itemInteract.onClick.AddListener(() => equipableItem.Dequip());
+                else
+                    _itemInteract.onClick.AddListener(() => equipableItem.Equip());
+            } break;
+            case ConsumableItem:
+            {
+                ConsumableItem consumableItem = (ConsumableItem)item.data;
                 interactText.text = "Use";
-                _itemInteract.onClick.AddListener(() => InventoryController.Instance.UseItem());
-            }  break;
-            case ItemType.Inspection:
+                _itemInteract.onClick.AddListener(() => consumableItem.Use());
+            } break;
+            case NodeItem:
             {
                 interactText.text = "Inspect";
                 _itemInteract.onClick.AddListener(() => _objectInspector.Inspect(item.data));
-            } break;
-            default:
-            {
-                interactText.text = "Equip";
-                _itemInteract.onClick.AddListener(() => InventoryController.Instance.EquipItem());
             } break;
         }
 

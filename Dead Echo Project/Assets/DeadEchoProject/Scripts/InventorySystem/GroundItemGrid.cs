@@ -12,7 +12,7 @@ public class GroundItemGrid : ItemGrid
 
     private bool _gridSynced = false;
 
-    public void SetItems(List<ItemSave> items, bool overrideFromSrach = false)
+    public void SetItems(ref List<ItemSave> items, bool overrideFromSrach = false)
     {
         if (_gridSynced)
             return;
@@ -26,7 +26,7 @@ public class GroundItemGrid : ItemGrid
                 Vector2Int? pos = FindSpaceForItem(itemView);
                 if (pos == null)
                     return;
-
+                item.Position = pos;
                 base.PlaceItem(itemView, pos.Value.x, pos.Value.y); 
             }
             else

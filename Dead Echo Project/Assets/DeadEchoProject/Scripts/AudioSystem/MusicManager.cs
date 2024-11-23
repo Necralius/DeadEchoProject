@@ -26,7 +26,7 @@ public class MusicManager
         {
             foreach (var musicEvent in musicEventList)
             {
-                if (musicEvent.EventTag == currentMusicEvent.ToString())
+                if (musicEvent.EventTag == currentMusicEvent)
                 {
                     PlayMusicEvent(musicEvent);
                     break;
@@ -42,7 +42,7 @@ public class MusicManager
         foreach (var musicEvent in musicEventList)
         {
             musicEvent.onEvent = false;
-            if (musicEvent.EventTag == currentMusicEvent.ToString())
+            if (musicEvent.EventTag == currentMusicEvent)
             {
                 musicEvent.onEvent = true;
                 PlayMusicEvent(musicEvent);
@@ -59,8 +59,16 @@ public class MusicManager
             {
                 foreach (var musicEvent in musicEventList)
                 {
+                    if (musicEvent.loop)
+                    {
+                        _isPlayingMusic = false;
+                        _musicDuration  = 0f;
+                        _timer          = 0f;
+                        return;
+                    }
+
                     musicEvent.onEvent = false;
-                    if (musicEvent.EventTag == currentMusicEvent.ToString())
+                    if (musicEvent.EventTag == currentMusicEvent)
                     {
                         musicEvent.onEvent = true;
                         PlayMusicEvent(musicEvent);
@@ -92,18 +100,12 @@ public class MusicManager
         //TODO -> Trigger FadeOut
     }
 }
-public enum MusicEvent { Menu = 0, Environment = 1, Horror = 2};
+public enum MusicEvent { Menu = 0, Environment = 1, Horror = 2, Atmosphere, Effects };
 [Serializable]
 public class AudioMusicEvent
 {
     public AudioCollection  Collection  = null;
-    public string           EventTag    = "EventTag";
+    public MusicEvent       EventTag    = MusicEvent.Environment;
     public bool             onEvent     = false;
-
-    //Not Implemented
-    [Tooltip("Always fade to total zero")]
-    public bool             needFading  = false;
-
-    [Tooltip("Executes the fading basing on a percentage of the total music duration.")]
-    public float            fadePercentage = 0f;
+    public bool             loop        = false;
 }

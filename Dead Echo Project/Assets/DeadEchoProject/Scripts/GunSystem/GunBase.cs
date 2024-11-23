@@ -20,6 +20,9 @@ public abstract class GunBase : MonoBehaviour
     public                      ParticleSystem          _muzzleFlash        = null;
     #endregion
 
+    public VoiceAsset DubbingOnEquip = null;
+    public bool DubbingTriggered = false;
+
     public string GunAmmo
     {
         get => $"{_gunDataConteiner.ammoData._magAmmo}/{_gunDataConteiner.ammoData._bagAmmo}";
@@ -181,6 +184,7 @@ public abstract class GunBase : MonoBehaviour
             }
 
             _recoilAsset._isAiming = _isAiming;
+            Aim();
 
             if (_playerInstance.BodyController._isThrowingObject) 
                 return;
@@ -242,7 +246,6 @@ public abstract class GunBase : MonoBehaviour
 
         if (_inputManager.mouseRightAction.Action.WasPressedThisFrame()) 
             AudioManager.Instance.PlayOneShotSound("Effects", _gunAudioAsset.AimClip, transform.position, 1f, 0f, 128);
-        Aim(); 
         
         //-> This statement calls the aim position calculation method.
 
@@ -251,7 +254,6 @@ public abstract class GunBase : MonoBehaviour
         _playerInstance._armsAnimator.SetBool(_isRunningHash, _playerInstance.BodyController._isSprinting);
 
         ClipPrevetionBehavior();
-
         //NOTE: On override, always mantain the base code using the base.Update();
         //-> Otherwise, every systems of the gun base will be broken!!
     }
@@ -328,32 +330,33 @@ public abstract class GunBase : MonoBehaviour
         if (_aimHolder  is null) return;
         if (_camera     is null) return;
 
+        Vector3 targetLocalPosition;
+
         if (_isAiming)
         {
             // Calculate the target screen position at the center of the screen
             Vector3 targetScreenPosition = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
 
             // Convert the screen position to a world position based on the weapon's distance from the camera
-            float distanceFromCamera    = Vector3.Distance(_aimHolder.position, _camera.transform.position);
+            float distanceFromCamera = Vector3.Distance(_aimHolder.position, _camera.transform.position);
             Vector3 targetWorldPosition = _camera.ScreenToWorldPoint(new Vector3(targetScreenPosition.x, targetScreenPosition.y, distanceFromCamera));
 
             // Convert the world position to a local position relative to the weapon
-            Vector3 targetLocalPosition = _aimHolder.parent.InverseTransformPoint(targetWorldPosition);
+            targetLocalPosition = _aimHolder.parent.InverseTransformPoint(targetWorldPosition);
 
             // Apply the specified offsets
-            targetLocalPosition += new Vector3(_gunDataConteiner.gunData.aimOffset.x, 
-                _gunDataConteiner.gunData.aimOffset.y, 
+            targetLocalPosition += new Vector3(_gunDataConteiner.gunData.aimOffset.x,
+                _gunDataConteiner.gunData.aimOffset.y,
                 _gunDataConteiner.gunData.aimOffset.z);
 
             // Apply the reload offset if applicable
-            targetLocalPosition.z = _isReloading ? _gunDataConteiner.gunData.aimOffset.z + _gunDataConteiner.gunData._aimReloadOffset : 
+            targetLocalPosition.z = _isReloading ? _gunDataConteiner.gunData.aimOffset.z + _gunDataConteiner.gunData._aimReloadOffset :
                 _gunDataConteiner.gunData.aimOffset.z;
-
-            // Lerp the weapon position to match the target position
-            _aimHolder.localPosition = Vector3.Lerp(_aimHolder.localPosition, targetLocalPosition, Time.deltaTime * _smoothTime);
         }
         else 
-            _aimHolder.localPosition = Vector3.Lerp(_aimHolder.localPosition, _originalWeaponPosition, Time.deltaTime * _smoothTime);
+            targetLocalPosition = _originalWeaponPosition;
+
+        _aimHolder.localPosition = Vector3.Lerp(_aimHolder.localPosition, targetLocalPosition, Time.deltaTime * _smoothTime);
     }
     #endregion
 
@@ -421,7 +424,7 @@ public abstract class GunBase : MonoBehaviour
     {
         if (!_isEquiped)            return;
 
-        DynamicUI_Manager.Instance.UpdateGunSats(this);
+        DynamicUI_Manager.Instance.UpdateGunStats(this);
     }
     #endregion
 
@@ -467,6 +470,12 @@ public abstract class GunBase : MonoBehaviour
 
     public void DrawGun()
     {
+        if (!DubbingTriggered)
+        {
+            DubbingManager.Instance.TriggerDub(DubbingOnEquip, transform.position);
+            DubbingTriggered = true;
+        }
+
         gameObject.SetActive(true);
         permanentHolst = false;
         AudioManager.Instance.PlayOneShotSound("Effects", _gunAudioAsset.DrawClip, transform.position, 1f, 0f, 128);

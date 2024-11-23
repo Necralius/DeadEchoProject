@@ -29,7 +29,7 @@ public class InventoryItemConteiner : MonoBehaviour
         _groundGrid.currentConteiner = this;
 
         if (_itemsSaves.Count > 0)
-            _groundGrid.SetItems(_itemsSaves);
+            _groundGrid.SetItems(ref _itemsSaves);
 
         onPlayerArea = true;
     }
@@ -69,6 +69,10 @@ public class ItemSave
 {
     public ItemData     Data;
     public Vector2Int?  Position;
+    public Vector2INT   PosData;
+
+    public Vector2 IntPosition { get => new Vector2Int(PosData.x, PosData.y); }
+
     public Guid identifier = Guid.NewGuid();
 
     public ItemSave(ItemData data, int posX, int posY)
@@ -77,4 +81,10 @@ public class ItemSave
         Position    = new Vector2Int(posX, posY);
         identifier  = Guid.NewGuid();
     }
+}
+
+[Serializable]
+public struct Vector2INT
+{
+    public int x, y;
 }

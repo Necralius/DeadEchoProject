@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SurvivalData
   m_EditorClassIdentifier: 
   staminaFactor: 0.1
-  hungerFactor: 1
+  hungerFactor: 0.1
   thirstFactor: 0.1
